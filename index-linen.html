@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linen — REMAX De Woonspecialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --bg-2: #f3ede3;
+      --bg-3: #ebe3d4;
+      --card: #ffffff;
+      --ink: #1c1a17;
+      --ink-2: #4a4540;
+      --ink-3: #8a847c;
+      --muted: #b8b1a6;
+      --line: #e3dbcc;
+      --line-2: #d2c8b4;
+      --sage: #5a7a5a;
+      --sage-dark: #426042;
+      --sage-soft: #d8e3d4;
+      --terra: #c8553c;
+      --terra-dark: #a3402a;
+      --terra-soft: #f5d4ca;
+      --gold: #b08d3f;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --radius-lg: 22px;
+      --ease: cubic-bezier(.16,.84,.32,1);
+      --shadow-sm: 0 1px 2px rgba(28,26,23,0.04), 0 1px 3px rgba(28,26,23,0.03);
+      --shadow-md: 0 4px 12px rgba(28,26,23,0.06), 0 2px 6px rgba(28,26,23,0.04);
+      --shadow-lg: 0 16px 40px rgba(28,26,23,0.08), 0 6px 14px rgba(28,26,23,0.04);
+      --shadow-xl: 0 28px 70px rgba(28,26,23,0.10), 0 10px 24px rgba(28,26,23,0.05);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(90,122,90,0.05), transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(200,85,60,0.04), transparent 40%);
+    }
+    a { color: inherit; }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,247,242,0.85);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+    .logo-badge {
+      background: var(--ink);
+      color: var(--bg);
+      font-weight: 800;
+      font-size: 19px;
+      letter-spacing: -0.5px;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+    .logo-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .logo-text span {
+      display: block;
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--ink-3);
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 13px;
+    }
+    .header-cta {
+      background: var(--ink);
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 11px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.2s var(--ease);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .header-cta::after { content: '→'; transition: transform 0.2s var(--ease); }
+    .header-cta:hover { background: var(--sage-dark); }
+    .header-cta:hover::after { transform: translateX(3px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      padding: 90px 32px 110px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(28,26,23,0.025) 0 1px, transparent 1px 32px),
+        repeating-linear-gradient(90deg, rgba(28,26,23,0.025) 0 1px, transparent 1px 32px);
+      mask-image: linear-gradient(180deg, transparent, black 20%, black 80%, transparent);
+      -webkit-mask-image: linear-gradient(180deg, transparent, black 20%, black 80%, transparent);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-left { animation: fadeUp 0.9s var(--ease) both; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 50px;
+      padding: 8px 18px 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 32px;
+      color: var(--ink-2);
+      box-shadow: var(--shadow-sm);
+    }
+    .hero-badge .dot {
+      width: 8px; height: 8px;
+      background: var(--sage);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(90,122,90,0.18);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(90,122,90,0.5); }
+      50% { box-shadow: 0 0 0 7px rgba(90,122,90,0); }
+    }
+    .hero h1 {
+      font-size: clamp(40px, 5.8vw, 72px);
+      font-weight: 600;
+      line-height: 1.02;
+      letter-spacing: -2px;
+      margin-bottom: 28px;
+      color: var(--ink);
+    }
+    .hero h1 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--terra);
+      padding-right: 4px;
+    }
+    .hero h1 .underline {
+      position: relative;
+      display: inline-block;
+    }
+    .hero h1 .underline::after {
+      content: '';
+      position: absolute;
+      left: 4px; right: 4px;
+      bottom: 6px;
+      height: 8px;
+      background: var(--sage-soft);
+      z-index: -1;
+    }
+    .hero p.lead {
+      font-size: 18px;
+      color: var(--ink-2);
+      max-width: 510px;
+      margin: 0 0 36px;
+      line-height: 1.65;
+    }
+    .hero-cta-group { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 16px;
+      padding: 16px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s var(--ease);
+      box-shadow: 0 8px 24px rgba(28,26,23,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--sage-dark);
+      transform: translateY(100%);
+      transition: transform 0.3s var(--ease);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 32px rgba(28,26,23,0.20); }
+    .btn-primary:hover::before { transform: translateY(0); }
+    .btn-primary span { position: relative; z-index: 1; }
+    .btn-primary .arrow { transition: transform 0.25s var(--ease); }
+    .btn-primary:hover .arrow { transform: translateX(4px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      font-weight: 500;
+      font-size: 15px;
+      padding: 16px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: 1px solid var(--line-2);
+      transition: all 0.2s var(--ease);
+    }
+    .btn-secondary:hover { background: var(--card); border-color: var(--ink-3); }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-top: 56px;
+      flex-wrap: wrap;
+      padding-top: 32px;
+      border-top: 1px solid var(--line);
+    }
+    .hero-stat strong {
+      display: block;
+      font-family: 'Instrument Serif', serif;
+      font-weight: 400;
+      font-size: 40px;
+      color: var(--ink);
+      letter-spacing: -1px;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero-stat strong .unit {
+      font-family: 'Inter', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--terra);
+      margin-left: 2px;
+    }
+    .hero-stat span {
+      font-size: 13px;
+      color: var(--ink-3);
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+
+    /* ─── HERO MOCKUP — Polaroid stack with property + map ─── */
+    .hero-mockup {
+      position: relative;
+      animation: fadeUp 1.1s var(--ease) 0.2s both;
+      padding: 20px;
+    }
+    .polaroid {
+      background: var(--card);
+      border-radius: 8px;
+      padding: 12px 12px 56px;
+      box-shadow: var(--shadow-xl);
+      position: relative;
+      max-width: 360px;
+      margin: 0 auto;
+      transform: rotate(2deg);
+    }
+    .polaroid-image {
+      width: 100%;
+      height: 280px;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(180deg, #e9d9c0 0%, #d4b48a 100%);
+    }
+    .polaroid-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 90%, rgba(90,122,90,0.25) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, #f4e4c1, transparent 40%);
+    }
+    .polaroid-house {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 160px;
+    }
+    .polaroid-house .body {
+      position: absolute;
+      bottom: 0;
+      left: 22%;
+      width: 56%;
+      height: 60%;
+      background: linear-gradient(180deg, #f8f4ec 0%, #e8ddc4 100%);
+      box-shadow: 0 4px 12px rgba(28,26,23,0.2);
+    }
+    .polaroid-house .roof {
+      position: absolute;
+      bottom: 60%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0; height: 0;
+      border-left: 80px solid transparent;
+      border-right: 80px solid transparent;
+      border-bottom: 50px solid var(--ink);
+    }
+    .polaroid-house .door {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px; height: 32px;
+      background: var(--terra);
+      border-radius: 2px 2px 0 0;
+    }
+    .polaroid-house .win1, .polaroid-house .win2 {
+      position: absolute;
+      width: 16px; height: 16px;
+      background: var(--sage-soft);
+      bottom: 32px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+    .polaroid-house .win1 { left: calc(50% - 38px); }
+    .polaroid-house .win2 { right: calc(50% - 38px); }
+    .polaroid-house .tree-l {
+      position: absolute;
+      bottom: 0;
+      left: 8%;
+      width: 30px; height: 70px;
+    }
+    .polaroid-house .tree-l::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px; height: 28px;
+      background: #6b4d2e;
+    }
+    .polaroid-house .tree-l::after {
+      content: '';
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px; height: 36px;
+      background: var(--sage);
+      border-radius: 50%;
+    }
+    .polaroid-house .tree-r {
+      position: absolute;
+      bottom: 0;
+      right: 8%;
+      width: 26px; height: 56px;
+    }
+    .polaroid-house .tree-r::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px; height: 20px;
+      background: #6b4d2e;
+    }
+    .polaroid-house .tree-r::after {
+      content: '';
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px; height: 30px;
+      background: var(--sage-dark);
+      border-radius: 50%;
+    }
+    .polaroid-caption {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .polaroid-caption-text {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--ink);
+    }
+    .polaroid-caption-stamp {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--terra);
+      font-weight: 700;
+      border: 1.5px solid var(--terra);
+      padding: 3px 8px;
+      border-radius: 4px;
+      transform: rotate(-4deg);
+    }
+
+    .note {
+      position: absolute;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 14px 18px;
+      box-shadow: var(--shadow-lg);
+      transform: rotate(-3deg);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 2;
+    }
+    .note-top {
+      top: -10px;
+      right: -30px;
+      animation: bobble 5s ease-in-out infinite;
+    }
+    @keyframes bobble {
+      0%, 100% { transform: rotate(-3deg) translateY(0); }
+      50% { transform: rotate(-3deg) translateY(-8px); }
+    }
+    .note-icon {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+    .note-icon svg { width: 14px; height: 14px; }
+    .note-text { font-size: 12px; line-height: 1.4; }
+    .note-text strong {
+      display: block;
+      font-size: 13px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .note-text span { color: var(--ink-3); }
+
+    .note-bottom {
+      bottom: -10px;
+      left: -30px;
+      transform: rotate(4deg);
+      background: var(--card);
+      padding: 12px 18px;
+    }
+    .note-bottom .note-icon {
+      background: linear-gradient(135deg, var(--terra), var(--terra-dark));
+    }
+
+    /* Botanical accent */
+    .sprig {
+      position: absolute;
+      top: 12%;
+      left: -60px;
+      width: 90px;
+      height: 160px;
+      z-index: 1;
+      opacity: 0.85;
+    }
+    .sprig::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 2px;
+      height: 100%;
+      background: var(--sage-dark);
+      transform: translateX(-50%) rotate(-12deg);
+      transform-origin: bottom center;
+    }
+    .sprig::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 14px 6px at 30% 20%, var(--sage) 50%, transparent 50%),
+        radial-gradient(ellipse 14px 6px at 60% 35%, var(--sage) 50%, transparent 50%),
+        radial-gradient(ellipse 14px 6px at 35% 50%, var(--sage-dark) 50%, transparent 50%),
+        radial-gradient(ellipse 14px 6px at 60% 65%, var(--sage-dark) 50%, transparent 50%),
+        radial-gradient(ellipse 14px 6px at 35% 80%, var(--sage) 50%, transparent 50%);
+    }
+
+    /* ─── TRUST BAR ─── */
+    .trust-bar {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 22px 24px;
+    }
+    .trust-bar-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      gap: 36px;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(250,247,242,0.85);
+    }
+    .trust-item .icon-svg {
+      width: 16px; height: 16px;
+      color: var(--terra-soft);
+      flex-shrink: 0;
+    }
+    .trust-item.sep {
+      width: 1px;
+      height: 16px;
+      background: rgba(250,247,242,0.2);
+      padding: 0;
+    }
+
+    /* ─── SECTIONS ─── */
+    .section { padding: 110px 32px; }
+    .section.alt {
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 64px;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--terra);
+      margin-bottom: 12px;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--terra);
+    }
+    .section-header h2 {
+      font-size: clamp(32px, 4.4vw, 50px);
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .section-header h2 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--terra);
+    }
+    .section-header p {
+      color: var(--ink-2);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    /* ─── STAPPEN ─── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      transition: all 0.3s var(--ease);
+      position: relative;
+    }
+    .step-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--line-2);
+    }
+    .step-card:hover .step-num {
+      background: var(--terra);
+      color: var(--bg);
+      transform: rotate(-4deg);
+    }
+    .step-num {
+      width: 56px; height: 56px;
+      background: var(--bg-2);
+      color: var(--terra);
+      border-radius: 50%;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 26px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      transition: all 0.3s var(--ease);
+    }
+    .step-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+    .step-card p {
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.6;
+    }
+
+    /* ─── VOORDELEN — horizontale lijst ─── */
+    .benefits-list {
+      max-width: 880px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .benefit-row {
+      display: grid;
+      grid-template-columns: 60px 1.2fr 2fr;
+      gap: 28px;
+      align-items: center;
+      padding: 28px 8px;
+      border-bottom: 1px solid var(--line);
+      transition: all 0.3s var(--ease);
+      opacity: 0;
+      transform: translateY(16px);
+      cursor: default;
+    }
+    .benefit-row.visible { opacity: 1; transform: translateY(0); }
+    .benefit-row:last-child { border-bottom: none; }
+    .benefit-row:hover {
+      padding-left: 20px;
+      background: linear-gradient(90deg, var(--bg-2), transparent);
+    }
+    .benefit-num {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 32px;
+      color: var(--terra);
+      font-weight: 400;
+      transition: all 0.3s var(--ease);
+    }
+    .benefit-row:hover .benefit-num { transform: scale(1.1); }
+    .benefit-title {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .benefit-title h4 {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.3px;
+    }
+    .benefit-title .label {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--sage);
+    }
+    .benefit-row p {
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.55;
+    }
+
+    /* ─── FORM ─── */
+    .form-section {
+      background: var(--bg-2);
+    }
+    .form-card {
+      max-width: 780px;
+      margin: 0 auto;
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .form-card-header {
+      padding: 44px 44px 36px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(ellipse at top, rgba(200,85,60,0.04), transparent 70%);
+    }
+    .form-card-header .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 15px;
+      color: var(--terra);
+      margin-bottom: 12px;
+    }
+    .form-card-header .badge::before, .form-card-header .badge::after {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--terra);
+    }
+    .form-card-header h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+      color: var(--ink);
+    }
+    .form-card-header h2 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--terra);
+    }
+    .form-card-header p {
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.5;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .form-card-body { padding: 40px 44px; }
+
+    .form-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 36px 0 20px;
+    }
+    .form-section-title:first-child { margin-top: 0; }
+    .form-section-title-num {
+      width: 28px; height: 28px;
+      background: var(--bg-2);
+      color: var(--terra);
+      border-radius: 50%;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 14px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .form-section-title-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.2px;
+    }
+    .form-section-title-line {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    .form-row {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 14px;
+    }
+    .form-row.single { grid-template-columns: 1fr; }
+    .form-group { display: flex; flex-direction: column; }
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-2);
+      margin-bottom: 6px;
+    }
+    .form-group label .req { color: var(--terra); margin-left: 2px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 13px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--ink);
+      background: var(--bg);
+      transition: all 0.2s var(--ease);
+      outline: none;
+      width: 100%;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--muted); }
+    .form-group input:hover,
+    .form-group select:hover,
+    .form-group textarea:hover { border-color: var(--line-2); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--sage);
+      box-shadow: 0 0 0 4px rgba(90,122,90,0.10);
+      background: var(--card);
+    }
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%234a4540' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='1 1 6 7 11 1'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 12px;
+      padding-right: 40px;
+    }
+    .form-group textarea { resize: vertical; min-height: 96px; }
+
+    /* Chips */
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .chip-grid.narrow { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--ink-2);
+      cursor: pointer;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      transition: all 0.18s var(--ease);
+      user-select: none;
+      background: var(--bg);
+      font-weight: 500;
+    }
+    .chip:hover {
+      border-color: var(--sage);
+      background: var(--card);
+      color: var(--ink);
+      transform: translateY(-1px);
+    }
+    .chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .chip .chip-indicator {
+      width: 18px; height: 18px;
+      border-radius: 5px;
+      border: 1.5px solid var(--muted);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s var(--ease);
+      background: var(--card);
+    }
+    .chip .chip-indicator svg {
+      width: 11px; height: 11px;
+      color: white;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.18s var(--ease);
+    }
+    .chip.checked {
+      border-color: var(--sage);
+      background: var(--sage-soft);
+      color: var(--sage-dark);
+      font-weight: 600;
+    }
+    .chip.checked .chip-indicator {
+      background: var(--sage);
+      border-color: var(--sage);
+    }
+    .chip.checked .chip-indicator svg { opacity: 1; transform: scale(1); }
+
+    .chip.radio:hover { border-color: var(--terra); }
+    .chip.radio .chip-indicator { border-radius: 50%; }
+    .chip.radio.checked {
+      border-color: var(--terra);
+      background: var(--terra-soft);
+      color: var(--terra-dark);
+    }
+    .chip.radio.checked .chip-indicator {
+      background: white;
+      border-color: var(--terra);
+      border-width: 5px;
+    }
+    .chip.radio.checked .chip-indicator svg { display: none; }
+
+    .form-field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-2);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .form-field-label .req { color: var(--terra); margin-left: 2px; }
+    .form-field-label .hint {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--ink-3);
+      font-size: 13px;
+      margin-left: 6px;
+    }
+
+    .form-submit { margin-top: 32px; }
+    .btn-submit {
+      width: 100%;
+      background: var(--ink);
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 16px;
+      padding: 19px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 28px rgba(28,26,23,0.15);
+      transition: all 0.25s var(--ease);
+      font-family: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--terra);
+      transform: translateY(100%);
+      transition: transform 0.3s var(--ease);
+    }
+    .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(200,85,60,0.30); }
+    .btn-submit:hover:not(:disabled)::before { transform: translateY(0); }
+    .btn-submit span { position: relative; z-index: 1; }
+    .btn-submit .arrow { transition: transform 0.25s var(--ease); }
+    .btn-submit:hover:not(:disabled) .arrow { transform: translateX(4px); }
+    .btn-submit:disabled { background: var(--muted); cursor: not-allowed; box-shadow: none; }
+    .btn-submit .spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-submit.loading .spinner { display: block; }
+    .btn-submit.loading .btn-text, .btn-submit.loading .arrow { display: none; }
+
+    .form-disclaimer {
+      margin-top: 16px;
+      text-align: center;
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--ink-3);
+      line-height: 1.6;
+    }
+    .form-disclaimer a { color: var(--terra); text-decoration: underline; text-underline-offset: 2px; font-style: normal; font-family: 'Inter', sans-serif; }
+
+    .success-message { display: none; text-align: center; padding: 56px 40px; }
+    .success-message.show { display: block; animation: fadeUp 0.6s var(--ease) both; }
+    .success-icon {
+      width: 84px; height: 84px;
+      background: var(--sage-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--sage-dark);
+      margin: 0 auto 24px;
+    }
+    .success-icon svg { width: 38px; height: 38px; }
+    .success-message h3 {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+    .success-message p {
+      color: var(--ink-2);
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .error-box {
+      display: none;
+      background: var(--terra-soft);
+      border: 1px solid var(--terra);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--terra-dark);
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .error-box.show { display: flex; animation: shake 0.4s var(--ease); }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      color: rgba(250,247,242,0.6);
+      padding: 64px 32px 36px;
+      text-align: center;
+    }
+    .footer-inner { max-width: 800px; margin: 0 auto; }
+    .footer-tag {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--bg);
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+    .footer-logo { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 28px; text-decoration: none; }
+    .footer-logo-badge {
+      background: var(--bg);
+      color: var(--ink);
+      font-weight: 800;
+      font-size: 16px;
+      padding: 5px 11px;
+      border-radius: 5px;
+    }
+    .footer-logo-text { color: var(--bg); font-weight: 600; font-size: 14px; }
+    footer p { font-size: 13px; line-height: 1.8; }
+    footer a { color: var(--bg); text-decoration: underline; text-underline-offset: 3px; opacity: 0.8; }
+    footer a:hover { opacity: 1; color: var(--terra-soft); }
+
+    /* Variant switcher */
+    .variant-switch {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 50px;
+      padding: 6px;
+      display: flex;
+      gap: 4px;
+      z-index: 100;
+      box-shadow: var(--shadow-lg);
+    }
+    .variant-switch a {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      color: var(--ink-3);
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.2s var(--ease);
+    }
+    .variant-switch a:hover { color: var(--ink); }
+    .variant-switch a.active { background: var(--ink); color: var(--bg); }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 60px; }
+      .hero-left { text-align: center; }
+      .hero p.lead { margin-left: auto; margin-right: auto; }
+      .hero-cta-group { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .sprig { display: none; }
+      .benefit-row { grid-template-columns: 50px 1fr; row-gap: 8px; }
+      .benefit-row p { grid-column: 1 / -1; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 60px 20px 90px; }
+      .section { padding: 72px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-card-body, .form-card-header { padding: 32px 22px; }
+      .header-cta { padding: 9px 18px; font-size: 13px; }
+      .note-top, .note-bottom { display: none; }
+      .polaroid { transform: rotate(0); max-width: 320px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="logo-wrap" href="#">
+      <div class="logo-badge">RE/MAX</div>
+      <div class="logo-text">
+        De Woonspecialist
+        <span>Utrecht &amp; omgeving</span>
+      </div>
+    </a>
+    <a href="#aanmelden" class="header-cta">Gratis aanmelden</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Actieve zoekopdrachten in Utrecht
+      </div>
+      <h1>Vind jouw <span class="underline">thuis</span>, <span class="accent">vóór</span> de rest.</h1>
+      <p class="lead">Ontvang persoonlijk afgestemd woningaanbod in je inbox — nog vóórdat ze op Funda staan. Volledig gratis, geen verplichtingen.</p>
+      <div class="hero-cta-group">
+        <a href="#aanmelden" class="btn-primary">
+          <span>Start gratis zoekopdracht</span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="#hoe-werkt-het" class="btn-secondary">Hoe werkt het?</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong>48<span class="unit">u</span></strong>
+          <span>eerder dan Funda</span>
+        </div>
+        <div class="hero-stat">
+          <strong>100<span class="unit">%</span></strong>
+          <span>gratis &amp; vrijblijvend</span>
+        </div>
+        <div class="hero-stat">
+          <strong>10<span class="unit">+</span></strong>
+          <span>jaar in Utrecht</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-mockup" aria-hidden="true">
+      <div class="sprig"></div>
+
+      <div class="note note-top">
+        <div class="note-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </div>
+        <div class="note-text">
+          <strong>Nieuwe match!</strong>
+          <span>Houten · €425.000</span>
+        </div>
+      </div>
+
+      <div class="polaroid">
+        <div class="polaroid-image">
+          <div class="polaroid-house">
+            <div class="tree-l"></div>
+            <div class="tree-r"></div>
+            <div class="roof"></div>
+            <div class="body"></div>
+            <div class="win1"></div>
+            <div class="win2"></div>
+            <div class="door"></div>
+          </div>
+        </div>
+        <div class="polaroid-caption">
+          <span class="polaroid-caption-text">Stationsweg 24, Houten</span>
+          <span class="polaroid-caption-stamp">Pré-Funda</span>
+        </div>
+      </div>
+
+      <div class="note note-bottom">
+        <div class="note-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
+        </div>
+        <div class="note-text">
+          <strong>Bezichtiging</strong>
+          <span>Zaterdag 14:30</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-bar-inner">
+    <div class="trust-item">
+      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Gegevens veilig
+    </div>
+    <div class="trust-item sep"></div>
+    <div class="trust-item">
+      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Geen spam, alleen matches
+    </div>
+    <div class="trust-item sep"></div>
+    <div class="trust-item">
+      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Exclusief vóór Funda
+    </div>
+    <div class="trust-item sep"></div>
+    <div class="trust-item">
+      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      RE/MAX-netwerk
+    </div>
+  </div>
+</div>
+
+<section class="section" id="hoe-werkt-het">
+  <div class="section-header">
+    <span class="section-label">Werkwijze</span>
+    <h2>In drie <span class="accent">eenvoudige</span> stappen</h2>
+    <p>Simpel, gratis en volledig op jouw woonwensen afgestemd.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">i</div>
+      <h3>Vul je woonwensen in</h3>
+      <p>Geef aan wat voor woning je zoekt: type, locatie, budget en bijzondere wensen. Het duurt minder dan 2 minuten.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">ii</div>
+      <h3>Ontvang exclusief aanbod</h3>
+      <p>Zodra een woning bij jouw profiel past, ontvang jij als eerste een e-mail — soms 48 uur vóór publicatie op Funda.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">iii</div>
+      <h3>Wij begeleiden jou</h3>
+      <p>Interesse? Dan plannen we direct een bezichtiging. Als aankoopmakelaar sta ik aan jouw zijde.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="section-header">
+    <span class="section-label">Voordelen</span>
+    <h2>Waarom een <span class="accent">gratis</span> zoekopdracht</h2>
+    <p>Profiteer van ons netwerk en lokale marktkennis — zonder kosten, zonder verplichtingen.</p>
+  </div>
+  <div class="benefits-list">
+    <div class="benefit-row">
+      <div class="benefit-num">01</div>
+      <div class="benefit-title">
+        <span class="label">Voorsprong</span>
+        <h4>Vóór de massa</h4>
+      </div>
+      <p>Woningen in ons netwerk bereiken jou eerder dan Funda-publicatie. Soms een dag, soms een week.</p>
+    </div>
+    <div class="benefit-row">
+      <div class="benefit-num">02</div>
+      <div class="benefit-title">
+        <span class="label">Op maat</span>
+        <h4>Persoonlijk afgestemd</h4>
+      </div>
+      <p>Geen ruis — alleen woningen die écht passen bij jouw wensen en budget.</p>
+    </div>
+    <div class="benefit-row">
+      <div class="benefit-num">03</div>
+      <div class="benefit-title">
+        <span class="label">Lokaal</span>
+        <h4>Marktkennis</h4>
+      </div>
+      <p>Meer dan tien jaar ervaring in de Utrechtse woningmarkt, van stadshart tot dorpsrand.</p>
+    </div>
+    <div class="benefit-row">
+      <div class="benefit-num">04</div>
+      <div class="benefit-title">
+        <span class="label">Geen kosten</span>
+        <h4>100% gratis</h4>
+      </div>
+      <p>De zoekopdracht is volledig gratis. Geen verborgen kosten, geen verplichtingen.</p>
+    </div>
+    <div class="benefit-row">
+      <div class="benefit-num">05</div>
+      <div class="benefit-title">
+        <span class="label">Direct</span>
+        <h4>Match-alerts</h4>
+      </div>
+      <p>Zodra er een match is, ontvang je gelijk een e-mail. Zo mis je nooit een kans.</p>
+    </div>
+    <div class="benefit-row">
+      <div class="benefit-num">06</div>
+      <div class="benefit-title">
+        <span class="label">Netwerk</span>
+        <h4>RE/MAX-bestand</h4>
+      </div>
+      <p>Toegang tot het volledige RE/MAX-netwerk in Nederland voor maximaal bereik.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section form-section" id="aanmelden">
+  <div class="section-header">
+    <span class="section-label">Gratis aanmelden</span>
+    <h2>Start jouw <span class="accent">zoekopdracht</span></h2>
+    <p>Vul je gegevens en woonwensen in. We nemen binnen één werkdag persoonlijk contact met je op.</p>
+  </div>
+
+  <div class="form-card">
+    <div class="form-card-header">
+      <span class="badge">Gratis &amp; vrijblijvend</span>
+      <h2>Activeer jouw <span class="accent">zoekopdracht</span></h2>
+      <p>Exclusief woningaanbod vóór Funda — kost je nog geen 2 minuten</p>
+    </div>
+    <div class="form-card-body">
+      <form id="zoekForm" novalidate>
+
+        <div class="form-section-title">
+          <span class="form-section-title-num">i</span>
+          <span class="form-section-title-text">Jouw contactgegevens</span>
+          <span class="form-section-title-line"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="voornaam">Voornaam <span class="req">*</span></label>
+            <input type="text" id="voornaam" name="voornaam" placeholder="Jan" required autocomplete="given-name" />
+          </div>
+          <div class="form-group">
+            <label for="achternaam">Achternaam <span class="req">*</span></label>
+            <input type="text" id="achternaam" name="achternaam" placeholder="de Vries" required autocomplete="family-name" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">E-mailadres <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="jan@email.nl" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="telefoon">Telefoonnummer <span class="req">*</span></label>
+            <input type="tel" id="telefoon" name="telefoon" placeholder="06 12 34 56 78" required autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="form-section-title">
+          <span class="form-section-title-num">ii</span>
+          <span class="form-section-title-text">Gewenste locatie</span>
+          <span class="form-section-title-line"></span>
+        </div>
+
+        <label class="form-field-label">Waar in Utrecht zoek je? <span class="req">*</span><span class="hint">meerdere mogelijk</span></label>
+        <div class="chip-grid" id="locatieGrid">
+          <label class="chip"><input type="checkbox" name="locatie" value="Utrecht stad" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Utrecht stad</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="Amersfoort" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Amersfoort</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="Zeist" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Zeist</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="De Bilt" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> De Bilt</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="Nieuwegein" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Nieuwegein</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="Houten" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Houten</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="IJsselstein" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> IJsselstein</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="Woerden" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Woerden</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="Stichtse Vecht" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Stichtse Vecht</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="Bunnik" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Bunnik</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="Soest" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Soest</label>
+          <label class="chip"><input type="checkbox" name="locatie" value="Hele provincie Utrecht" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Hele provincie</label>
+        </div>
+
+        <div class="form-section-title">
+          <span class="form-section-title-num">iii</span>
+          <span class="form-section-title-text">Type woning</span>
+          <span class="form-section-title-line"></span>
+        </div>
+
+        <label class="form-field-label">Welk type woning zoek je? <span class="req">*</span><span class="hint">meerdere mogelijk</span></label>
+        <div class="chip-grid narrow" id="woningtypeGrid">
+          <label class="chip"><input type="checkbox" name="woningtype" value="Appartement" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Appartement</label>
+          <label class="chip"><input type="checkbox" name="woningtype" value="Tussenwoning" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Tussenwoning</label>
+          <label class="chip"><input type="checkbox" name="woningtype" value="Hoekwoning" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Hoekwoning</label>
+          <label class="chip"><input type="checkbox" name="woningtype" value="2-onder-1-kap" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> 2-onder-1-kap</label>
+          <label class="chip"><input type="checkbox" name="woningtype" value="Vrijstaand" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Vrijstaand</label>
+          <label class="chip"><input type="checkbox" name="woningtype" value="Nieuwbouw" /><span class="chip-indicator"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 6 5 9 10 3"/></svg></span> Nieuwbouw</label>
+        </div>
+
+        <div class="form-section-title">
+          <span class="form-section-title-num">iv</span>
+          <span class="form-section-title-text">Budget &amp; wensen</span>
+          <span class="form-section-title-line"></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="budget">Maximaal budget <span class="req">*</span></label>
+            <select id="budget" name="budget" required>
+              <option value="" disabled selected>Selecteer budget</option>
+              <option value="250000">Tot € 250.000</option>
+              <option value="300000">Tot € 300.000</option>
+              <option value="350000">Tot € 350.000</option>
+              <option value="400000">Tot € 400.000</option>
+              <option value="450000">Tot € 450.000</option>
+              <option value="500000">Tot € 500.000</option>
+              <option value="600000">Tot € 600.000</option>
+              <option value="750000">Tot € 750.000</option>
+              <option value="1000000">Tot € 1.000.000</option>
+              <option value="1500000">Meer dan € 1.000.000</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="slaapkamers">Minimaal aantal slaapkamers</label>
+            <select id="slaapkamers" name="slaapkamers">
+              <option value="">Geen voorkeur</option>
+              <option value="1">1 slaapkamer</option>
+              <option value="2">2 slaapkamers</option>
+              <option value="3">3 slaapkamers</option>
+              <option value="4">4 slaapkamers</option>
+              <option value="5">5+ slaapkamers</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="form-field-label" style="margin-top:6px;">Wanneer wil je kopen? <span class="req">*</span></label>
+        <div class="chip-grid" id="koopmomentGrid">
+          <label class="chip radio"><input type="radio" name="koopmoment" value="Zo snel mogelijk" required /><span class="chip-indicator"></span> Zo snel mogelijk</label>
+          <label class="chip radio"><input type="radio" name="koopmoment" value="Binnen 3 maanden" /><span class="chip-indicator"></span> Binnen 3 maanden</label>
+          <label class="chip radio"><input type="radio" name="koopmoment" value="3–6 maanden" /><span class="chip-indicator"></span> 3–6 maanden</label>
+          <label class="chip radio"><input type="radio" name="koopmoment" value="6–12 maanden" /><span class="chip-indicator"></span> 6–12 maanden</label>
+          <label class="chip radio"><input type="radio" name="koopmoment" value="Oriënterend" /><span class="chip-indicator"></span> Alleen oriënterend</label>
+        </div>
+
+        <div class="form-row single" style="margin-top:6px;">
+          <div class="form-group">
+            <label for="woonwensen">Extra woonwensen <span style="color:var(--ink-3);font-weight:400;font-family:'Instrument Serif',serif;font-style:italic;">(optioneel)</span></label>
+            <textarea id="woonwensen" name="woonwensen" placeholder="Bijv. tuin op het zuiden, garage, monumentale woning, gelijkvloers..."></textarea>
+          </div>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span class="spinner"></span>
+            <span class="btn-text">Activeer mijn gratis zoekopdracht</span>
+            <span class="arrow">→</span>
+          </button>
+          <div class="error-box" id="errorBox">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span class="error-text">Vul alle verplichte velden in.</span>
+          </div>
+          <p class="form-disclaimer">
+            Door je aan te melden ga je akkoord met onze <a href="#">privacyverklaring</a>.
+            <br/>Geen spam — uitsluitend voor jouw zoekopdracht.
+          </p>
+        </div>
+      </form>
+
+      <div class="success-message" id="successMsg">
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Welkom, je zoekopdracht is actief.</h3>
+        <p>We hebben jouw woonwensen ontvangen en nemen binnen één werkdag persoonlijk contact met je op. Zodra er een woning beschikbaar is die past bij jouw profiel, hoor je het als eerste.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <p class="footer-tag">Een thuis, gevonden vóór het bestaat.</p>
+    <a class="footer-logo" href="#">
+      <div class="footer-logo-badge">RE/MAX</div>
+      <div class="footer-logo-text">De Woonspecialist</div>
+    </a>
+    <p>
+      Utrecht &amp; omgeving<br />
+      <a href="mailto:info@remax.nl">info@remax.nl</a> &nbsp;|&nbsp;
+      <a href="https://www.remax.nl" target="_blank" rel="noopener">www.remax.nl</a><br /><br />
+      © 2026 REMAX De Woonspecialist &nbsp;|&nbsp;
+      <a href="#">Privacyverklaring</a>
+    </p>
+  </div>
+</footer>
+
+<nav class="variant-switch" aria-label="Variant">
+  <a href="index.html">Modern</a>
+  <a href="index-nocturne.html">Nocturne</a>
+  <a href="index-linen.html" class="active">Linen</a>
+  <a href="index-editorial.html">Editorial</a>
+  <a href="index-bold.html">Bold</a>
+</nav>
+
+<script>
+  document.querySelectorAll('.chip input').forEach(input => {
+    input.addEventListener('change', () => {
+      if (input.type === 'radio') {
+        document.querySelectorAll(`input[name="${input.name}"]`).forEach(r => {
+          r.closest('.chip').classList.toggle('checked', r.checked);
+        });
+      } else {
+        input.closest('.chip').classList.toggle('checked', input.checked);
+      }
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const rows = document.querySelectorAll('.benefits-list .benefit-row');
+        rows.forEach((r, i) => setTimeout(() => r.classList.add('visible'), i * 80));
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.benefits-list .benefit-row').forEach(c => observer.observe(c));
+
+  document.getElementById('zoekForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('submitBtn');
+    const errorBox = document.getElementById('errorBox');
+    const errorText = errorBox.querySelector('.error-text');
+
+    const voornaam = form.voornaam.value.trim();
+    const achternaam = form.achternaam.value.trim();
+    const email = form.email.value.trim();
+    const telefoon = form.telefoon.value.trim();
+    const budget = form.budget.value;
+    const koopmoment = form.querySelector('input[name="koopmoment"]:checked')?.value;
+    const locaties = [...form.querySelectorAll('input[name="locatie"]:checked')].map(c => c.value);
+    const woningtypes = [...form.querySelectorAll('input[name="woningtype"]:checked')].map(c => c.value);
+
+    if (!voornaam || !achternaam || !email || !telefoon || !budget || !koopmoment || locaties.length === 0 || woningtypes.length === 0) {
+      errorText.textContent = 'Vul alle verplichte velden in en selecteer minimaal één locatie en woningtype.';
+      errorBox.classList.add('show');
+      return;
+    }
+    errorBox.classList.remove('show');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/aanmelden', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          naam: voornaam + ' ' + achternaam, email, telefoon,
+          budget: parseInt(budget),
+          slaapkamers: form.slaapkamers.value ? parseInt(form.slaapkamers.value) : null,
+          koopmoment, locaties: locaties.join(', '), woningtypes,
+          woonwensen: form.woonwensen.value.trim()
+        })
+      });
+      if (!res.ok) throw new Error('Server error');
+      document.getElementById('zoekForm').style.display = 'none';
+      document.getElementById('successMsg').classList.add('show');
+    } catch (err) {
+      errorText.textContent = 'Iets ging mis. Probeer het opnieuw of bel ons direct.';
+      errorBox.classList.add('show');
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

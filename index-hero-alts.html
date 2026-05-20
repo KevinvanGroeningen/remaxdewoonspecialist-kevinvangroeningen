@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hero-alternatieven · REMAX De Woonspecialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Archivo+Black&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #DC1432;
+      --red-dark: #b8102a;
+      --red-light: #ff4d6d;
+      --blue: #003DA5;
+      --blue-dark: #002d7a;
+      --blue-deeper: #00184a;
+      --white: #ffffff;
+      --gray-50: #fafbfc;
+      --gray-100: #f4f5f7;
+      --gray-150: #eceef2;
+      --gray-200: #e3e6eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #0f172a;
+      --ease: cubic-bezier(.16,.84,.32,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--gray-900);
+      background: var(--gray-100);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+
+    /* ─── Page wrapper ─── */
+    .demo-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 32px 32px;
+    }
+    .demo-header h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      color: var(--gray-900);
+      margin-bottom: 10px;
+    }
+    .demo-header h1 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--red);
+    }
+    .demo-header p {
+      font-size: 16px;
+      color: var(--gray-500);
+      max-width: 640px;
+    }
+    .variant-block { margin-bottom: 56px; }
+    .variant-tag {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .variant-tag .letter {
+      width: 36px; height: 36px;
+      background: var(--gray-900);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 16px;
+    }
+    .variant-tag .title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.5px;
+    }
+    .variant-tag .desc {
+      font-size: 14px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+    .variant-tag .desc::before {
+      content: '·';
+      margin-right: 8px;
+      color: var(--gray-300);
+    }
+    .banner-frame {
+      max-width: 1280px;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(15,23,42,0.12), 0 8px 24px rgba(15,23,42,0.06);
+      position: relative;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── Shared hero base ───
+       ═══════════════════════════════════════════════════════════ */
+    .hero-base {
+      position: relative;
+      color: var(--white);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero-base::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('utrecht.avif'), linear-gradient(135deg, #8b6f47, #c4a572);
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+      transform: scale(1.02);
+    }
+    .hero-base::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+    .hero-header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 22px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 5;
+    }
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-logo .mini-logo {
+      width: 36px; height: 36px;
+      background: var(--red);
+      color: var(--white);
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      letter-spacing: -0.5px;
+    }
+    .hero-logo .text {
+      color: var(--white);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .hero-logo .text small {
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+    }
+    .hero-header-cta {
+      background: var(--red);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.2s var(--ease);
+      box-shadow: 0 4px 14px rgba(220,20,50,0.30);
+    }
+    .hero-header-cta:hover { background: var(--red-dark); }
+
+    .hero-tricolor {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      display: flex;
+      z-index: 3;
+    }
+    .hero-tricolor span { flex: 1; }
+    .hero-tricolor span:nth-child(1) { background: #9B1B1B; }
+    .hero-tricolor span:nth-child(2) { background: #FFFFFF; }
+    .hero-tricolor span:nth-child(3) { background: #1A2552; }
+
+    .reviews-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 50px;
+      padding: 7px 14px 7px 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .reviews-badge .stars { display: inline-flex; gap: 1px; color: #fbbf24; }
+    .reviews-badge .stars svg { width: 13px; height: 13px; }
+    .reviews-badge strong { color: var(--white); font-weight: 700; }
+    .reviews-badge .g-logo {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #4285F4 0deg 90deg, #34A853 90deg 180deg, #FBBC04 180deg 270deg, #EA4335 270deg 360deg);
+      flex-shrink: 0;
+      position: relative;
+    }
+    .reviews-badge .g-logo::after { content: ''; position: absolute; inset: 4px; background: white; border-radius: 50%; }
+
+    .accent-it {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      background: linear-gradient(120deg, #ff8a96, var(--red-light) 50%, var(--red));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .btn-red {
+      background: var(--red);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 16px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 32px rgba(220,20,50,0.40);
+      transition: all 0.25s var(--ease);
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+    .btn-red:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .btn-red .arrow { transition: transform 0.25s var(--ease); }
+    .btn-red:hover .arrow { transform: translateX(4px); }
+    .btn-glass {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 14px;
+      padding: 15px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(8px);
+      transition: all 0.2s var(--ease);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-glass:hover { background: rgba(255,255,255,0.20); }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── A. Centered minimaal ───
+       ═══════════════════════════════════════════════════════════ */
+    .hero-a {
+      min-height: 640px;
+      padding: 120px 36px 90px;
+      text-align: center;
+    }
+    .hero-a::after {
+      background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,24,74,0.78), rgba(0,24,74,0.50) 60%, rgba(0,24,74,0.55) 100%);
+    }
+    .hero-a-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-a h1 {
+      font-size: clamp(40px, 5.6vw, 72px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -2.5px;
+      margin-bottom: 22px;
+      text-shadow: 0 2px 22px rgba(0,0,0,0.30);
+    }
+    .hero-a p.lead {
+      font-size: 18px;
+      color: rgba(255,255,255,0.90);
+      max-width: 640px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.20);
+    }
+    .hero-a-cta {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .hero-a-reviews {
+      display: inline-flex;
+      margin-bottom: 48px;
+    }
+    .hero-a-stats {
+      display: flex;
+      gap: 60px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding-top: 32px;
+      border-top: 1px solid rgba(255,255,255,0.16);
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero-a-stat strong {
+      display: block;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 4px;
+    }
+    .hero-a-stat strong .unit { color: var(--red-light); }
+    .hero-a-stat span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.70);
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── B. Split met match-mockup ───
+       ═══════════════════════════════════════════════════════════ */
+    .hero-b {
+      min-height: 640px;
+      padding: 110px 36px 80px;
+    }
+    .hero-b::after {
+      background: linear-gradient(105deg, rgba(0,24,74,0.93) 0%, rgba(0,24,74,0.78) 38%, rgba(0,24,74,0.50) 65%, rgba(0,24,74,0.30) 100%);
+    }
+    .hero-b-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-b h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -2px;
+      margin-bottom: 22px;
+      text-shadow: 0 2px 22px rgba(0,0,0,0.30);
+    }
+    .hero-b p.lead {
+      font-size: 17px;
+      color: rgba(255,255,255,0.92);
+      max-width: 540px;
+      margin-bottom: 32px;
+      line-height: 1.6;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.20);
+    }
+    .hero-b-cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 24px; }
+
+    /* Mockup match-card */
+    .match-mockup {
+      background: rgba(255,255,255,0.98);
+      color: var(--gray-900);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45), 0 12px 24px rgba(0,0,0,0.20);
+      transform: rotate(1.5deg);
+      max-width: 380px;
+      margin-left: auto;
+      position: relative;
+      animation: bobble 5s ease-in-out infinite;
+    }
+    @keyframes bobble {
+      0%, 100% { transform: rotate(1.5deg) translateY(0); }
+      50% { transform: rotate(1.5deg) translateY(-8px); }
+    }
+    .match-mockup::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #9B1B1B 0%, #FFFFFF 50%, #1A2552 100%);
+      border-radius: 18px 18px 0 0;
+    }
+    .match-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--gray-150);
+    }
+    .match-head .icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--red), var(--red-light));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+    .match-head .icon svg { width: 16px; height: 16px; }
+    .match-head .info { flex: 1; min-width: 0; }
+    .match-head .info strong { display: block; font-size: 13px; font-weight: 700; }
+    .match-head .info span { font-size: 11.5px; color: var(--gray-500); }
+    .match-head .time { font-size: 11px; color: var(--gray-400); }
+    .match-photo {
+      width: 100%;
+      height: 140px;
+      border-radius: 10px;
+      background-image: url('utrecht.avif');
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .match-photo::after {
+      content: 'Pré-Funda';
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 50px;
+    }
+    .match-title { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 3px; }
+    .match-address { font-size: 12.5px; color: var(--gray-500); margin-bottom: 10px; }
+    .match-specs {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--gray-150);
+      font-size: 12.5px;
+      color: var(--gray-700);
+    }
+    .match-specs .price { margin-left: auto; font-weight: 800; color: var(--blue-dark); font-size: 16px; letter-spacing: -0.3px; }
+    .match-shadow-card {
+      position: absolute;
+      top: 12px; right: -24px;
+      background: rgba(255,255,255,0.92);
+      color: var(--gray-900);
+      border-radius: 12px;
+      padding: 10px 14px;
+      box-shadow: 0 14px 32px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: rotate(4deg);
+      font-size: 12px;
+      z-index: 2;
+      animation: bobble2 6s ease-in-out infinite;
+    }
+    @keyframes bobble2 {
+      0%, 100% { transform: rotate(4deg) translateY(0); }
+      50% { transform: rotate(4deg) translateY(-6px); }
+    }
+    .match-shadow-card .pulse {
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(34,197,94,0.25);
+      flex-shrink: 0;
+    }
+    .match-shadow-card strong { font-weight: 700; }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── C. Search-bar entry ───
+       ═══════════════════════════════════════════════════════════ */
+    .hero-c {
+      min-height: 640px;
+      padding: 130px 36px 80px;
+      text-align: center;
+    }
+    .hero-c::after {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,24,74,0.78), rgba(0,24,74,0.55) 60%, rgba(0,24,74,0.60) 100%);
+    }
+    .hero-c-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-c-eyebrow {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 24px;
+      box-shadow: 0 6px 20px rgba(220,20,50,0.40);
+    }
+    .hero-c h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 22px rgba(0,0,0,0.30);
+    }
+    .hero-c p.lead {
+      font-size: 17px;
+      color: rgba(255,255,255,0.90);
+      max-width: 600px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.20);
+    }
+    .search-form {
+      background: rgba(255,255,255,0.98);
+      border-radius: 60px;
+      padding: 7px 7px 7px 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 580px;
+      margin: 0 auto 18px;
+      box-shadow: 0 22px 60px rgba(0,0,0,0.45);
+    }
+    .search-form .ico { color: var(--gray-400); flex-shrink: 0; }
+    .search-form input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: 16px;
+      padding: 14px 4px;
+      color: var(--gray-900);
+      background: transparent;
+      min-width: 0;
+    }
+    .search-form input::placeholder { color: var(--gray-400); }
+    .search-form button {
+      background: var(--red);
+      color: white;
+      border: none;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 22px;
+      border-radius: 50px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s var(--ease);
+      flex-shrink: 0;
+    }
+    .search-form button:hover { background: var(--red-dark); }
+    .search-form button::after { content: '→'; }
+
+    .city-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+    .city-chip {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.95);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.18s var(--ease);
+      backdrop-filter: blur(6px);
+    }
+    .city-chip:hover {
+      background: var(--red);
+      border-color: var(--red);
+    }
+    .hero-c-stats {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+    }
+    .hero-c-stats strong { color: var(--white); font-weight: 700; }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── D. Mega-type ribbon ───
+       ═══════════════════════════════════════════════════════════ */
+    .hero-d {
+      min-height: 680px;
+      padding: 120px 36px 90px;
+    }
+    .hero-d::after {
+      background: linear-gradient(180deg, rgba(0,24,74,0.55) 0%, rgba(0,24,74,0.75) 60%, rgba(0,24,74,0.85) 100%);
+    }
+    .hero-d-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-d-ribbon {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 18px 8px 8px;
+      background: var(--white);
+      color: var(--gray-900);
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 32px;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.20);
+    }
+    .hero-d-ribbon .mini-pin {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: linear-gradient(180deg, #9B1B1B 0% 33%, #FFFFFF 33% 67%, #1A2552 67% 100%);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .hero-d h1 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(56px, 11vw, 168px);
+      line-height: 0.85;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.40);
+    }
+    .hero-d h1 .red-block {
+      background: var(--red);
+      padding: 0 14px;
+      display: inline-block;
+      transform: rotate(-1deg);
+      box-shadow: 8px 8px 0 rgba(0,0,0,0.30);
+      margin-right: 8px;
+    }
+    .hero-d h1 .stroke {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--white);
+    }
+    .hero-d-sub {
+      display: inline-block;
+      margin-top: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(16px, 1.8vw, 22px);
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: -0.3px;
+      color: rgba(255,255,255,0.90);
+      max-width: 640px;
+      line-height: 1.4;
+      margin-bottom: 32px;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.25);
+    }
+    .hero-d-actions {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+    .hero-d-stats {
+      display: flex;
+      gap: 56px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      flex-wrap: wrap;
+    }
+    .hero-d-stats strong {
+      display: block;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 36px;
+      letter-spacing: -1.5px;
+      margin-bottom: 4px;
+      line-height: 1;
+    }
+    .hero-d-stats strong .unit { color: var(--red-light); }
+    .hero-d-stats span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.72);
+      letter-spacing: 0.2px;
+    }
+
+    /* Footnote */
+    .demo-footer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 32px 32px 100px;
+      text-align: center;
+    }
+    .demo-footer p {
+      font-size: 15px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+    .demo-footer a { color: var(--red); font-weight: 600; }
+
+    /* Variant switcher */
+    .variant-switch {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--gray-900);
+      border-radius: 50px;
+      padding: 6px;
+      display: flex;
+      gap: 4px;
+      z-index: 100;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+    }
+    .variant-switch a {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.60);
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.2s var(--ease);
+    }
+    .variant-switch a:hover { color: white; }
+    .variant-switch a.active { background: var(--red); color: white; font-weight: 700; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-b-inner { grid-template-columns: 1fr; gap: 50px; }
+      .match-mockup { margin: 0 auto; }
+      .demo-header { padding: 40px 20px 20px; }
+      .hero-a, .hero-b, .hero-c, .hero-d { padding-left: 24px; padding-right: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="demo-header">
+  <h1>Hero-<span class="accent">alternatieven</span></h1>
+  <p>Vier verschillende layouts voor de hoofdbanner — allemaal met dezelfde Utrecht-canal foto, REMAX huisstijl en branding. Kies je favoriet, dan integreer ik 'm in <a href="index.html" style="color:var(--red);font-weight:600;">index.html</a>.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     A. Centered minimaal
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="letter">A</span>
+    <span class="title">Centered minimaal</span>
+    <span class="desc">tekst gecentreerd · foto ademend zichtbaar · rustige landingspagina-look</span>
+  </div>
+
+  <div class="banner-frame">
+    <section class="hero-base hero-a">
+      <header class="hero-header">
+        <div class="hero-logo">
+          <div class="mini-logo">R</div>
+          <div class="text">REMAX De Woonspecialist <small>Utrecht &amp; omgeving</small></div>
+        </div>
+        <a class="hero-header-cta" href="#">Gratis aanmelden →</a>
+      </header>
+
+      <div class="hero-a-inner">
+        <h1>Aankoopbegeleiding die <span class="accent-it">vóór</span> Funda begint.</h1>
+        <p class="lead">Eén aankoopmakelaar voor je hele traject — van zoeken en bezichtigen tot bod, onderhandeling en eindinspectie.</p>
+        <div class="hero-a-cta">
+          <a href="#" class="btn-red">Start gratis zoekopdracht <span class="arrow">→</span></a>
+          <a href="#" class="btn-glass">Hoe werkt aankoopbegeleiding?</a>
+        </div>
+        <div class="hero-a-reviews">
+          <div class="reviews-badge">
+            <span class="g-logo"></span>
+            <span class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </span>
+            <strong>4,9</strong>
+            <span>· 87 Google reviews</span>
+          </div>
+        </div>
+        <div class="hero-a-stats">
+          <div class="hero-a-stat">
+            <strong>48<span class="unit">u</span></strong>
+            <span>eerder dan Funda</span>
+          </div>
+          <div class="hero-a-stat">
+            <strong>100<span class="unit">%</span></strong>
+            <span>gratis &amp; vrijblijvend</span>
+          </div>
+          <div class="hero-a-stat">
+            <strong>10<span class="unit">+</span> jaar</strong>
+            <span>in Utrecht</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-tricolor" aria-hidden="true"><span></span><span></span><span></span></div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     B. Split met match-mockup
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="letter">B</span>
+    <span class="title">Split met match-mockup</span>
+    <span class="desc">demonstratief · toont meteen wat klanten ontvangen · "live notification" sfeer</span>
+  </div>
+
+  <div class="banner-frame">
+    <section class="hero-base hero-b">
+      <header class="hero-header">
+        <div class="hero-logo">
+          <div class="mini-logo">R</div>
+          <div class="text">REMAX De Woonspecialist <small>Utrecht &amp; omgeving</small></div>
+        </div>
+        <a class="hero-header-cta" href="#">Gratis aanmelden →</a>
+      </header>
+
+      <div class="hero-b-inner">
+        <div>
+          <h1>Aankoopbegeleiding die <span class="accent-it">vóór</span> Funda begint.</h1>
+          <p class="lead">Eén aankoopmakelaar voor je hele traject. Begin <strong style="color:#fff;background:var(--red);padding:1px 8px;border-radius:4px;font-weight:700;">gratis &amp; vrijblijvend</strong> met een zoekopdracht — wij sturen je nieuwe matches in je inbox.</p>
+          <div class="hero-b-cta">
+            <a href="#" class="btn-red">Start gratis zoekopdracht <span class="arrow">→</span></a>
+            <a href="#" class="btn-glass">Hoe werkt het?</a>
+          </div>
+          <div class="reviews-badge">
+            <span class="g-logo"></span>
+            <span class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </span>
+            <strong>4,9</strong>
+            <span>· 87 Google reviews</span>
+          </div>
+        </div>
+
+        <div class="match-mockup" aria-hidden="true">
+          <div class="match-shadow-card">
+            <span class="pulse"></span>
+            <span><strong>Nieuwe match</strong> · 2 min geleden</span>
+          </div>
+          <div class="match-head">
+            <div class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="info">
+              <strong>REMAX Match</strong>
+              <span>past bij jouw profiel</span>
+            </div>
+            <span class="time">9:38</span>
+          </div>
+          <div class="match-photo"></div>
+          <div class="match-title">Charmante eengezinswoning</div>
+          <div class="match-address">Stationsweg 24 · Houten</div>
+          <div class="match-specs">
+            <span>128 m²</span>
+            <span>·</span>
+            <span>4 slpk</span>
+            <span class="price">€425k</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-tricolor" aria-hidden="true"><span></span><span></span><span></span></div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     C. Search-bar entry
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="letter">C</span>
+    <span class="title">Search-bar entry</span>
+    <span class="desc">prominente e-mail/zoek-input · city-chips eronder · conversie-energie</span>
+  </div>
+
+  <div class="banner-frame">
+    <section class="hero-base hero-c">
+      <header class="hero-header">
+        <div class="hero-logo">
+          <div class="mini-logo">R</div>
+          <div class="text">REMAX De Woonspecialist <small>Utrecht &amp; omgeving</small></div>
+        </div>
+        <a class="hero-header-cta" href="#">Gratis aanmelden →</a>
+      </header>
+
+      <div class="hero-c-inner">
+        <span class="hero-c-eyebrow">✦ Gratis &amp; vrijblijvend</span>
+        <h1>Krijg woningen <span class="accent-it">vóór</span> ze op Funda staan.</h1>
+        <p class="lead">Vul je e-mail in. Wij filteren de markt, sturen jou de matches.</p>
+
+        <form class="search-form" onsubmit="event.preventDefault(); alert('Demo — variant C');">
+          <svg class="ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input type="email" placeholder="jouw@email.nl" required />
+          <button type="submit">Start zoekopdracht</button>
+        </form>
+
+        <div class="city-chips">
+          <span class="city-chip">📍 Utrecht stad</span>
+          <span class="city-chip">Amersfoort</span>
+          <span class="city-chip">Zeist</span>
+          <span class="city-chip">Houten</span>
+          <span class="city-chip">De Bilt</span>
+          <span class="city-chip">Nieuwegein</span>
+          <span class="city-chip">Woerden</span>
+          <span class="city-chip">Soest</span>
+          <span class="city-chip">+3 meer</span>
+        </div>
+
+        <div class="hero-c-stats">
+          <div>★★★★★ <strong>4,9</strong> · 87 Google reviews</div>
+          <div>· <strong>127</strong> actieve zoekopdrachten</div>
+          <div>· <strong>234</strong> aankopen begeleid</div>
+        </div>
+      </div>
+      <div class="hero-tricolor" aria-hidden="true"><span></span><span></span><span></span></div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     D. Mega-type ribbon
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="letter">D</span>
+    <span class="title">Mega-type ribbon</span>
+    <span class="desc">massieve headline · REMAX-merksignatuur · statement i.p.v. uitleg</span>
+  </div>
+
+  <div class="banner-frame">
+    <section class="hero-base hero-d">
+      <header class="hero-header">
+        <div class="hero-logo">
+          <div class="mini-logo">R</div>
+          <div class="text">REMAX De Woonspecialist <small>Utrecht &amp; omgeving</small></div>
+        </div>
+        <a class="hero-header-cta" href="#">Gratis aanmelden →</a>
+      </header>
+
+      <div class="hero-d-inner">
+        <span class="hero-d-ribbon">
+          <span class="mini-pin"></span>
+          Aankoopmakelaar · Utrecht-provincie
+        </span>
+        <h1>
+          <span class="red-block">Vóór</span> de<br/>
+          <span class="stroke">massa.</span>
+        </h1>
+        <p class="hero-d-sub">Aankoopbegeleiding van Kevin van Groeningen — van eerste zoekopdracht tot eindinspectie. <strong style="color:white;">Gratis &amp; vrijblijvend</strong> aanmelden.</p>
+        <div class="hero-d-actions">
+          <a href="#" class="btn-red">Start gratis zoekopdracht <span class="arrow">→</span></a>
+          <a href="#" class="btn-glass">Hoe werkt het?</a>
+        </div>
+        <div class="hero-d-stats">
+          <div>
+            <strong>48<span class="unit">u</span></strong>
+            <span>EERDER DAN FUNDA</span>
+          </div>
+          <div>
+            <strong>234</strong>
+            <span>AANKOPEN BEGELEID</span>
+          </div>
+          <div>
+            <strong>4,9 ★</strong>
+            <span>GOOGLE · 87 REVIEWS</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-tricolor" aria-hidden="true"><span></span><span></span><span></span></div>
+    </section>
+  </div>
+</div>
+
+<div class="demo-footer">
+  <p>Welke spreekt je het meeste aan? Laat het weten — ik integreer 'm meteen in <a href="index.html">index.html</a>. Mengen kan ook: bv. "search-bar uit C met de stat-row uit D".</p>
+</div>
+
+<nav class="variant-switch" aria-label="Hero variant">
+  <a href="index.html">Huidig</a>
+  <a href="index-hero-alts.html" class="active">Alternatieven</a>
+</nav>
+
+</body>
+</html>

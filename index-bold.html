@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bold — REMAX De Woonspecialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Archivo+Black&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --bg: #f5f0e8;
+      --bg-2: #ebe5d8;
+      --red: #ff2d2d;
+      --red-dark: #d61f1f;
+      --yellow: #ffd700;
+      --yellow-2: #fff05c;
+      --blue: #2d4cff;
+      --blue-dark: #1a35c4;
+      --cream: #fff8e7;
+      --ink: #0a0a0a;
+      --ease: cubic-bezier(.16,.84,.32,1);
+      --ease-pop: cubic-bezier(.34,1.56,.64,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Archivo', sans-serif;
+      color: var(--black);
+      background: var(--bg);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    .mono { font-family: 'Space Mono', monospace; }
+    .display { font-family: 'Archivo Black', sans-serif; font-weight: 900; letter-spacing: -0.04em; }
+
+    /* ─── HEADER ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--black);
+      color: var(--bg);
+      border-bottom: 4px solid var(--red);
+    }
+    .header-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--bg);
+    }
+    .brand-mark {
+      background: var(--red);
+      color: var(--bg);
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 14px;
+      letter-spacing: -0.5px;
+      padding: 5px 9px;
+      border-radius: 0;
+      transform: rotate(-2deg);
+    }
+    .brand-text {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.3px;
+    }
+    .header-nav { display: flex; align-items: center; gap: 4px; }
+    .header-nav-item {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 8px 12px;
+      color: var(--bg);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: all 0.15s var(--ease);
+    }
+    .header-nav-item:hover { opacity: 1; color: var(--yellow); }
+    .header-cta {
+      background: var(--yellow);
+      color: var(--black);
+      font-weight: 800;
+      font-size: 13px;
+      padding: 10px 18px;
+      text-decoration: none;
+      border: 2px solid var(--black);
+      box-shadow: 3px 3px 0 var(--bg);
+      transition: all 0.15s var(--ease);
+      letter-spacing: -0.2px;
+    }
+    .header-cta:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--bg);
+    }
+    .header-cta:active { transform: translate(0,0); box-shadow: 0 0 0 var(--bg); }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      background: var(--bg);
+      border-bottom: 4px solid var(--black);
+      overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(10,10,10,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10,10,10,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 80px 28px 100px;
+      position: relative;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--black);
+      color: var(--bg);
+      padding: 8px 14px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      border-radius: 0;
+    }
+    .hero-tag .blink {
+      width: 8px; height: 8px;
+      background: var(--yellow);
+      border-radius: 50%;
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0.3; }
+    }
+
+    .hero-title {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(56px, 12vw, 188px);
+      line-height: 0.86;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      color: var(--black);
+      position: relative;
+    }
+    .hero-title .line { display: block; position: relative; }
+    .hero-title .stroke {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--black);
+      text-stroke: 2px var(--black);
+    }
+    .hero-title .red { color: var(--red); }
+    .hero-title .yellow-bg {
+      background: var(--yellow);
+      padding: 0 16px;
+      display: inline-block;
+      transform: rotate(-1deg);
+      box-shadow: 6px 6px 0 var(--black);
+    }
+    .hero-title .arrow {
+      display: inline-block;
+      transform: rotate(-12deg) translateY(-8px);
+      margin: 0 8px;
+      color: var(--red);
+      font-family: 'Archivo Black', sans-serif;
+    }
+
+    .hero-body {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 56px;
+      margin-top: 56px;
+      align-items: end;
+    }
+    .hero-lead {
+      font-size: 18px;
+      line-height: 1.55;
+      font-weight: 500;
+      max-width: 520px;
+      color: var(--black);
+    }
+    .hero-lead strong { background: var(--yellow); padding: 0 6px; font-weight: 800; }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 16px;
+    }
+    .btn-block {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--red);
+      color: var(--bg);
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 17px;
+      padding: 18px 28px;
+      border: 3px solid var(--black);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+      text-transform: uppercase;
+      box-shadow: 6px 6px 0 var(--black);
+      transition: all 0.15s var(--ease);
+      cursor: pointer;
+    }
+    .btn-block:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 var(--black);
+      background: var(--red-dark);
+    }
+    .btn-block:active { transform: translate(0,0); box-shadow: 0 0 0 var(--black); }
+    .btn-block .arrow-icon {
+      width: 14px; height: 14px;
+      border-top: 3px solid var(--bg);
+      border-right: 3px solid var(--bg);
+      transform: rotate(45deg);
+    }
+    .btn-ghost {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      padding: 6px 0;
+      border-bottom: 2px solid var(--black);
+      transition: all 0.15s var(--ease);
+    }
+    .btn-ghost:hover { color: var(--red); border-bottom-color: var(--red); }
+
+    /* Stickers */
+    .sticker {
+      position: absolute;
+      background: var(--yellow);
+      color: var(--black);
+      border: 3px solid var(--black);
+      padding: 12px 16px;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 14px;
+      letter-spacing: -0.3px;
+      box-shadow: 4px 4px 0 var(--black);
+      z-index: 2;
+      line-height: 1.1;
+    }
+    .sticker-1 {
+      top: 60px;
+      right: 80px;
+      transform: rotate(8deg);
+      animation: wobble 4s ease-in-out infinite;
+    }
+    .sticker-2 {
+      bottom: 220px;
+      right: 40px;
+      background: var(--red);
+      color: var(--bg);
+      transform: rotate(-6deg);
+      animation: wobble 5s ease-in-out infinite reverse;
+    }
+    .sticker-3 {
+      bottom: 60px;
+      left: 50%;
+      background: var(--blue);
+      color: var(--bg);
+      transform: rotate(3deg) translateX(-100%);
+      animation: wobble 6s ease-in-out infinite;
+    }
+    @keyframes wobble {
+      0%, 100% { transform: rotate(var(--rot, 8deg)) translateY(0); }
+      50% { transform: rotate(calc(var(--rot, 8deg) - 2deg)) translateY(-6px); }
+    }
+    .sticker-1 { --rot: 8deg; }
+    .sticker-2 { --rot: -6deg; }
+    .sticker-3 { --rot: 3deg; transform-origin: right center; }
+
+    .sticker small {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+      opacity: 0.7;
+    }
+
+    /* Marquee */
+    .marquee {
+      background: var(--black);
+      color: var(--bg);
+      padding: 18px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-bottom: 4px solid var(--red);
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: scroll 28s linear infinite;
+      gap: 40px;
+      padding-right: 40px;
+    }
+    .marquee-item {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 24px;
+      letter-spacing: -0.5px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .marquee-item::after {
+      content: '★';
+      color: var(--yellow);
+    }
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ─── HOE WERKT HET ─── */
+    .section {
+      padding: 100px 28px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .section-tag {
+      display: inline-block;
+      background: var(--black);
+      color: var(--bg);
+      padding: 6px 12px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(40px, 7vw, 96px);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      margin-bottom: 64px;
+      max-width: 1100px;
+    }
+    .section-title .red { color: var(--red); }
+    .section-title .underline {
+      position: relative;
+      display: inline-block;
+    }
+    .section-title .underline::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 8px;
+      height: 12px;
+      background: var(--yellow);
+      z-index: -1;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .step-block {
+      background: var(--bg-2);
+      border: 3px solid var(--black);
+      padding: 32px;
+      position: relative;
+      transition: all 0.2s var(--ease);
+      box-shadow: 6px 6px 0 var(--black);
+    }
+    .step-block:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 var(--black);
+    }
+    .step-block:nth-child(2) { background: var(--yellow); }
+    .step-block:nth-child(3) { background: var(--red); color: var(--bg); }
+    .step-block-num {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 96px;
+      line-height: 0.8;
+      letter-spacing: -0.05em;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .step-block:nth-child(1) .step-block-num { color: var(--red); }
+    .step-block:nth-child(3) .step-block-num { color: var(--yellow); }
+    .step-block h3 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 24px;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .step-block p {
+      font-size: 15px;
+      line-height: 1.55;
+      font-weight: 500;
+      opacity: 0.85;
+    }
+
+    /* ─── VOORDELEN ─── */
+    .benefits {
+      background: var(--black);
+      color: var(--bg);
+      border-top: 4px solid var(--black);
+      border-bottom: 4px solid var(--black);
+      max-width: none;
+    }
+    .benefits-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 100px 28px;
+    }
+    .benefits .section-title { color: var(--bg); }
+    .benefits .section-title .underline::after { background: var(--red); height: 16px; }
+    .benefits .section-tag { background: var(--bg); color: var(--black); }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 3px solid var(--bg);
+    }
+    .ben {
+      padding: 36px 32px 40px;
+      border: 1.5px solid var(--bg);
+      transition: all 0.3s var(--ease);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    .ben.in { opacity: 1; transform: scale(1); }
+    .ben:hover {
+      background: var(--red);
+      color: var(--bg);
+      z-index: 1;
+    }
+    .ben:hover .ben-num { color: var(--bg); }
+    .ben-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--yellow);
+      margin-bottom: 24px;
+      display: block;
+      transition: color 0.3s var(--ease);
+    }
+    .ben-icon {
+      width: 48px;
+      height: 48px;
+      border: 2.5px solid var(--bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      transition: all 0.4s var(--ease-pop);
+    }
+    .ben-icon svg { width: 22px; height: 22px; color: var(--bg); }
+    .ben:hover .ben-icon { transform: rotate(360deg); background: var(--bg); }
+    .ben:hover .ben-icon svg { color: var(--red); }
+    .ben h4 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .ben p {
+      font-size: 14px;
+      line-height: 1.6;
+      font-weight: 500;
+      opacity: 0.75;
+    }
+
+    /* ─── FORM ─── */
+    .form-section {
+      background: var(--yellow);
+      border-bottom: 4px solid var(--black);
+      max-width: none;
+      padding: 0;
+    }
+    .form-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 100px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .form-headline {
+      position: sticky;
+      top: 100px;
+    }
+    .form-headline .section-tag { background: var(--black); color: var(--bg); }
+    .form-headline h2 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(48px, 6vw, 84px);
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .form-headline h2 .red { color: var(--red); }
+    .form-headline p {
+      font-size: 17px;
+      line-height: 1.55;
+      max-width: 380px;
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+    .form-headline .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      background: var(--black);
+      color: var(--bg);
+      padding: 6px 14px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 50px;
+    }
+    .pill.red { background: var(--red); color: var(--bg); }
+    .pill.blue { background: var(--blue); color: var(--bg); }
+
+    .form-card {
+      background: var(--bg);
+      border: 4px solid var(--black);
+      padding: 40px;
+      box-shadow: 12px 12px 0 var(--black);
+    }
+
+    .form-step-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 32px 0 16px;
+    }
+    .form-step-header:first-child { margin-top: 0; }
+    .form-step-num {
+      background: var(--black);
+      color: var(--bg);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .form-step-title {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 16px;
+      letter-spacing: -0.3px;
+      text-transform: uppercase;
+    }
+    .form-step-line {
+      flex: 1;
+      height: 3px;
+      background: var(--black);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .field-row.single { grid-template-columns: 1fr; }
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+    .field label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .field label .req { color: var(--red); }
+    .field input,
+    .field select,
+    .field textarea {
+      background: var(--bg);
+      border: 2.5px solid var(--black);
+      padding: 14px 16px;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--black);
+      outline: none;
+      transition: all 0.15s var(--ease);
+      border-radius: 0;
+      width: 100%;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(10,10,10,0.4); font-weight: 400; }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      background: var(--yellow);
+      transform: translate(-2px, -2px);
+      box-shadow: 4px 4px 0 var(--black);
+    }
+    .field select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%230a0a0a' stroke-width='2' stroke-linecap='round'%3e%3cpolyline points='1 1 6 7 11 1'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 14px;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    .field select:focus { background-color: var(--yellow); }
+    .field textarea { resize: vertical; min-height: 88px; }
+
+    .chunk-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .chunk {
+      cursor: pointer;
+      user-select: none;
+      background: var(--bg);
+      border: 2.5px solid var(--black);
+      padding: 9px 14px;
+      font-family: 'Archivo', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--black);
+      transition: all 0.15s var(--ease);
+      box-shadow: 3px 3px 0 var(--black);
+      letter-spacing: -0.1px;
+    }
+    .chunk input { display: none; }
+    .chunk:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--black);
+      background: var(--yellow-2);
+    }
+    .chunk.checked {
+      background: var(--black);
+      color: var(--bg);
+      transform: translate(0, 0);
+      box-shadow: 3px 3px 0 var(--red);
+    }
+    .chunk.red.checked {
+      background: var(--red);
+      color: var(--bg);
+      box-shadow: 3px 3px 0 var(--black);
+    }
+
+    .submit-block {
+      margin-top: 32px;
+      padding-top: 28px;
+      border-top: 3px solid var(--black);
+    }
+    .btn-submit {
+      width: 100%;
+      background: var(--red);
+      color: var(--bg);
+      border: 3px solid var(--black);
+      padding: 22px;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 17px;
+      letter-spacing: -0.3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s var(--ease);
+      box-shadow: 6px 6px 0 var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .btn-submit:hover:not(:disabled) {
+      transform: translate(-3px, -3px);
+      box-shadow: 9px 9px 0 var(--black);
+      background: var(--black);
+      color: var(--yellow);
+    }
+    .btn-submit:active:not(:disabled) { transform: translate(0,0); box-shadow: 0 0 0 var(--black); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-submit::after { content: '→'; transition: transform 0.2s var(--ease); }
+    .btn-submit:hover::after { transform: translateX(6px); }
+    .btn-submit .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: var(--bg);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-submit.loading .spinner { display: block; }
+    .btn-submit.loading .btn-text, .btn-submit.loading::after { display: none; }
+
+    .form-fine {
+      margin-top: 14px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      color: var(--black);
+      text-align: center;
+      line-height: 1.6;
+      opacity: 0.7;
+    }
+    .form-fine a { color: var(--black); text-decoration: underline; }
+
+    .error-msg {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      background: var(--red);
+      color: var(--bg);
+      border: 2.5px solid var(--black);
+      font-weight: 700;
+      font-size: 13px;
+      text-align: center;
+    }
+    .error-msg.show { display: block; animation: shake 0.4s; }
+    @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+
+    .success-block {
+      display: none;
+      text-align: center;
+      padding: 48px 24px;
+    }
+    .success-block.show { display: block; animation: pop 0.5s var(--ease-pop); }
+    @keyframes pop { from{transform:scale(0.8);opacity:0;} to{transform:scale(1);opacity:1;} }
+    .success-block .check {
+      width: 80px; height: 80px;
+      background: var(--yellow);
+      border: 3px solid var(--black);
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 40px;
+      box-shadow: 6px 6px 0 var(--black);
+    }
+    .success-block h3 {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .success-block p {
+      font-size: 15px;
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      color: var(--bg);
+      padding: 80px 28px 40px;
+      text-align: center;
+    }
+    .footer-inner { max-width: 1320px; margin: 0 auto; }
+    .footer-title {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: clamp(36px, 6vw, 80px);
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      line-height: 1;
+    }
+    .footer-title .red { color: var(--red); }
+    .footer-title .yellow { color: var(--yellow); }
+    .footer-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-top: 40px;
+    }
+    .footer-meta a { color: var(--bg); text-decoration: underline; text-underline-offset: 4px; }
+
+    /* Variant switcher */
+    .variant-switch {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg);
+      border: 3px solid var(--black);
+      padding: 5px;
+      display: flex;
+      gap: 2px;
+      z-index: 100;
+      box-shadow: 4px 4px 0 var(--black);
+    }
+    .variant-switch a {
+      padding: 8px 14px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      transition: all 0.15s var(--ease);
+    }
+    .variant-switch a:hover { background: var(--yellow); }
+    .variant-switch a.active { background: var(--black); color: var(--bg); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-body { grid-template-columns: 1fr; gap: 32px; }
+      .hero-actions { align-items: flex-start; }
+      .steps { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .form-inner { grid-template-columns: 1fr; gap: 40px; padding: 64px 24px; }
+      .form-headline { position: static; }
+      .field-row { grid-template-columns: 1fr; }
+      .section { padding: 64px 24px; }
+      .header-nav { display: none; }
+      .sticker-1, .sticker-2, .sticker-3 { display: none; }
+      .hero-inner { padding: 56px 24px 64px; }
+      .form-card { padding: 24px; box-shadow: 6px 6px 0 var(--black); }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="#">
+      <span class="brand-mark">RE/MAX</span>
+      <span class="brand-text">DE WOONSPECIALIST</span>
+    </a>
+    <nav class="header-nav">
+      <a href="#werkwijze" class="header-nav-item">Werkwijze</a>
+      <a href="#voordelen" class="header-nav-item">Voordelen</a>
+      <a href="#aanmelden" class="header-cta">Aanmelden →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">
+      <span class="blink"></span> Live · Utrecht-provincie
+    </div>
+
+    <h1 class="hero-title">
+      <span class="line">Het huis</span>
+      <span class="line"><span class="yellow-bg">vóór</span> de</span>
+      <span class="line stroke">massa.</span>
+    </h1>
+
+    <div class="hero-body">
+      <p class="hero-lead">
+        Wij sturen jou woningen <strong>vóórdat ze op Funda staan</strong>. Geen scrollen, geen biedingsoorlog, geen FOMO. Alleen het juiste huis — op jouw inbox, op jouw tijd.
+      </p>
+      <div class="hero-actions">
+        <a href="#aanmelden" class="btn-block">
+          Start zoekopdracht
+          <span class="arrow-icon"></span>
+        </a>
+        <a href="#werkwijze" class="btn-ghost">Hoe werkt het →</a>
+      </div>
+    </div>
+
+    <!-- Stickers -->
+    <div class="sticker sticker-1">
+      <small>// Voorsprong</small>
+      48 uur
+    </div>
+    <div class="sticker sticker-2">
+      <small>// Tarief</small>
+      Gratis
+    </div>
+    <div class="sticker sticker-3">
+      <small>// Match</small>
+      Houten · €425K
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Vóór Funda</span>
+    <span class="marquee-item">Gratis &amp; vrijblijvend</span>
+    <span class="marquee-item">Persoonlijk</span>
+    <span class="marquee-item">10+ jaar Utrecht</span>
+    <span class="marquee-item">Vóór Funda</span>
+    <span class="marquee-item">Gratis &amp; vrijblijvend</span>
+    <span class="marquee-item">Persoonlijk</span>
+    <span class="marquee-item">10+ jaar Utrecht</span>
+  </div>
+</div>
+
+<!-- WERKWIJZE -->
+<section class="section" id="werkwijze">
+  <div class="section-tag">Werkwijze · 03 stappen</div>
+  <h2 class="section-title">
+    In <span class="underline">drie</span> stappen<br/>naar <span class="red">je huis.</span>
+  </h2>
+  <div class="steps">
+    <div class="step-block">
+      <span class="step-block-num">01</span>
+      <h3>Stuur je wensen</h3>
+      <p>Type, locatie, budget, must-haves. Onder de twee minuten klaar — geen account, geen gedoe.</p>
+    </div>
+    <div class="step-block">
+      <span class="step-block-num">02</span>
+      <h3>Ontvang matches</h3>
+      <p>Past een woning bij je profiel? Een e-mail in je inbox — soms 48 uur vóór Funda.</p>
+    </div>
+    <div class="step-block">
+      <span class="step-block-num">03</span>
+      <h3>Wij gaan mee</h3>
+      <p>Bezichtiging, bod, onderhandeling. Als aankoopmakelaar staan we aan jouw kant.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VOORDELEN -->
+<section class="benefits" id="voordelen">
+  <div class="benefits-inner">
+    <div class="section-tag">Waarom wij</div>
+    <h2 class="section-title">
+      Geen <span class="underline">ruis</span>.<br/>Alleen <span class="red">matches.</span>
+    </h2>
+    <div class="benefits-grid">
+      <article class="ben">
+        <span class="ben-num">// 001</span>
+        <div class="ben-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h4>Eerder<br/>dan Funda</h4>
+        <p>Soms een dag, soms een week voorsprong op de rest van de markt.</p>
+      </article>
+      <article class="ben">
+        <span class="ben-num">// 002</span>
+        <div class="ben-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+        <h4>Persoonlijk<br/>afgestemd</h4>
+        <p>Geen mass-mail. Alleen woningen die écht passen bij jouw wensen.</p>
+      </article>
+      <article class="ben">
+        <span class="ben-num">// 003</span>
+        <div class="ben-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+        <h4>Utrechtse<br/>marktkennis</h4>
+        <p>10+ jaar lokaal actief. Van stadshart tot dorpsrand.</p>
+      </article>
+      <article class="ben">
+        <span class="ben-num">// 004</span>
+        <div class="ben-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h4>100%<br/>gratis</h4>
+        <p>Geen verborgen kosten. Geen verplichtingen. Geen kleine lettertjes.</p>
+      </article>
+      <article class="ben">
+        <span class="ben-num">// 005</span>
+        <div class="ben-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <h4>Match<br/>alerts</h4>
+        <p>Mail in je inbox zodra er iets binnenkomt. Mis nooit een kans.</p>
+      </article>
+      <article class="ben">
+        <span class="ben-num">// 006</span>
+        <div class="ben-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg></div>
+        <h4>RE/MAX<br/>netwerk</h4>
+        <p>Toegang tot het volledige nationale netwerk voor maximaal bereik.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="aanmelden">
+  <div class="form-inner">
+    <aside class="form-headline">
+      <div class="section-tag">Gratis aanmelden</div>
+      <h2>Schrijf je <span class="red">nu</span> in.</h2>
+      <p>Het kost minder dan twee minuten. Wij nemen binnen één werkdag persoonlijk contact op.</p>
+      <div class="badges">
+        <span class="pill">100% gratis</span>
+        <span class="pill red">48u eerder</span>
+        <span class="pill blue">Geen spam</span>
+      </div>
+    </aside>
+
+    <div class="form-card">
+      <form id="zoekForm" novalidate>
+
+        <div class="form-step-header">
+          <div class="form-step-num">1</div>
+          <div class="form-step-title">Contact</div>
+          <div class="form-step-line"></div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="voornaam">Voornaam <span class="req">*</span></label>
+            <input type="text" id="voornaam" name="voornaam" placeholder="Jan" required autocomplete="given-name" />
+          </div>
+          <div class="field">
+            <label for="achternaam">Achternaam <span class="req">*</span></label>
+            <input type="text" id="achternaam" name="achternaam" placeholder="de Vries" required autocomplete="family-name" />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="email">E-mail <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="jan@email.nl" required autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="telefoon">Telefoon <span class="req">*</span></label>
+            <input type="tel" id="telefoon" name="telefoon" placeholder="06 12 34 56 78" required autocomplete="tel" />
+          </div>
+        </div>
+
+        <div class="form-step-header">
+          <div class="form-step-num">2</div>
+          <div class="form-step-title">Locatie</div>
+          <div class="form-step-line"></div>
+        </div>
+
+        <label class="field" style="margin-bottom:10px;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;">Waar in Utrecht? <span style="color:var(--red)">*</span></span>
+        </label>
+        <div class="chunk-row" id="locatieGrid">
+          <label class="chunk"><input type="checkbox" name="locatie" value="Utrecht stad" /> Utrecht stad</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="Amersfoort" /> Amersfoort</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="Zeist" /> Zeist</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="De Bilt" /> De Bilt</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="Nieuwegein" /> Nieuwegein</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="Houten" /> Houten</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="IJsselstein" /> IJsselstein</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="Woerden" /> Woerden</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="Stichtse Vecht" /> Stichtse Vecht</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="Bunnik" /> Bunnik</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="Soest" /> Soest</label>
+          <label class="chunk"><input type="checkbox" name="locatie" value="Hele provincie Utrecht" /> Hele provincie</label>
+        </div>
+
+        <div class="form-step-header">
+          <div class="form-step-num">3</div>
+          <div class="form-step-title">Type woning</div>
+          <div class="form-step-line"></div>
+        </div>
+
+        <label class="field" style="margin-bottom:10px;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;">Welk type? <span style="color:var(--red)">*</span></span>
+        </label>
+        <div class="chunk-row" id="woningtypeGrid">
+          <label class="chunk"><input type="checkbox" name="woningtype" value="Appartement" /> Appartement</label>
+          <label class="chunk"><input type="checkbox" name="woningtype" value="Tussenwoning" /> Tussenwoning</label>
+          <label class="chunk"><input type="checkbox" name="woningtype" value="Hoekwoning" /> Hoekwoning</label>
+          <label class="chunk"><input type="checkbox" name="woningtype" value="2-onder-1-kap" /> 2-onder-1-kap</label>
+          <label class="chunk"><input type="checkbox" name="woningtype" value="Vrijstaand" /> Vrijstaand</label>
+          <label class="chunk"><input type="checkbox" name="woningtype" value="Nieuwbouw" /> Nieuwbouw</label>
+        </div>
+
+        <div class="form-step-header">
+          <div class="form-step-num">4</div>
+          <div class="form-step-title">Budget &amp; tijd</div>
+          <div class="form-step-line"></div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="budget">Max. budget <span class="req">*</span></label>
+            <select id="budget" name="budget" required>
+              <option value="" disabled selected>Selecteer</option>
+              <option value="250000">Tot € 250.000</option>
+              <option value="300000">Tot € 300.000</option>
+              <option value="350000">Tot € 350.000</option>
+              <option value="400000">Tot € 400.000</option>
+              <option value="450000">Tot € 450.000</option>
+              <option value="500000">Tot € 500.000</option>
+              <option value="600000">Tot € 600.000</option>
+              <option value="750000">Tot € 750.000</option>
+              <option value="1000000">Tot € 1.000.000</option>
+              <option value="1500000">Meer dan € 1M</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="slaapkamers">Slaapkamers</label>
+            <select id="slaapkamers" name="slaapkamers">
+              <option value="">Geen voorkeur</option>
+              <option value="1">1+</option>
+              <option value="2">2+</option>
+              <option value="3">3+</option>
+              <option value="4">4+</option>
+              <option value="5">5+</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="field" style="margin:8px 0 10px;">
+          <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;">Wanneer kopen? <span style="color:var(--red)">*</span></span>
+        </label>
+        <div class="chunk-row" id="koopmomentGrid">
+          <label class="chunk red"><input type="radio" name="koopmoment" value="Zo snel mogelijk" required /> ASAP</label>
+          <label class="chunk red"><input type="radio" name="koopmoment" value="Binnen 3 maanden" /> &lt; 3 mnd</label>
+          <label class="chunk red"><input type="radio" name="koopmoment" value="3–6 maanden" /> 3–6 mnd</label>
+          <label class="chunk red"><input type="radio" name="koopmoment" value="6–12 maanden" /> 6–12 mnd</label>
+          <label class="chunk red"><input type="radio" name="koopmoment" value="Oriënterend" /> Oriënterend</label>
+        </div>
+
+        <div class="field-row single" style="margin-top:14px;">
+          <div class="field">
+            <label for="woonwensen">Extra wensen <span style="color:rgba(10,10,10,0.4);">(optie)</span></label>
+            <textarea id="woonwensen" name="woonwensen" placeholder="Tuin op zuid, garage, gelijkvloers, monumentaal..."></textarea>
+          </div>
+        </div>
+
+        <div class="submit-block">
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span class="spinner"></span>
+            <span class="btn-text">Activeer mijn zoekopdracht</span>
+          </button>
+          <div class="error-msg" id="errorBox">Vul alle verplichte velden in.</div>
+          <p class="form-fine">
+            Door verzending akkoord met de <a href="#">privacyverklaring</a>. Geen spam. Nooit doorverkocht.
+          </p>
+        </div>
+      </form>
+
+      <div class="success-block" id="successMsg">
+        <div class="check">✓</div>
+        <h3>Boom! Aanmelding binnen.</h3>
+        <p>We hebben je woonwensen ontvangen en nemen binnen één werkdag contact op. Tot snel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-title">
+      Vind je <span class="red">huis</span>.<br/>
+      Vóór de <span class="yellow">rest.</span>
+    </div>
+    <a href="#aanmelden" class="btn-block" style="background:var(--yellow);color:var(--black);border-color:var(--yellow);box-shadow:6px 6px 0 var(--red);">
+      Schrijf je nu in
+      <span class="arrow-icon" style="border-color:var(--black);"></span>
+    </a>
+    <div class="footer-meta">
+      <a href="mailto:info@remax.nl">info@remax.nl</a> ·
+      <a href="https://www.remax.nl" target="_blank" rel="noopener">remax.nl</a> ·
+      <a href="#">Privacy</a><br/><br/>
+      © 2026 — REMAX De Woonspecialist — Utrecht
+    </div>
+  </div>
+</footer>
+
+<nav class="variant-switch" aria-label="Variant">
+  <a href="index.html">Modern</a>
+  <a href="index-nocturne.html">Nocturne</a>
+  <a href="index-linen.html">Linen</a>
+  <a href="index-editorial.html">Editorial</a>
+  <a href="index-bold.html" class="active">Bold</a>
+</nav>
+
+<script>
+  // Chunk toggle
+  document.querySelectorAll('.chunk input, .tag input').forEach(input => {
+    input.addEventListener('change', () => {
+      const el = input.closest('.chunk') || input.closest('.tag');
+      if (input.type === 'radio') {
+        document.querySelectorAll(`input[name="${input.name}"]`).forEach(r => {
+          (r.closest('.chunk') || r.closest('.tag')).classList.toggle('checked', r.checked);
+        });
+      } else {
+        el.classList.toggle('checked', input.checked);
+      }
+    });
+  });
+
+  // Reveal benefits
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const cards = e.target.parentElement.querySelectorAll('.ben');
+        cards.forEach((c, i) => setTimeout(() => c.classList.add('in'), i * 80));
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.benefits-grid .ben').forEach(c => io.observe(c));
+
+  // Form submit
+  document.getElementById('zoekForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const btn = document.getElementById('submitBtn');
+    const errorBox = document.getElementById('errorBox');
+
+    const voornaam = form.voornaam.value.trim();
+    const achternaam = form.achternaam.value.trim();
+    const email = form.email.value.trim();
+    const telefoon = form.telefoon.value.trim();
+    const budget = form.budget.value;
+    const koopmoment = form.querySelector('input[name="koopmoment"]:checked')?.value;
+    const locaties = [...form.querySelectorAll('input[name="locatie"]:checked')].map(c => c.value);
+    const woningtypes = [...form.querySelectorAll('input[name="woningtype"]:checked')].map(c => c.value);
+
+    if (!voornaam || !achternaam || !email || !telefoon || !budget || !koopmoment || locaties.length === 0 || woningtypes.length === 0) {
+      errorBox.textContent = 'Vul alle verplichte velden in en selecteer minimaal één locatie en woningtype.';
+      errorBox.classList.add('show');
+      return;
+    }
+    errorBox.classList.remove('show');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('/api/aanmelden', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          naam: voornaam + ' ' + achternaam, email, telefoon,
+          budget: parseInt(budget),
+          slaapkamers: form.slaapkamers.value ? parseInt(form.slaapkamers.value) : null,
+          koopmoment, locaties: locaties.join(', '), woningtypes,
+          woonwensen: form.woonwensen.value.trim()
+        })
+      });
+      if (!res.ok) throw new Error('Server error');
+      document.getElementById('zoekForm').style.display = 'none';
+      document.getElementById('successMsg').classList.add('show');
+    } catch (err) {
+      errorBox.textContent = 'Iets ging mis. Probeer opnieuw of bel ons.';
+      errorBox.classList.add('show');
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

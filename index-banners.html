@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banner-variaties · REMAX De Woonspecialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #DC1432;
+      --red-dark: #b8102a;
+      --red-light: #ff4d6d;
+      --blue: #003DA5;
+      --blue-dark: #002d7a;
+      --blue-deeper: #00184a;
+      --blue-accent: #2563eb;
+      --gold: #fbbf24;
+      --gold-soft: #fde68a;
+      --white: #ffffff;
+      --gray-50: #fafbfc;
+      --gray-100: #f4f5f7;
+      --gray-150: #eceef2;
+      --gray-200: #e3e6eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #0f172a;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --ease: cubic-bezier(.16,.84,.32,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--gray-900);
+      background: var(--gray-100);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+
+    /* ─── Page wrapper ─── */
+    .demo-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 32px 32px;
+    }
+    .demo-header h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      color: var(--gray-900);
+      margin-bottom: 10px;
+    }
+    .demo-header h1 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--red);
+    }
+    .demo-header p {
+      font-size: 16px;
+      color: var(--gray-500);
+      max-width: 640px;
+    }
+
+    .variant-block {
+      margin-bottom: 56px;
+    }
+    .variant-tag {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .variant-tag .num {
+      width: 32px; height: 32px;
+      background: var(--gray-900);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .variant-tag .title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.5px;
+    }
+    .variant-tag .desc {
+      font-size: 14px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+    .variant-tag .desc::before {
+      content: '·';
+      margin-right: 8px;
+      color: var(--gray-300);
+    }
+
+    .banner-frame {
+      max-width: 1280px;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(15,23,42,0.12), 0 8px 24px rgba(15,23,42,0.06);
+      position: relative;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── Shared hero bits ───
+       ═══════════════════════════════════════════════════════════ */
+    .reviews-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 50px;
+      padding: 7px 14px 7px 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .reviews-badge .stars {
+      display: inline-flex;
+      gap: 1px;
+      color: var(--gold);
+    }
+    .reviews-badge .stars svg { width: 13px; height: 13px; }
+    .reviews-badge strong { color: white; font-weight: 700; }
+    .reviews-badge .g-logo {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, #4285F4 0deg 90deg, #34A853 90deg 180deg, #FBBC04 180deg 270deg, #EA4335 270deg 360deg);
+      flex-shrink: 0;
+      position: relative;
+    }
+    .reviews-badge .g-logo::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      background: white;
+      border-radius: 50%;
+    }
+    .reviews-badge.light {
+      background: rgba(15,23,42,0.05);
+      border-color: rgba(15,23,42,0.08);
+      color: var(--gray-700);
+    }
+    .reviews-badge.light strong { color: var(--gray-900); }
+
+    .pulse-dot {
+      width: 8px; height: 8px;
+      background: #4ade80;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(74,222,128,0.25);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.6); }
+      50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── VARIANT 1: Photo immersion ───
+       ═══════════════════════════════════════════════════════════ */
+    .v1 {
+      position: relative;
+      min-height: 580px;
+      color: white;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .v1::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        url('https://images.unsplash.com/photo-1592595896616-c37162298647?w=1600&h=900&fit=crop&q=80'),
+        url('https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=1600&h=900&fit=crop&q=80'),
+        linear-gradient(135deg, #8b6f47, #d4a574);
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+      transform: scale(1.02);
+    }
+    .v1::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(105deg, rgba(0,24,74,0.92) 0%, rgba(0,24,74,0.75) 40%, rgba(0,24,74,0.45) 70%, transparent 100%),
+        linear-gradient(0deg, rgba(0,0,0,0.45), transparent 40%);
+      z-index: -1;
+    }
+    .v1-header {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 22px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 2;
+    }
+    .v1-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .v1-logo .badge {
+      background: var(--red);
+      color: white;
+      font-weight: 800;
+      font-size: 17px;
+      padding: 5px 11px;
+      border-radius: 5px;
+      letter-spacing: -0.3px;
+    }
+    .v1-logo .text {
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+    }
+    .v1-logo .text span {
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+    }
+    .v1-header-cta {
+      background: rgba(255,255,255,0.95);
+      color: var(--gray-900);
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.2s var(--ease);
+    }
+    .v1-header-cta:hover { background: var(--red); color: white; }
+
+    .v1-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 36px 80px;
+      position: relative;
+      z-index: 1;
+    }
+    .v1-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50px;
+      padding: 7px 16px 7px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .v1 h1 {
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 700;
+      line-height: 0.98;
+      letter-spacing: -2.5px;
+      margin-bottom: 24px;
+      max-width: 780px;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    }
+    .v1 h1 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      background: linear-gradient(120deg, #fde68a 0%, var(--gold) 50%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .v1 p.lead {
+      font-size: 18px;
+      max-width: 540px;
+      color: rgba(255,255,255,0.92);
+      margin-bottom: 36px;
+      line-height: 1.55;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.2);
+    }
+    .v1-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .btn-red {
+      background: var(--red);
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 17px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 14px 36px rgba(220,20,50,0.45);
+      transition: all 0.25s var(--ease);
+    }
+    .btn-red:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .btn-red .arrow { transition: transform 0.25s var(--ease); }
+    .btn-red:hover .arrow { transform: translateX(4px); }
+    .btn-glass {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 16px 26px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(8px);
+      transition: all 0.2s var(--ease);
+    }
+    .btn-glass:hover { background: rgba(255,255,255,0.2); }
+
+    .v1-stats-row {
+      display: flex;
+      gap: 40px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      max-width: 600px;
+      flex-wrap: wrap;
+    }
+    .v1-stat strong {
+      display: block;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 2px;
+    }
+    .v1-stat strong .unit { color: var(--gold); }
+    .v1-stat span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 500;
+    }
+
+    .v1-card {
+      position: absolute;
+      bottom: 32px;
+      right: 36px;
+      background: rgba(255,255,255,0.96);
+      border-radius: 16px;
+      padding: 18px 22px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.30);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 320px;
+      animation: bobble 5s ease-in-out infinite;
+      z-index: 2;
+    }
+    @keyframes bobble {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+    .v1-card .icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--red), var(--red-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+    }
+    .v1-card .icon svg { width: 20px; height: 20px; }
+    .v1-card .label {
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .v1-card .title { font-size: 15px; font-weight: 700; color: var(--gray-900); margin-bottom: 1px; letter-spacing: -0.2px; }
+    .v1-card .sub { font-size: 12.5px; color: var(--gray-500); }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── VARIANT 2: Centered + email capture ───
+       ═══════════════════════════════════════════════════════════ */
+    .v2 {
+      position: relative;
+      padding: 80px 36px 70px;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,61,165,0.10), transparent 60%),
+        radial-gradient(ellipse 40% 50% at 90% 80%, rgba(220,20,50,0.06), transparent 60%),
+        linear-gradient(180deg, #fbfaf6 0%, var(--white) 100%);
+      overflow: hidden;
+      isolation: isolate;
+      text-align: center;
+    }
+    .v2::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(15,23,42,0.045) 1px, transparent 0);
+      background-size: 28px 28px;
+      mask-image: linear-gradient(180deg, transparent, black 30%, black 70%, transparent);
+      -webkit-mask-image: linear-gradient(180deg, transparent, black 30%, black 70%, transparent);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .v2-header {
+      max-width: 1180px;
+      margin: 0 auto 48px;
+      padding: 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .v2-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .v2-logo .badge {
+      background: var(--red);
+      color: white;
+      font-weight: 800;
+      font-size: 17px;
+      padding: 5px 11px;
+      border-radius: 5px;
+      letter-spacing: -0.3px;
+    }
+    .v2-logo .text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+    .v2-logo .text span {
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--gray-500);
+    }
+    .v2-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 50px;
+      padding: 7px 16px 7px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-bottom: 28px;
+      box-shadow: 0 2px 6px rgba(15,23,42,0.04);
+    }
+    .v2 h1 {
+      font-size: clamp(40px, 6.5vw, 88px);
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -3px;
+      color: var(--gray-900);
+      max-width: 980px;
+      margin: 0 auto 22px;
+    }
+    .v2 h1 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--red);
+    }
+    .v2 p.lead {
+      font-size: 19px;
+      color: var(--gray-600);
+      max-width: 620px;
+      margin: 0 auto 40px;
+      line-height: 1.55;
+    }
+
+    .v2-email-wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .v2-email {
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 50px;
+      padding: 6px 6px 6px 24px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 12px 36px rgba(15,23,42,0.08), 0 4px 10px rgba(15,23,42,0.04);
+      transition: all 0.2s var(--ease);
+    }
+    .v2-email:focus-within {
+      border-color: var(--red);
+      box-shadow: 0 0 0 4px rgba(220,20,50,0.12), 0 16px 44px rgba(15,23,42,0.10);
+    }
+    .v2-email .mail-ico {
+      color: var(--gray-400);
+      flex-shrink: 0;
+    }
+    .v2-email input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-family: inherit;
+      font-size: 16px;
+      padding: 12px 4px;
+      color: var(--gray-900);
+      background: transparent;
+      min-width: 0;
+    }
+    .v2-email input::placeholder { color: var(--gray-400); }
+    .v2-email button {
+      background: var(--gray-900);
+      color: white;
+      border: none;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 26px;
+      border-radius: 50px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s var(--ease);
+      flex-shrink: 0;
+    }
+    .v2-email button:hover { background: var(--red); }
+    .v2-email button::after { content: '→'; transition: transform 0.2s var(--ease); }
+    .v2-email button:hover::after { transform: translateX(3px); }
+
+    .v2-trust-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 22px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .v2-trust-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+    .v2-trust-item svg {
+      width: 14px; height: 14px;
+      color: #16a34a;
+    }
+
+    .v2-matches {
+      max-width: 1020px;
+      margin: 64px auto 0;
+    }
+    .v2-matches-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 18px;
+    }
+    .v2-matches-label .line {
+      width: 40px;
+      height: 1px;
+      background: var(--gray-300);
+    }
+    .v2-matches-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .match-card {
+      background: var(--white);
+      border: 1px solid var(--gray-150);
+      border-radius: 12px;
+      padding: 10px;
+      transition: all 0.25s var(--ease);
+      cursor: default;
+    }
+    .match-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(15,23,42,0.10); border-color: var(--gray-200); }
+    .match-img {
+      width: 100%;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .match-city {
+      font-size: 11px;
+      color: var(--gray-500);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .match-price {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--gray-900);
+      letter-spacing: -0.3px;
+    }
+    .match-card.placeholder {
+      background: var(--gray-100);
+      border: 1px dashed var(--gray-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 18px 12px;
+    }
+    .match-card.placeholder span {
+      font-size: 13px;
+      color: var(--gray-500);
+      font-weight: 600;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── VARIANT 3: Map + property pins ───
+       ═══════════════════════════════════════════════════════════ */
+    .v3 {
+      position: relative;
+      padding: 70px 36px 80px;
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, rgba(34,211,238,0.10), transparent 60%),
+        linear-gradient(180deg, #fafbfd 0%, var(--gray-100) 100%);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .v3-header {
+      max-width: 1200px;
+      margin: 0 auto 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .v3-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .v3-logo .badge {
+      background: var(--red);
+      color: white;
+      font-weight: 800;
+      font-size: 17px;
+      padding: 5px 11px;
+      border-radius: 5px;
+    }
+    .v3-logo .text { font-size: 14px; font-weight: 600; color: var(--gray-800); }
+    .v3-logo .text span { display: block; font-size: 11px; font-weight: 400; color: var(--gray-500); }
+    .v3-cta {
+      background: var(--gray-900);
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.2s var(--ease);
+    }
+    .v3-cta:hover { background: var(--red); }
+
+    .v3-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .v3-left .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(220,20,50,0.06);
+      color: var(--red);
+      border-radius: 50px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .v3-left .eyebrow .dot {
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+    }
+    .v3 h1 {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -1.8px;
+      margin-bottom: 22px;
+      color: var(--gray-900);
+    }
+    .v3 h1 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--red);
+    }
+    .v3 p.lead {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 480px;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .v3-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .v3-btn-primary {
+      background: var(--red);
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 15px 28px;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 28px rgba(220,20,50,0.32);
+      transition: all 0.25s var(--ease);
+    }
+    .v3-btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .v3-btn-primary .arrow { transition: transform 0.2s var(--ease); }
+    .v3-btn-primary:hover .arrow { transform: translateX(3px); }
+    .v3-link {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-700);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gray-300);
+      padding-bottom: 3px;
+      transition: all 0.2s var(--ease);
+    }
+    .v3-link:hover { color: var(--red); border-bottom-color: var(--red); }
+
+    .v3-stats {
+      display: flex;
+      gap: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-200);
+    }
+    .v3-stat strong {
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gray-900);
+      letter-spacing: -0.5px;
+    }
+    .v3-stat strong .unit { color: var(--red); }
+    .v3-stat span { font-size: 12.5px; color: var(--gray-500); font-weight: 500; }
+
+    /* Map */
+    .v3-map {
+      position: relative;
+      aspect-ratio: 5 / 4;
+      background:
+        radial-gradient(ellipse at 30% 40%, #e0f2fe 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 60%, #fce7f3 0%, transparent 50%),
+        linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border: 1px solid var(--gray-200);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(15,23,42,0.12), 0 8px 16px rgba(15,23,42,0.04);
+    }
+    .v3-map svg.map-shape {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .v3-map .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(15,23,42,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,23,42,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+    .v3-map-title {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: white;
+      padding: 8px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--gray-700);
+      box-shadow: 0 6px 18px rgba(15,23,42,0.10);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .v3-map-title svg { width: 14px; height: 14px; color: var(--red); }
+    .v3-pin {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: default;
+      transition: transform 0.2s var(--ease);
+    }
+    .v3-pin:hover { transform: translate(-50%, -104%); }
+    .v3-pin-marker {
+      position: relative;
+      width: 32px; height: 32px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(15,23,42,0.18), 0 0 0 4px rgba(255,255,255,0.85);
+    }
+    .v3-pin-marker svg { width: 14px; height: 14px; color: var(--gray-700); }
+    .v3-pin-marker::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 8px; height: 8px;
+      background: white;
+      box-shadow: 2px 2px 4px rgba(15,23,42,0.05);
+    }
+    .v3-pin.live .v3-pin-marker {
+      background: linear-gradient(135deg, var(--red), var(--red-light));
+      box-shadow: 0 6px 20px rgba(220,20,50,0.45), 0 0 0 5px rgba(220,20,50,0.16), 0 0 0 10px rgba(220,20,50,0.06);
+      animation: pinPulse 2s infinite;
+    }
+    .v3-pin.live .v3-pin-marker svg { color: white; }
+    .v3-pin.live .v3-pin-marker::after { background: var(--red-light); }
+    @keyframes pinPulse {
+      0%, 100% { box-shadow: 0 6px 20px rgba(220,20,50,0.45), 0 0 0 5px rgba(220,20,50,0.16), 0 0 0 10px rgba(220,20,50,0.06); }
+      50% { box-shadow: 0 6px 20px rgba(220,20,50,0.55), 0 0 0 8px rgba(220,20,50,0.20), 0 0 0 18px rgba(220,20,50,0.0); }
+    }
+    .v3-pin-label {
+      margin-top: 6px;
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(4px);
+      color: white;
+      padding: 3px 9px;
+      border-radius: 50px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .v3-pop {
+      position: absolute;
+      bottom: 24px;
+      right: 20px;
+      background: white;
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 16px 36px rgba(15,23,42,0.16);
+      max-width: 280px;
+      animation: bobble 5s ease-in-out infinite;
+    }
+    .v3-pop img {
+      width: 56px; height: 56px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .v3-pop-content { min-width: 0; }
+    .v3-pop-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.2px;
+      line-height: 1.2;
+      margin-bottom: 3px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .v3-pop-meta {
+      font-size: 11.5px;
+      color: var(--gray-500);
+      margin-bottom: 5px;
+    }
+    .v3-pop-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: white;
+      background: linear-gradient(135deg, var(--red), var(--red-light));
+      padding: 2px 8px;
+      border-radius: 50px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .v3-inner { grid-template-columns: 1fr; gap: 40px; }
+      .v3-map { aspect-ratio: 4/3; }
+      .v1-content { padding: 100px 24px 240px; }
+      .v1-card { left: 24px; right: 24px; bottom: 24px; max-width: none; }
+      .v2 h1, .v3 h1 { letter-spacing: -1.5px; }
+      .v2-matches-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .demo-header { padding: 40px 20px 24px; }
+      .v2 { padding: 64px 20px 56px; }
+      .v3 { padding: 56px 20px; }
+      .v1-header, .v2-header, .v3-header { padding-left: 20px; padding-right: 20px; }
+      .v2-email { flex-direction: column; padding: 14px; border-radius: 16px; }
+      .v2-email input { width: 100%; }
+      .v2-email button { width: 100%; justify-content: center; }
+      .v3-stats { gap: 18px; flex-wrap: wrap; }
+      .variant-tag { padding-left: 20px; padding-right: 20px; }
+    }
+
+    /* Variant switcher */
+    .variant-switch {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--gray-900);
+      border-radius: 50px;
+      padding: 6px;
+      display: flex;
+      gap: 4px;
+      z-index: 100;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    .variant-switch a {
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.2s var(--ease);
+    }
+    .variant-switch a:hover { color: white; }
+    .variant-switch a.active { background: white; color: var(--gray-900); }
+  </style>
+</head>
+<body>
+
+<div class="demo-header">
+  <h1>Banner-<span class="accent">variaties</span></h1>
+  <p>Drie verschillende invalshoeken voor de hoofdbanner, in dezelfde moderne stijl. Bekijk ze, kies je favoriet, en ik bouw 'm in de hoofdpagina.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ─── VARIATIE 1: PHOTO IMMERSION ───
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="num">1</span>
+    <span class="title">Photo immersion</span>
+    <span class="desc">grote architectuurfoto als achtergrond, tekst eroverheen, glassmorphic kaart rechtsonder</span>
+  </div>
+
+  <div class="banner-frame">
+    <section class="v1">
+      <header class="v1-header">
+        <div class="v1-logo">
+          <span class="badge">RE/MAX</span>
+          <span class="text">De Woonspecialist <span>Utrecht &amp; omgeving</span></span>
+        </div>
+        <a href="#" class="v1-header-cta">Gratis aanmelden →</a>
+      </header>
+
+      <div class="v1-content">
+        <div class="v1-eyebrow">
+          <span class="pulse-dot"></span>
+          Live · Utrecht-provincie
+        </div>
+        <h1>Jouw volgende thuis, <span class="accent">vóór</span> de rest het ziet.</h1>
+        <p class="lead">Wij sturen je woningen rechtstreeks in je inbox — nog vóórdat ze op Funda verschijnen. Persoonlijk, gratis, geen verplichtingen.</p>
+        <div class="v1-cta">
+          <a href="#" class="btn-red">
+            Start gratis zoekopdracht
+            <span class="arrow">→</span>
+          </a>
+          <a href="#" class="btn-glass">Hoe werkt het?</a>
+        </div>
+        <div class="reviews-badge">
+          <span class="g-logo"></span>
+          <span class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </span>
+          <strong>4,9</strong>
+          <span>· 87 Google reviews</span>
+        </div>
+        <div class="v1-stats-row" style="margin-top:36px;">
+          <div class="v1-stat">
+            <strong>48<span class="unit">u</span></strong>
+            <span>eerder dan Funda</span>
+          </div>
+          <div class="v1-stat">
+            <strong>100<span class="unit">%</span></strong>
+            <span>gratis &amp; vrijblijvend</span>
+          </div>
+          <div class="v1-stat">
+            <strong>10<span class="unit">+</span> jr</strong>
+            <span>in Utrecht actief</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="v1-card">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        </div>
+        <div>
+          <div class="label">Nieuwe match</div>
+          <div class="title">Stationsweg 24, Houten</div>
+          <div class="sub">128 m² · 4 slpk · €425k</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ─── VARIATIE 2: CENTERED + EMAIL CAPTURE ───
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="num">2</span>
+    <span class="title">Email-first</span>
+    <span class="desc">gecentreerd, prominente e-mail-invoer, strip met recente matches eronder</span>
+  </div>
+
+  <div class="banner-frame">
+    <section class="v2">
+      <header class="v2-header">
+        <div class="v2-logo">
+          <span class="badge">RE/MAX</span>
+          <span class="text">De Woonspecialist <span>Utrecht &amp; omgeving</span></span>
+        </div>
+        <div class="reviews-badge light">
+          <span class="g-logo"></span>
+          <span class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </span>
+          <strong>4,9</strong>
+          <span>· 87 reviews</span>
+        </div>
+      </header>
+
+      <div class="v2-eyebrow">
+        <span class="pulse-dot"></span>
+        127 actieve zoekopdrachten in Utrecht
+      </div>
+      <h1>Krijg woningen <span class="accent">vóór</span> ze op Funda staan.</h1>
+      <p class="lead">Eén e-mailadres. Persoonlijk afgestemd aanbod uit Utrecht-provincie. Gratis, geen verplichtingen.</p>
+
+      <form class="v2-email-wrap" onsubmit="event.preventDefault(); alert('Demo — dit is alleen het banner-ontwerp');">
+        <div class="v2-email">
+          <svg class="mail-ico" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input type="email" placeholder="jouw@email.nl" required />
+          <button type="submit">Ja, ik wil matches</button>
+        </div>
+      </form>
+
+      <div class="v2-trust-row">
+        <span class="v2-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Geen spam
+        </span>
+        <span class="v2-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Altijd uitschrijfbaar
+        </span>
+        <span class="v2-trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          100% gratis
+        </span>
+      </div>
+
+      <div class="v2-matches">
+        <div class="v2-matches-label">
+          <span class="line"></span>
+          Recent gematched
+          <span class="line"></span>
+        </div>
+        <div class="v2-matches-strip">
+          <div class="match-card">
+            <img class="match-img" src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=240&h=160&fit=crop&q=80" alt="" onerror="this.src='https://picsum.photos/seed/woning-1/240/160'" />
+            <div class="match-city">Houten</div>
+            <div class="match-price">€ 425.000</div>
+          </div>
+          <div class="match-card">
+            <img class="match-img" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=240&h=160&fit=crop&q=80" alt="" onerror="this.src='https://picsum.photos/seed/woning-2/240/160'" />
+            <div class="match-city">Zeist</div>
+            <div class="match-price">€ 685.000</div>
+          </div>
+          <div class="match-card">
+            <img class="match-img" src="https://images.unsplash.com/photo-1592595896616-c37162298647?w=240&h=160&fit=crop&q=80" alt="" onerror="this.src='https://picsum.photos/seed/woning-3/240/160'" />
+            <div class="match-city">De Bilt</div>
+            <div class="match-price">€ 520.000</div>
+          </div>
+          <div class="match-card placeholder">
+            <span>+ 23 deze week<br />in jouw regio</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ─── VARIATIE 3: MAP + PROPERTY PINS ───
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="num">3</span>
+    <span class="title">Map &amp; pins</span>
+    <span class="desc">gestileerde Utrecht-kaart rechts met live-pins per stad, één pin geeft actieve match</span>
+  </div>
+
+  <div class="banner-frame">
+    <section class="v3">
+      <header class="v3-header">
+        <div class="v3-logo">
+          <span class="badge">RE/MAX</span>
+          <span class="text">De Woonspecialist <span>Utrecht &amp; omgeving</span></span>
+        </div>
+        <a href="#" class="v3-cta">Gratis aanmelden →</a>
+      </header>
+
+      <div class="v3-inner">
+        <div class="v3-left">
+          <span class="eyebrow">
+            <span class="dot"></span>
+            Live · Utrecht-provincie
+          </span>
+          <h1>Jouw zoekopdracht, <span class="accent">overal</span> in Utrecht.</h1>
+          <p class="lead">Eén formulier, het hele provinciale netwerk. Zodra er ergens een match opduikt, krijg jij als eerste een mail — vaak nog vóór Funda.</p>
+          <div class="v3-actions">
+            <a href="#" class="v3-btn-primary">
+              Start gratis zoekopdracht
+              <span class="arrow">→</span>
+            </a>
+            <a href="#" class="v3-link">Hoe werkt het →</a>
+          </div>
+          <div class="reviews-badge light" style="margin-bottom:24px;">
+            <span class="g-logo"></span>
+            <span class="stars">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </span>
+            <strong>4,9</strong>
+            <span>· 87 Google reviews</span>
+          </div>
+          <div class="v3-stats">
+            <div class="v3-stat">
+              <strong>48<span class="unit">u</span></strong>
+              <span>eerder dan Funda</span>
+            </div>
+            <div class="v3-stat">
+              <strong>127</strong>
+              <span>actieve zoekers</span>
+            </div>
+            <div class="v3-stat">
+              <strong>11</strong>
+              <span>gemeenten</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="v3-map">
+          <div class="grid-bg"></div>
+
+          <!-- Stylized Utrecht-province shape -->
+          <svg class="map-shape" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <defs>
+              <linearGradient id="prov-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#ffffff" stop-opacity="0.55"/>
+              </linearGradient>
+            </defs>
+            <path
+              d="M85 165 L115 110 L170 80 L240 75 L300 90 L355 105 L405 125 L430 170 L420 220 L405 270 L370 305 L330 320 L275 330 L220 325 L170 305 L130 280 L100 240 L85 195 Z"
+              fill="url(#prov-fill)"
+              stroke="rgba(15,23,42,0.18)"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M85 165 L115 110 L170 80 L240 75 L300 90 L355 105 L405 125 L430 170 L420 220 L405 270 L370 305 L330 320 L275 330 L220 325 L170 305 L130 280 L100 240 L85 195 Z"
+              fill="none"
+              stroke="rgba(220,20,50,0.0)"
+              stroke-width="1"
+              stroke-dasharray="4 6"
+            />
+          </svg>
+
+          <div class="v3-map-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Utrecht-provincie · live
+          </div>
+
+          <!-- Pins -->
+          <div class="v3-pin" style="top: 45%; left: 38%;">
+            <div class="v3-pin-marker">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span class="v3-pin-label">Utrecht stad</span>
+          </div>
+
+          <div class="v3-pin" style="top: 32%; left: 58%;">
+            <div class="v3-pin-marker">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span class="v3-pin-label">Amersfoort</span>
+          </div>
+
+          <div class="v3-pin live" style="top: 52%; left: 50%;">
+            <div class="v3-pin-marker">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span class="v3-pin-label" style="background: var(--red);">Houten · nieuw</span>
+          </div>
+
+          <div class="v3-pin" style="top: 38%; left: 70%;">
+            <div class="v3-pin-marker">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span class="v3-pin-label">Zeist</span>
+          </div>
+
+          <div class="v3-pin" style="top: 62%; left: 28%;">
+            <div class="v3-pin-marker">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            </div>
+            <span class="v3-pin-label">Woerden</span>
+          </div>
+
+          <div class="v3-pop">
+            <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=160&h=160&fit=crop&q=80" alt="" onerror="this.src='https://picsum.photos/seed/match-pop/120/120'" />
+            <div class="v3-pop-content">
+              <div class="v3-pop-title">Stationsweg 24</div>
+              <div class="v3-pop-meta">Houten · 128m² · €425k</div>
+              <span class="v3-pop-tag">● Pré-Funda</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div style="text-align:center; padding: 24px 32px 80px; max-width: 720px; margin: 0 auto;">
+  <p style="font-size: 15px; color: var(--gray-500); line-height: 1.6;">
+    Welke spreekt je het meeste aan? Laat het weten, dan integreer ik 'm in
+    <a href="index.html" style="color: var(--red); font-weight: 600;">index.html</a>.
+  </p>
+</div>
+
+<nav class="variant-switch" aria-label="Variant">
+  <a href="index.html">Modern</a>
+  <a href="index-banners.html" class="active">Banners</a>
+  <a href="index-nocturne.html">Nocturne</a>
+  <a href="index-linen.html">Linen</a>
+  <a href="index-editorial.html">Editorial</a>
+  <a href="index-bold.html">Bold</a>
+</nav>
+
+</body>
+</html>

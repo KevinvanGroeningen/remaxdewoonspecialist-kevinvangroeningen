@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stappenplan-alternatieven · REMAX De Woonspecialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Archivo+Black&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #DC1432;
+      --red-dark: #b8102a;
+      --red-light: #ff4d6d;
+      --blue: #003DA5;
+      --blue-deeper: #00184a;
+      --white: #ffffff;
+      --gray-50: #fafbfc;
+      --gray-100: #f4f5f7;
+      --gray-150: #eceef2;
+      --gray-200: #e3e6eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #0f172a;
+      --shadow-sm: 0 2px 4px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+      --shadow-md: 0 6px 16px rgba(15,23,42,0.08), 0 2px 4px rgba(15,23,42,0.04);
+      --shadow-lg: 0 16px 40px rgba(15,23,42,0.12), 0 4px 12px rgba(15,23,42,0.05);
+      --ease: cubic-bezier(.16,.84,.32,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--gray-900);
+      background: var(--gray-50);
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+
+    /* ─── Page wrapper ─── */
+    .demo-header {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 32px 32px;
+    }
+    .demo-header h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1.2px;
+      color: var(--gray-900);
+      margin-bottom: 10px;
+    }
+    .demo-header h1 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--red);
+    }
+    .demo-header p {
+      font-size: 16px;
+      color: var(--gray-500);
+      max-width: 720px;
+    }
+    .variant-block { margin-bottom: 80px; }
+    .variant-tag {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .variant-tag .letter {
+      width: 36px; height: 36px;
+      background: var(--gray-900);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 16px;
+    }
+    .variant-tag .title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.5px;
+    }
+    .variant-tag .desc {
+      font-size: 14px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+    .variant-tag .desc::before {
+      content: '·';
+      margin-right: 8px;
+      color: var(--gray-300);
+    }
+    .frame {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(15,23,42,0.10), 0 8px 24px rgba(15,23,42,0.05);
+      padding: 80px 36px;
+    }
+    .frame-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 56px;
+    }
+    .frame-header h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      color: var(--gray-900);
+      letter-spacing: -1.2px;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    .frame-header h2 .accent {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--red);
+    }
+    .frame-header p {
+      color: var(--gray-500);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── A. Vertical Zigzag Timeline ───
+       ═══════════════════════════════════════════════════════════ */
+    .timeline-zigzag {
+      max-width: 980px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .timeline-zigzag::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 50%;
+      width: 2px;
+      background: repeating-linear-gradient(180deg, var(--gray-200) 0 6px, transparent 6px 12px);
+      transform: translateX(-50%);
+    }
+    .tz-step {
+      position: relative;
+      padding: 16px 0;
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      align-items: center;
+      gap: 0;
+    }
+    .tz-card {
+      background: var(--white);
+      border: 1px solid var(--gray-150);
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s var(--ease);
+    }
+    .tz-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--gray-200);
+    }
+    .tz-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.3px;
+      margin-bottom: 8px;
+    }
+    .tz-card p {
+      font-size: 14.5px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+    .tz-dot {
+      width: 48px;
+      height: 48px;
+      background: var(--white);
+      border: 2px solid var(--gray-200);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--gray-700);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s var(--ease);
+    }
+    .tz-step:hover .tz-dot {
+      border-color: var(--red);
+      color: var(--red);
+      transform: scale(1.08);
+    }
+    .tz-step.highlight .tz-dot {
+      background: linear-gradient(135deg, var(--red), var(--red-light));
+      border-color: var(--red);
+      color: var(--white);
+      box-shadow: 0 8px 20px rgba(220,20,50,0.30);
+    }
+    .tz-step.highlight .tz-card {
+      border-color: rgba(220,20,50,0.25);
+      background: linear-gradient(180deg, var(--white), #fff8f9);
+    }
+    .tz-step.highlight .gratis-tag {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 50px;
+      margin-bottom: 10px;
+    }
+    /* Left side */
+    .tz-step.left .tz-card { grid-column: 1; text-align: right; }
+    .tz-step.left .tz-card { margin-right: 24px; }
+    /* Right side */
+    .tz-step.right .tz-card { grid-column: 3; }
+    .tz-step.right .tz-card { margin-left: 24px; }
+    /* Dot always in middle */
+    .tz-step .tz-dot { grid-column: 2; }
+    /* Connector lines */
+    .tz-step .tz-connector {
+      position: absolute;
+      top: 50%;
+      width: 24px;
+      height: 2px;
+      background: var(--gray-200);
+    }
+    .tz-step.left .tz-connector { right: 50%; margin-right: 24px; }
+    .tz-step.right .tz-connector { left: 50%; margin-left: 24px; }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── B. Stacked horizontal strips ───
+       ═══════════════════════════════════════════════════════════ */
+    .strips {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .strip {
+      background: var(--white);
+      border: 1px solid var(--gray-150);
+      border-radius: 16px;
+      padding: 28px 32px;
+      display: grid;
+      grid-template-columns: 90px 1.4fr 1fr;
+      gap: 28px;
+      align-items: center;
+      transition: all 0.3s var(--ease);
+      position: relative;
+    }
+    .strip:hover {
+      transform: translateX(6px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--gray-200);
+    }
+    .strip-num {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 56px;
+      color: var(--gray-200);
+      line-height: 1;
+      letter-spacing: -2px;
+      transition: color 0.3s var(--ease);
+    }
+    .strip:hover .strip-num { color: var(--red-light); }
+    .strip-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.4px;
+      line-height: 1.2;
+    }
+    .strip-title small {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .strip-desc {
+      font-size: 15px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+    .strip.highlight {
+      background: linear-gradient(135deg, var(--white), #fff8f9);
+      border-color: rgba(220,20,50,0.25);
+      box-shadow: 0 12px 28px rgba(220,20,50,0.08);
+    }
+    .strip.highlight .strip-num {
+      color: var(--red);
+    }
+    .strip.highlight::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12px; bottom: 12px;
+      width: 4px;
+      background: linear-gradient(180deg, var(--red), var(--red-light));
+      border-radius: 0 4px 4px 0;
+    }
+    .strip-gratis-pill {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 50px;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ─── C. Numbered path with progress line ───
+       ═══════════════════════════════════════════════════════════ */
+    .path {
+      position: relative;
+      padding-top: 24px;
+    }
+    .path-track {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 18px;
+      position: relative;
+    }
+    .path-line {
+      position: absolute;
+      top: 22px;
+      left: 7%;
+      right: 7%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--red) 0%, var(--red-light) 12%, var(--gray-200) 14%, var(--gray-200) 100%);
+      border-radius: 50px;
+      z-index: 0;
+    }
+    .path-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .path-circle {
+      width: 44px; height: 44px;
+      background: var(--white);
+      border: 3px solid var(--gray-300);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--gray-700);
+      margin-bottom: 16px;
+      transition: all 0.3s var(--ease);
+      position: relative;
+      z-index: 1;
+    }
+    .path-step:hover .path-circle {
+      border-color: var(--red);
+      color: var(--red);
+      transform: scale(1.08);
+    }
+    .path-step.highlight .path-circle {
+      background: linear-gradient(135deg, var(--red), var(--red-light));
+      border-color: var(--red);
+      color: var(--white);
+      box-shadow: 0 8px 20px rgba(220,20,50,0.35);
+    }
+    .path-step.highlight .path-circle::after {
+      content: 'GRATIS';
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--red);
+      background: rgba(220,20,50,0.10);
+      padding: 3px 7px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+    .path-card {
+      background: var(--white);
+      border: 1px solid var(--gray-150);
+      border-radius: 12px;
+      padding: 18px 16px;
+      width: 100%;
+      transition: all 0.3s var(--ease);
+      min-height: 130px;
+    }
+    .path-step:hover .path-card {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--gray-200);
+    }
+    .path-step.highlight .path-card {
+      background: linear-gradient(180deg, var(--white), #fff8f9);
+      border-color: rgba(220,20,50,0.25);
+    }
+    .path-card h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.2px;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+    .path-card p {
+      font-size: 12.5px;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .frame { padding: 56px 22px; }
+      .timeline-zigzag::before { left: 24px; }
+      .tz-step { grid-template-columns: 48px 1fr; }
+      .tz-step .tz-dot { grid-column: 1; }
+      .tz-step.left .tz-card,
+      .tz-step.right .tz-card {
+        grid-column: 2;
+        margin-left: 16px;
+        margin-right: 0;
+        text-align: left;
+      }
+      .tz-step .tz-connector { display: none; }
+
+      .strip { grid-template-columns: 64px 1fr; padding: 22px; }
+      .strip-num { font-size: 38px; }
+      .strip-desc { grid-column: 1 / -1; padding-top: 8px; border-top: 1px solid var(--gray-150); margin-top: 8px; }
+
+      .path-track { grid-template-columns: 1fr; gap: 12px; }
+      .path-line { display: none; }
+      .path-step { flex-direction: row; align-items: center; text-align: left; gap: 16px; }
+      .path-circle { margin-bottom: 0; flex-shrink: 0; }
+      .path-card { min-height: 0; flex: 1; }
+    }
+
+    /* Variant switcher */
+    .variant-switch {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--gray-900);
+      border-radius: 50px;
+      padding: 6px;
+      display: flex;
+      gap: 4px;
+      z-index: 100;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+    }
+    .variant-switch a {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.60);
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.2s var(--ease);
+    }
+    .variant-switch a:hover { color: white; }
+    .variant-switch a.active { background: var(--red); color: white; font-weight: 700; }
+
+    /* Demo footer */
+    .demo-footer {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 32px 100px;
+      text-align: center;
+    }
+    .demo-footer p {
+      font-size: 15px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+    .demo-footer a { color: var(--red); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<div class="demo-header">
+  <h1>Stappenplan-<span class="accent">alternatieven</span></h1>
+  <p>Drie layouts om de 7 stappen visueel aantrekkelijker te tonen. Allemaal in dezelfde REMAX-huisstijl. Kies een variant, dan integreer ik 'm in <a href="index.html" style="color:var(--red);font-weight:600;">index.html</a>.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     A. Vertical Zigzag Timeline
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="letter">A</span>
+    <span class="title">Vertical zigzag-timeline</span>
+    <span class="desc">cards alterneren links/rechts langs centrale lijn · journey-gevoel</span>
+  </div>
+
+  <div class="frame">
+    <div class="frame-header">
+      <h2>Van zoekopdracht tot <span class="accent">eindinspectie</span></h2>
+      <p>Het hele aankooptraject in zeven stappen.</p>
+    </div>
+
+    <div class="timeline-zigzag">
+
+      <div class="tz-step left highlight">
+        <div class="tz-card">
+          <span class="gratis-tag">Gratis &amp; vrijblijvend</span>
+          <h3>Gratis zoekopdracht</h3>
+          <p>Wij filteren de markt voor jou. Passende woningen, vaak 48 uur vóór Funda, rechtstreeks in je inbox.</p>
+        </div>
+        <div class="tz-connector"></div>
+        <div class="tz-dot">1</div>
+      </div>
+
+      <div class="tz-step right">
+        <div class="tz-dot">2</div>
+        <div class="tz-connector"></div>
+        <div class="tz-card">
+          <h3>Kennismaking</h3>
+          <p>Vrijblijvend gesprek (telefoon of bij ons op kantoor). We bespreken jouw wensen en hoe wij werken.</p>
+        </div>
+      </div>
+
+      <div class="tz-step left">
+        <div class="tz-card">
+          <h3>Bezichtiging samen</h3>
+          <p>Afhankelijk van jouw behoefte gaan we mee — ervaren oog voor staat, ligging en verkoopbaarheid.</p>
+        </div>
+        <div class="tz-connector"></div>
+        <div class="tz-dot">3</div>
+      </div>
+
+      <div class="tz-step right">
+        <div class="tz-dot">4</div>
+        <div class="tz-connector"></div>
+        <div class="tz-card">
+          <h3>Documenten controleren</h3>
+          <p>VvE-stukken, eigendomsbewijs, energielabel, bestemmingsplan — juridische check vóór je biedt.</p>
+        </div>
+      </div>
+
+      <div class="tz-step left">
+        <div class="tz-card">
+          <h3>Bieden &amp; onderhandelen</h3>
+          <p>Strategisch bod, scherpe ontbindende voorwaarden, harde onderhandeling op prijs én voorwaarden.</p>
+        </div>
+        <div class="tz-connector"></div>
+        <div class="tz-dot">5</div>
+      </div>
+
+      <div class="tz-step right">
+        <div class="tz-dot">6</div>
+        <div class="tz-connector"></div>
+        <div class="tz-card">
+          <h3>Koopakte controleren</h3>
+          <p>Regel voor regel doorlopen. Voorwaarden bewaakt, valkuilen eruit, jouw belangen verankerd.</p>
+        </div>
+      </div>
+
+      <div class="tz-step left">
+        <div class="tz-card">
+          <h3>Eindinspectie &amp; overdracht</h3>
+          <p>Samen bij de eindinspectie en sleuteloverdracht. Pas wanneer alles in orde is, teken je.</p>
+        </div>
+        <div class="tz-connector"></div>
+        <div class="tz-dot">7</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     B. Stacked horizontal strips
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="letter">B</span>
+    <span class="title">Stacked stripes</span>
+    <span class="desc">volledige breedte per stap · groot nummer · magazine-stijl</span>
+  </div>
+
+  <div class="frame">
+    <div class="frame-header">
+      <h2>Van zoekopdracht tot <span class="accent">eindinspectie</span></h2>
+      <p>Het hele aankooptraject in zeven stappen.</p>
+    </div>
+
+    <div class="strips">
+
+      <div class="strip highlight">
+        <div class="strip-num">01</div>
+        <div class="strip-title">
+          <small>Stap 1 · Entree</small>
+          Gratis zoekopdracht <span class="strip-gratis-pill">Gratis</span>
+        </div>
+        <div class="strip-desc">Wij filteren de markt voor jou. Passende woningen, vaak 48 uur vóór Funda, rechtstreeks in je inbox.</div>
+      </div>
+
+      <div class="strip">
+        <div class="strip-num">02</div>
+        <div class="strip-title">
+          <small>Stap 2 · Persoonlijk</small>
+          Kennismaking
+        </div>
+        <div class="strip-desc">Vrijblijvend gesprek (telefoon of bij ons op kantoor). We bespreken jouw wensen en hoe wij werken.</div>
+      </div>
+
+      <div class="strip">
+        <div class="strip-num">03</div>
+        <div class="strip-title">
+          <small>Stap 3 · Op locatie</small>
+          Bezichtiging samen
+        </div>
+        <div class="strip-desc">Afhankelijk van jouw behoefte gaan we mee — ervaren oog voor staat, ligging en verkoopbaarheid.</div>
+      </div>
+
+      <div class="strip">
+        <div class="strip-num">04</div>
+        <div class="strip-title">
+          <small>Stap 4 · Juridisch</small>
+          Documenten controleren
+        </div>
+        <div class="strip-desc">VvE-stukken, eigendomsbewijs, energielabel, bestemmingsplan — juridische check vóór je een bod uitbrengt.</div>
+      </div>
+
+      <div class="strip">
+        <div class="strip-num">05</div>
+        <div class="strip-title">
+          <small>Stap 5 · Strategie</small>
+          Bieden &amp; onderhandelen
+        </div>
+        <div class="strip-desc">Strategisch bod, scherpe ontbindende voorwaarden, harde onderhandeling op prijs én voorwaarden.</div>
+      </div>
+
+      <div class="strip">
+        <div class="strip-num">06</div>
+        <div class="strip-title">
+          <small>Stap 6 · Contract</small>
+          Koopakte controleren
+        </div>
+        <div class="strip-desc">Wij lopen de koopakte regel voor regel door. Voorwaarden bewaakt, valkuilen eruit, jouw belangen verankerd.</div>
+      </div>
+
+      <div class="strip">
+        <div class="strip-num">07</div>
+        <div class="strip-title">
+          <small>Stap 7 · Afronding</small>
+          Eindinspectie &amp; overdracht
+        </div>
+        <div class="strip-desc">Samen bij de eindinspectie en sleuteloverdracht. Pas wanneer alles in orde is, teken je.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     C. Numbered path with progress line
+     ═══════════════════════════════════════════════════════════ -->
+<div class="variant-block">
+  <div class="variant-tag">
+    <span class="letter">C</span>
+    <span class="title">Numbered path</span>
+    <span class="desc">alle 7 in één rij compact · doorlopende lijn · lineair en visueel</span>
+  </div>
+
+  <div class="frame">
+    <div class="frame-header">
+      <h2>Van zoekopdracht tot <span class="accent">eindinspectie</span></h2>
+      <p>Het hele aankooptraject in zeven stappen.</p>
+    </div>
+
+    <div class="path">
+      <div class="path-line"></div>
+      <div class="path-track">
+
+        <div class="path-step highlight">
+          <div class="path-circle">1</div>
+          <div class="path-card">
+            <h4>Gratis zoekopdracht</h4>
+            <p>Matches in je inbox, vaak 48u vóór Funda.</p>
+          </div>
+        </div>
+
+        <div class="path-step">
+          <div class="path-circle">2</div>
+          <div class="path-card">
+            <h4>Kennismaking</h4>
+            <p>Vrijblijvend gesprek over jouw wensen.</p>
+          </div>
+        </div>
+
+        <div class="path-step">
+          <div class="path-circle">3</div>
+          <div class="path-card">
+            <h4>Bezichtiging samen</h4>
+            <p>Afhankelijk van jouw behoefte gaan we mee.</p>
+          </div>
+        </div>
+
+        <div class="path-step">
+          <div class="path-circle">4</div>
+          <div class="path-card">
+            <h4>Documenten controleren</h4>
+            <p>Juridische check vóór je biedt.</p>
+          </div>
+        </div>
+
+        <div class="path-step">
+          <div class="path-circle">5</div>
+          <div class="path-card">
+            <h4>Bieden &amp; onderhandelen</h4>
+            <p>Strategisch bod, scherpe voorwaarden.</p>
+          </div>
+        </div>
+
+        <div class="path-step">
+          <div class="path-circle">6</div>
+          <div class="path-card">
+            <h4>Koopakte controleren</h4>
+            <p>Regel voor regel doorlopen.</p>
+          </div>
+        </div>
+
+        <div class="path-step">
+          <div class="path-circle">7</div>
+          <div class="path-card">
+            <h4>Eindinspectie &amp; overdracht</h4>
+            <p>Samen tot bij de sleuteloverdracht.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="demo-footer">
+  <p>Welke spreekt je het meest aan? Laat het weten — ik integreer 'm meteen in <a href="index.html">index.html</a>.</p>
+</div>
+
+<nav class="variant-switch" aria-label="Stappenplan variant">
+  <a href="index.html">Huidig</a>
+  <a href="index-steps-alts.html" class="active">Alternatieven</a>
+</nav>
+
+</body>
+</html>
