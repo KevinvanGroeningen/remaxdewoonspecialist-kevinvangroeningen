@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Block design-variant references from indexing
+Disallow: /_design-variants/
+
+Sitemap: https://kevin-vangroeningen.nl/sitemap.xml

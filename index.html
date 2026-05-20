@@ -3,8 +3,84 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aankoopmakelaar Utrecht | REMAX De Woonspecialist</title>
-  <meta name="description" content="Aankoopbegeleiding in Utrecht & omgeving — van zoekopdracht tot eindinspectie. Begin gratis en vrijblijvend met een persoonlijke zoekopdracht via REMAX De Woonspecialist." />
+  <title>Aankoopmakelaar Utrecht | Kevin van Groeningen — REMAX De Woonspecialist</title>
+  <meta name="description" content="Aankoopbegeleiding in Utrecht & omgeving door Kevin van Groeningen — van zoekopdracht tot eindinspectie. Begin gratis en vrijblijvend met een persoonlijke zoekopdracht via REMAX De Woonspecialist." />
+  <meta name="keywords" content="aankoopmakelaar Utrecht, REMAX, aankoopbegeleiding, woning kopen Utrecht, Kevin van Groeningen, hypotheekadvies Utrecht" />
+  <meta name="author" content="Kevin van Groeningen" />
+
+  <!-- Canonical + hreflang -->
+  <link rel="canonical" href="https://kevin-vangroeningen.nl/" />
+  <link rel="alternate" hreflang="nl" href="https://kevin-vangroeningen.nl/" />
+  <link rel="alternate" hreflang="en" href="https://kevin-vangroeningen.nl/index-en.html" />
+  <link rel="alternate" hreflang="x-default" href="https://kevin-vangroeningen.nl/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="nl_NL" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:site_name" content="REMAX De Woonspecialist" />
+  <meta property="og:title" content="Aankoopmakelaar Utrecht — Aankoopbegeleiding vóór Funda begint" />
+  <meta property="og:description" content="Kevin van Groeningen begeleidt jouw aankoop in Utrecht: van zoekopdracht tot eindinspectie. Start gratis en vrijblijvend met een persoonlijke zoekopdracht." />
+  <meta property="og:image" content="https://kevin-vangroeningen.nl/utrecht.avif" />
+  <meta property="og:image:width" content="1600" />
+  <meta property="og:image:height" content="900" />
+  <meta property="og:image:alt" content="Utrechtse gracht — aankoopbegeleiding in Utrecht" />
+  <meta property="og:url" content="https://kevin-vangroeningen.nl/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Aankoopmakelaar Utrecht — REMAX De Woonspecialist" />
+  <meta name="twitter:description" content="Aankoopbegeleiding in Utrecht & omgeving — van zoekopdracht tot eindinspectie. Gratis en vrijblijvend starten." />
+  <meta name="twitter:image" content="https://kevin-vangroeningen.nl/utrecht.avif" />
+
+  <!-- Favicon (placeholder — vervang met eigen icon) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%23DC1432'/%3E%3Ctext x='50' y='66' font-family='Inter,sans-serif' font-weight='900' font-size='52' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E" />
+
+  <!-- Schema.org structured data — RealEstateAgent -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "@id": "https://kevin-vangroeningen.nl/#agent",
+    "name": "Kevin van Groeningen — REMAX De Woonspecialist",
+    "url": "https://kevin-vangroeningen.nl/",
+    "image": "https://kevin-vangroeningen.nl/kevin.jpg",
+    "telephone": "+31624419419",
+    "email": "kevinvangroeningen@remax.nl",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Musicallaan 5",
+      "addressLocality": "Utrecht",
+      "addressRegion": "Utrecht",
+      "postalCode": "3543 GS",
+      "addressCountry": "NL"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Utrecht" },
+      { "@type": "City", "name": "Amersfoort" },
+      { "@type": "City", "name": "Zeist" },
+      { "@type": "City", "name": "Houten" },
+      { "@type": "City", "name": "Nieuwegein" },
+      { "@type": "City", "name": "Woerden" },
+      { "@type": "City", "name": "De Bilt" },
+      { "@type": "AdministrativeArea", "name": "Provincie Utrecht" }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "87",
+      "bestRating": "5"
+    },
+    "parentOrganization": {
+      "@type": "Organization",
+      "name": "RE/MAX Nederland",
+      "url": "https://www.remax.nl"
+    },
+    "knowsLanguage": ["nl", "en"]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
@@ -3124,6 +3200,9 @@
 
       <form id="zoekForm" novalidate>
 
+        <!-- Honeypot anti-spam (verborgen voor mensen, bots vullen het in) -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" aria-hidden="true" />
+
         <!-- STAP 1: contactgegevens -->
         <div class="form-step active" id="step1">
           <div class="step-intro">
@@ -3396,14 +3475,6 @@
     </p>
   </div>
 </footer>
-
-<nav class="variant-switch" aria-label="Variant">
-  <a href="index.html" class="active">Modern</a>
-  <a href="index-nocturne.html">Nocturne</a>
-  <a href="index-linen.html">Linen</a>
-  <a href="index-editorial.html">Editorial</a>
-  <a href="index-bold.html">Bold</a>
-</nav>
 
 <script>
   // ─── Chip toggle (checkbox + radio) ───
@@ -3875,11 +3946,23 @@
       bron: 'landing-aankoopbegeleiding'
     };
 
+    // Honeypot check — bots fill hidden fields
+    const honeypot = form.querySelector('input[name="_gotcha"]');
+    if (honeypot && honeypot.value) return; // silently drop bot submissions
+
+    // FORMSPREE ENDPOINT — vervang YOUR_FORM_ID met je eigen Formspree form ID
+    // → Account aanmaken op https://formspree.io/ → new form → kopieer "endpoint"
+    const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
     try {
-      const res = await fetch('/api/aanmelden', {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          ...payload,
+          _replyto: email,
+          _subject: `Nieuwe gratis zoekopdracht — ${voornaam} ${achternaam}`
+        })
       });
       if (!res.ok) throw new Error('Server error');
       document.getElementById('zoekForm').style.display = 'none';
