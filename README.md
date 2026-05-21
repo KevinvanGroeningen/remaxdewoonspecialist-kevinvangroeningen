@@ -1,90 +1,92 @@
 # REMAX De Woonspecialist — Aankoopmakelaar Utrecht
 
-Landingspagina voor Kevin van Groeningen, aankoopmakelaar bij REMAX De Woonspecialist in Utrecht. Bezoekers kunnen een gratis & vrijblijvende persoonlijke zoekopdracht starten, en optioneel een gratis hypotheekgesprek aanvragen.
+Landingspagina + Node.js backend voor Kevin van Groeningen, aankoopmakelaar bij REMAX De Woonspecialist in Utrecht. Bezoekers starten een gratis & vrijblijvende persoonlijke zoekopdracht; submissies worden opgeslagen in een Notion-database.
 
-## Live-versies
+🌐 **Live**: *(domein-URL hier zodra gedeployed)*
+📦 **Repo**: [github.com/KevinvanGroeningen/remaxdewoonspecialist-kevinvangroeningen](https://github.com/KevinvanGroeningen/remaxdewoonspecialist-kevinvangroeningen)
 
-| Versie | Bestand | Doel |
-|--------|---------|------|
-| Nederlands (default) | `index.html` | Hoofdpagina voor Nederlandstalige bezoekers |
-| English | `index-en.html` | Volledig vertaalde Engelse variant |
+---
 
-Beide pagina's hebben een `NL / EN` taalswitch in de header die naar de andere variant linkt.
+## Projectstructuur
 
-## Tech-stack
-
-- **Frontend**: statische HTML/CSS/JS — geen build-step nodig
-- **Fonts**: Inter + Instrument Serif (Google Fonts)
-- **Backend** *(optioneel)*: Node.js + Express + Notion API (zie `server.js`)
-- **Formulier**: 2-staps wizard met Realmex-compatibele veldnamen
+```
+remax-woonspecialist/
+├── public/                  ← Statisch (door Express geserveerd)
+│   ├── index.html           ← NL hoofdpagina
+│   ├── index-en.html        ← EN volledig vertaalde variant
+│   ├── kevin.jpg            ← Portretfoto makelaar
+│   ├── utrecht.avif         ← Hero achtergrond
+│   ├── robots.txt
+│   └── sitemap.xml
+├── server.js                ← Express server (entry-point)
+├── package.json             ← Dependencies + scripts
+├── .env.example             ← Sjabloon voor secrets
+├── .gitignore               ← Excludes .env, node_modules, etc.
+├── Procfile                 ← Heroku/Railway start-command
+├── railway.json             ← Railway config (+ healthcheck)
+├── render.yaml              ← Render blueprint
+├── README.md                ← Dit bestand
+├── DEPLOY.md                ← Stap-voor-stap deploy-guide
+├── INSTRUCTIES.md           ← NL setup-guide voor Kevin
+└── _design-variants/        ← 7 referentie-designs (niet voor productie)
+```
 
 ## Lokaal draaien
 
-Static-site preview (geen backend):
 ```bash
-python3 -m http.server 8765
-# → http://localhost:8765
-```
-
-Volledige stack mét Notion-backend:
-```bash
-cp .env.example .env
-# Vul .env in met je Notion-token & database-id
+# Eénmalig: dependencies installeren
 npm install
-npm start
-# → http://localhost:3000
+
+# Eénmalig: secrets configureren
+cp .env.example .env
+# Vul .env in (Notion token + database ID)
+
+# Productie-modus
+npm start                     # → http://localhost:3000
+
+# Development-modus (auto-restart bij wijzigingen)
+npm run dev
+
+# Alleen statische preview (geen backend)
+npm run preview               # → http://localhost:8080
 ```
 
-Zie `INSTRUCTIES.md` voor uitgebreide Nederlandstalige setup-instructies (Notion-koppeling, etc.).
+## API
 
-## Bestanden
+| Endpoint | Method | Beschrijving |
+|---|---|---|
+| `GET /api/health` | GET | Health check — returns `{status, env, notion, timestamp}` |
+| `POST /api/aanmelden` | POST | Form submission — opslaat in Notion + logt |
+| `GET /*` | GET | Statische assets uit `/public` |
 
-### Productie
-- `index.html` — Hoofdpagina (NL)
-- `index-en.html` — Engelse variant
-- `kevin.jpg` — Portretfoto makelaar
-- `utrecht.avif` — Hero-achtergrond (Utrechtse gracht)
-- `server.js` — Node.js backend (Notion-integratie)
-- `package.json` — Node dependencies
-- `.env.example` — Sjabloon voor secrets
+Het form-submit endpoint accepteert JSON met alle Realmex-compatibele velden. Zie [`server.js`](./server.js) voor de exacte mapping.
 
-### Design-varianten (referentie)
-Niet voor productie — design-experimenten uit ontwikkeling:
-- `index-banners.html` — 3 hero-banner alternatieven
-- `index-hero-alts.html` — 4 hero-layout alternatieven
-- `index-steps-alts.html` — 3 stappenplan-layouts
-- `index-bold.html` — Bold/brutalist style
-- `index-editorial.html` — Editorial/magazine style
-- `index-linen.html` — Warme/minimal style
-- `index-nocturne.html` — Dark premium style
+## Form → Realmex veld-mapping
 
-## Formulier — Realmex-veldmapping
-
-Het 2-staps formulier stuurt een JSON-payload met velden die 1-op-1 overeenkomen met Realmex' zoekopdracht-velden:
-
-| Form-key | Realmex-veld |
+| JSON-key | Realmex-veld |
 |---|---|
-| `minimumPrice` | Minimum Price (Vraagprijs van) |
-| `maximumPrice` | Maximum Price (Vraagprijs tot) |
-| `maxBodMetOverbieden` | Max bod incl. overbieden (intern) |
-| `bedrooms` | Bedrooms |
-| `livingAreaFrom` / `livingAreaTo` | Living Area |
+| `minimumPrice` / `maximumPrice` | Vraagprijs van/tot |
+| `maxBodMetOverbieden` | Max bod incl. overbieden (intern, niet naar Realmex) |
+| `bedrooms` | Bedrooms (minimaal) |
+| `livingAreaFrom` / `livingAreaTo` | Living area m² |
 | `liftRequired` | Lift required |
 | `outdoorSpace` | Outdoor space |
 | `minimumEnergyLabel` | Minimum energy label |
 | `buildingYear` | Building year |
-
-Extra velden voor interne workflow: `locaties` (steden), `wijken` (per stad), `zoekgebiedBuiten`, `woningtypes`, `woonwensen`, `hypotheekgesprek` (opt-in).
+| `locaties` (array) | Hoofdsteden zoekgebied |
+| `wijken` (object) | Wijken-selectie per stad |
+| `zoekgebiedBuiten` | Vrije tekst buiten Utrecht |
+| `woningtypes` (array) | Soort woning |
+| `hypotheekgesprek` (bool) | Opt-in voor hypotheekgesprek |
 
 ## Deployment
 
-Aanbevolen: **Vercel** of **Netlify** voor statische hosting (gratis tier voldoende). Backend (Notion-server.js) kan op **Render** of **Railway** draaien.
-
-Zie ook de launch-checklist in chat-historie of vraag voor een uitgebreid deploy-document.
+Zie [`DEPLOY.md`](./DEPLOY.md) voor stap-voor-stap instructies. Aanbevolen:
+- **Railway** of **Render** voor de Node-server (vanaf €0–€5/mnd)
+- **TransIP** of **Hostnet** voor `.nl`-domein (~€10/jr)
 
 ## Contact
 
 Kevin van Groeningen · Aankoopmakelaar
-📞 06 24 419 419
-✉️ kevinvangroeningen@remax.nl
-🏢 REMAX De Woonspecialist · Utrecht
+📞 06 24 419 419 · ✉️ kevinvangroeningen@remax.nl
+🏢 REMAX De Woonspecialist · Musicallaan 5, Utrecht

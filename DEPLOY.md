@@ -1,159 +1,181 @@
 # Deploy-handleiding — REMAX De Woonspecialist
 
-Stappen om de site live te zetten, ingedeeld in 4 fasen.
+Stap-voor-stap om de Node.js-app live te krijgen op je eigen domein.
 
 ---
 
-## Fase 1 · Domein + hosting (≈ 30 min)
+## Fase 1 · Domein kopen (≈ 10 min)
 
-### 1.1 Domein kopen
-Kies een hosting-/domeinprovider (advies: **TransIP** of **Hostnet** voor `.nl`):
-- Suggestie: `kevin-vangroeningen.nl` of `kvg-aankoop.nl` of `woonspecialist-utrecht.nl`
-- Kosten: ~€10/jr voor `.nl`
+Kies een Nederlandse provider voor een `.nl`-domein:
+- **[TransIP](https://www.transip.nl/domeinen/)** — €11,99/jr voor `.nl`
+- **[Hostnet](https://www.hostnet.nl/domeinregistratie)** — €9,95/jr
+- **[Mijn Domein](https://www.mijndomein.nl/)** — €7,50/jr
 
-### 1.2 Hosting via Vercel (gratis, aanbevolen)
+**Tip**: Suggesties:
+- `kevin-vangroeningen.nl`
+- `aankoopmakelaar-utrecht.nl`
+- `kvg-aankoop.nl`
+- `woonspecialist-utrecht.nl`
 
-1. Maak een GitHub-account aan (als je dat nog niet hebt)
-2. Maak een **private** repository "remax-woonspecialist" op github.com (zonder README of license)
-3. Push deze repo:
-   ```bash
-   cd ~/remax-woonspecialist
-   git remote add origin git@github.com:<jouw-username>/remax-woonspecialist.git
-   git push -u origin main
-   ```
-4. Ga naar [vercel.com](https://vercel.com) → sign-in met GitHub
-5. **New Project** → import "remax-woonspecialist"
-6. **Framework Preset**: Other · **Output directory**: leeg laten · **Build Command**: leeg
-7. **Deploy** → klaar in ~30 sec
-8. Je krijgt een tijdelijke URL als `remax-woonspecialist.vercel.app` om te testen
-
-### 1.3 Eigen domein koppelen
-1. In Vercel → Project → **Settings** → **Domains** → Add `kevin-vangroeningen.nl`
-2. Bij je domeinprovider: zet de DNS-records die Vercel geeft (CNAME of A-record)
-3. Wacht 5-30 min, daarna is HTTPS automatisch actief
-
-**Alternatief**: Netlify werkt identiek — kies wat je voorkeur heeft.
+> ⚠️ Koop **alleen** het domein. Hosting komt in stap 2 (gratis bij Render/Railway).
 
 ---
 
-## Fase 2 · Formulier werkend maken (≈ 15 min)
+## Fase 2 · Node hosting opzetten (≈ 15 min)
 
-De HTML verwijst nu naar `https://formspree.io/f/YOUR_FORM_ID`. Vervang dit met je eigen Formspree-ID:
+Twee gelijkwaardige opties — kies één.
 
-### 2.1 Formspree-account
-1. Maak een **gratis** account aan op [formspree.io](https://formspree.io/)
-2. **New Form** → naam: "REMAX Zoekopdracht"
-3. Notificatie-email: `kevinvangroeningen@remax.nl`
-4. Kopieer de form-URL, bv. `https://formspree.io/f/xpzgdvkr`
+### Optie A · Render.com (gratis tier, slaapt na 15 min inactiviteit)
 
-### 2.2 Endpoint instellen in code
-Zoek-en-vervang in beide HTML-bestanden:
-```
-YOUR_FORM_ID
-```
-Vervang met jouw ID (bv. `xpzgdvkr`).
+1. **Account aanmaken**: [render.com](https://render.com/) → "Sign up with GitHub"
+2. **Connect GitHub**: autoriseer Render voor je repo's
+3. **New +** → **Web Service** → kies `remaxdewoonspecialist-kevinvangroeningen`
+4. **Settings**:
+   - Name: `remax-woonspecialist`
+   - Region: `Frankfurt`
+   - Branch: `main`
+   - Runtime: `Node`
+   - Build Command: `npm install`
+   - Start Command: `node server.js`
+   - Plan: **Free** (of `Starter $7/mnd` voor altijd-aan)
+5. **Environment Variables** (Add):
+   - `NODE_ENV` = `production`
+   - `NOTION_TOKEN` = `secret_...` *(zie stap 3)*
+   - `NOTION_DATABASE_ID` = `...` *(zie stap 3)*
+6. **Create Web Service** → wacht ~3 min op build → live URL als `https://remax-woonspecialist.onrender.com`
 
-Bestanden:
-- `index.html` (regel ~3950)
-- `index-en.html` (regel ~3950)
+> Alternatief: gebruik de `render.yaml` blueprint die al in de repo staat → Dashboard → New → **Blueprint** → kies repo.
 
-Commit en push:
-```bash
-git add index.html index-en.html
-git commit -m "Wire form to Formspree endpoint"
-git push
-```
+### Optie B · Railway.app (€5/mnd, altijd aan, sneller)
 
-Vercel deployed automatisch binnen 30 sec.
-
-### 2.3 Test
-- Open de live site
-- Vul stap 1 + stap 2 in van de form en klik op verzenden
-- **Eerste keer**: Formspree stuurt een verificatie-mail naar `kevinvangroeningen@remax.nl` → klik op activeren
-- Daarna komt elke inzending direct in je inbox
+1. **Account**: [railway.app](https://railway.app/) → "Login with GitHub"
+2. **New Project** → **Deploy from GitHub repo** → kies `remaxdewoonspecialist-kevinvangroeningen`
+3. Railway detecteert automatisch de `railway.json` config
+4. **Variables** tab → Add:
+   - `NOTION_TOKEN` = `secret_...`
+   - `NOTION_DATABASE_ID` = `...`
+   - `NODE_ENV` = `production`
+5. **Settings** → **Generate Domain** voor tijdelijke `*.up.railway.app` URL
+6. Project draait direct, kost ~€3-5/mnd
 
 ---
 
-## Fase 3 · SEO basis (≈ 20 min)
+## Fase 3 · Notion-integratie (≈ 10 min)
 
-### 3.1 Domein-URL fixen in code
-Vervang alle `https://kevin-vangroeningen.nl/` in `index.html`, `index-en.html`, en `sitemap.xml` met je definitieve domein (bv. `https://kevinvgroeningen.com/`).
+Voor lead-opslag heb je een Notion integration token + database ID nodig.
+
+### 3.1 Notion Integration aanmaken
+1. Ga naar [notion.so/my-integrations](https://www.notion.so/my-integrations)
+2. **+ New integration**
+3. Naam: `REMAX Website`
+4. Associated workspace: jouw workspace
+5. **Submit** → kopieer de **Internal Integration Token** (begint met `secret_...` of `ntn_...`)
+
+### 3.2 Database delen met de integratie
+1. Open je Notion **Leads database**
+2. Klik op `···` rechtsboven → **Add connections** → zoek "REMAX Website" → klik erop
+3. Kopieer de Database ID:
+   - URL: `notion.so/<workspace>/<DATABASE-ID>?v=...`
+   - De `DATABASE-ID` is een 32-karakter UUID
+
+### 3.3 Database properties (verplicht)
+De server verwacht deze kolommen in je Notion-database:
+
+| Property | Type |
+|---|---|
+| Naam | Title |
+| Email | Email |
+| Telefoon | Phone |
+| Status | Select (incl. optie "Nieuw") |
+| Type | Select (incl. optie "Aankoop") |
+| Bron | Text |
+| Max. budget | Number |
+| Min. budget | Number |
+| Max. bod (incl. overbieden) | Number |
+| Min. slaapkamers | Number |
+| Gewenste locaties | Text |
+| Woningtype | Multi-select |
+| Woonwensen | Text |
+| Eerste contact | Date |
+| Volgende actie | Text |
+
+### 3.4 Env vars in Render/Railway zetten
+Plak de tokens in de Environment Variables van de host (zie stap 2.5 of 2.4).
+
+---
+
+## Fase 4 · Eigen domein koppelen (≈ 30 min)
+
+### 4.1 In Render of Railway
+**Render**: Dashboard → Service → **Settings** → **Custom Domain** → Add → vul `kevin-vangroeningen.nl` in → kopieer de DNS-records die Render geeft
+
+**Railway**: Project → **Settings** → **Networking** → **Add Custom Domain** → idem
+
+### 4.2 DNS bij je domein-provider
+Bij TransIP/Hostnet/etc:
+1. Ga naar **DNS** of **DNS-beheer**
+2. Verwijder bestaande A/AAAA records voor `@`
+3. Voeg toe wat Render/Railway voorschrijft, meestal:
+   - **CNAME**: `www` → `<jouw-app>.onrender.com` (of `.up.railway.app`)
+   - **A**: `@` → het door de host opgegeven IP-adres
+4. (Voor Render) Een **ALIAS** of **ANAME** record voor `@` als je provider dat ondersteunt — anders een redirect van root naar `www`
+
+Wacht **5 min tot 24 uur** voor DNS-propagatie. Daarna is HTTPS automatisch actief (Let's Encrypt).
+
+---
+
+## Fase 5 · Productie-checks (≈ 20 min)
+
+### 5.1 Canonical URLs aanpassen
+In `public/index.html` en `public/index-en.html`, zoek-en-vervang `kevin-vangroeningen.nl` met je echte domein:
 
 ```bash
 cd ~/remax-woonspecialist
-# Mac/Linux:
-grep -rl "kevin-vangroeningen.nl" *.html *.xml | xargs sed -i '' 's|kevin-vangroeningen.nl|jouw-echte-domein.nl|g'
+grep -rl "kevin-vangroeningen.nl" public/*.html public/sitemap.xml | xargs sed -i '' 's|kevin-vangroeningen.nl|jouw-domein.nl|g'
 git add -A && git commit -m "Update canonical URLs to production domain"
 git push
 ```
 
-### 3.2 Google Search Console
+Render/Railway deployen automatisch.
+
+### 5.2 Eerste testsubmissie
+- Open je domein
+- Vul stap 1 + stap 2 in
+- Submit
+- Check je Notion-database → de lead moet verschijnen
+- Check ook de Render/Railway logs voor `📥 Nieuwe lead`
+
+### 5.3 Google Search Console
 1. [search.google.com/search-console](https://search.google.com/search-console) → Property toevoegen
-2. Verifieer eigendom (kies "DNS" → kopieer TXT record naar domeinprovider)
+2. Verifieer via DNS (TXT-record bij je domein-provider)
 3. Submit sitemap: `https://jouw-domein.nl/sitemap.xml`
 
-### 3.3 Google Business Profile koppelen
-1. [google.com/business](https://business.google.com/) → vul jouw profiel aan met de URL
-2. Voeg link toe in Reviews-sectie van de site (al gedaan: `https://www.google.com/search?q=REMAX+De+Woonspecialist+Utrecht+reviews`)
+### 5.4 Privacyverklaring + KvK
+- Schrijf `public/privacy.html` (of gebruik [iubenda](https://www.iubenda.com/))
+- Update de footer-link in beide index-files
+- Voeg KvK + BTW-nummer toe in de footer
 
 ---
 
-## Fase 4 · Privacy + analytics (≈ 30 min)
-
-### 4.1 Privacyverklaring
-De footer linkt nu naar `<a href="#">Privacyverklaring</a>` — vervang met je echte privacy-pagina:
-
-Optie 1 — **iubenda.com** (€9/jaar, automatisch gegenereerd, AVG-compliant)
-Optie 2 — **zelf schrijven**, bv. via [veiliginternetten.nl/privacyverklaring](https://veiliginternetten.nl/privacyverklaring/)
-
-Plaats op `privacy.html` of een externe URL en update beide HTML-files.
-
-### 4.2 Analytics (Plausible — privacy-vriendelijk, geen cookie-banner nodig)
-1. Account op [plausible.io](https://plausible.io/) (€9/maand voor één site)
-2. Voeg vlak voor `</head>` in beide HTML-files:
-   ```html
-   <script defer data-domain="jouw-domein.nl" src="https://plausible.io/js/script.js"></script>
-   ```
-3. Conversie-doel: in Plausible → Goals → "Custom event" → "form_submitted"
-4. In je form-submit JS, na success, voeg toe:
-   ```js
-   if (window.plausible) plausible('form_submitted');
-   ```
-
-### 4.3 KvK + BTW in footer
-Voeg toe aan footer in beide HTML-files:
-```
-KvK 12345678 · BTW NL001234567B01
-```
-
----
-
-## Fase 5 · Optioneel — Realmex-automatisering
-
-Formspree heeft webhook-functionaliteit (alle plans). Stuur de form-data ook naar **Make.com** of **n8n**:
-
-1. Formspree → Settings → **Integrations** → Webhook → URL van je Make/n8n endpoint
-2. In Make/n8n: ontvang JSON, map velden naar Realmex API of CSV-export
-3. Realmex contacteren voor API-credentials of bulk-import format
-
-Velden in payload corresponderen al 1-op-1 met Realmex (zie README.md).
-
----
-
-## Snelle launch-checklist
+## Snelle deploy-checklist
 
 - [ ] Domein gekocht
-- [ ] GitHub repo gepushed
-- [ ] Vercel/Netlify gedeployed
-- [ ] Domein gekoppeld + HTTPS actief
-- [ ] Formspree form-ID ingesteld
-- [ ] Eerste test-submission succesvol
-- [ ] Canonical URLs aangepast
+- [ ] Render of Railway account + GitHub gekoppeld
+- [ ] Service deployt succesvol (`/api/health` returns OK)
+- [ ] Notion integration aangemaakt + database gedeeld
+- [ ] Env vars `NOTION_TOKEN` + `NOTION_DATABASE_ID` ingesteld
+- [ ] Notion-database heeft alle vereiste kolommen
+- [ ] Custom domain in Render/Railway toegevoegd
+- [ ] DNS records bij domein-provider ingesteld
+- [ ] HTTPS actief op eigen domein
+- [ ] Canonical URLs in HTML aangepast
+- [ ] Test-submissie → lead in Notion zichtbaar
 - [ ] Google Search Console + sitemap submitted
-- [ ] Privacyverklaring opgesteld + gelinkt
-- [ ] Plausible/GA4 + conversie-event live
-- [ ] KvK/BTW in footer
-- [ ] Mobile getest (iOS + Android)
-- [ ] kevin.jpg gecomprimeerd (PageSpeed > 90)
+- [ ] Privacyverklaring + KvK in footer
 
-Vragen onderweg? Bel me of kom langs op kantoor 😄
+## Aanvullende stappen
+
+- **Analytics**: voeg [Plausible](https://plausible.io/) toe (€9/mnd, AVG-proof, geen cookie-banner nodig) of GA4
+- **Email-notificatie naar Kevin**: extend `server.js` met [Resend](https://resend.com/) of [SendGrid](https://sendgrid.com/) — Notion alleen is voldoende, maar e-mail is sneller
+- **Realmex-koppeling**: stuur in `server.js` na succesvolle Notion-creatie ook door naar de Realmex API of webhook
+- **Uptime monitoring**: [UptimeRobot](https://uptimerobot.com/) (gratis) — mailt je als de site down is
