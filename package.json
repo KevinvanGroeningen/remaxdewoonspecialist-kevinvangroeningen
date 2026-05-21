@@ -5,10 +5,10 @@
   "description": "REMAX De Woonspecialist — Aankoopbegeleiding landingspagina + Notion-integratie",
   "author": "Kevin van Groeningen",
   "license": "UNLICENSED",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "preview": "python3 -m http.server 8080 --directory public"
   },
   "engines": {

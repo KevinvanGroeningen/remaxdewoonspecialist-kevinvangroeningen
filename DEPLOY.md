@@ -36,7 +36,7 @@ Twee gelijkwaardige opties — kies één.
    - Branch: `main`
    - Runtime: `Node`
    - Build Command: `npm install`
-   - Start Command: `node server.js`
+   - Start Command: `node app.js`
    - Plan: **Free** (of `Starter $7/mnd` voor altijd-aan)
 5. **Environment Variables** (Add):
    - `NODE_ENV` = `production`
@@ -176,6 +176,6 @@ Render/Railway deployen automatisch.
 ## Aanvullende stappen
 
 - **Analytics**: voeg [Plausible](https://plausible.io/) toe (€9/mnd, AVG-proof, geen cookie-banner nodig) of GA4
-- **Email-notificatie naar Kevin**: extend `server.js` met [Resend](https://resend.com/) of [SendGrid](https://sendgrid.com/) — Notion alleen is voldoende, maar e-mail is sneller
-- **Realmex-koppeling**: stuur in `server.js` na succesvolle Notion-creatie ook door naar de Realmex API of webhook
+- **Email-notificatie naar Kevin**: extend `app.js` met [Resend](https://resend.com/) of [SendGrid](https://sendgrid.com/) — Notion alleen is voldoende, maar e-mail is sneller
+- **Realmex-koppeling**: stuur in `app.js` na succesvolle Notion-creatie ook door naar de Realmex API of webhook
 - **Uptime monitoring**: [UptimeRobot](https://uptimerobot.com/) (gratis) — mailt je als de site down is

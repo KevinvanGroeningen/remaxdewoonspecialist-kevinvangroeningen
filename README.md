@@ -18,7 +18,7 @@ remax-woonspecialist/
 │   ├── utrecht.avif         ← Hero achtergrond
 │   ├── robots.txt
 │   └── sitemap.xml
-├── server.js                ← Express server (entry-point)
+├── app.js                ← Express server (entry-point)
 ├── package.json             ← Dependencies + scripts
 ├── .env.example             ← Sjabloon voor secrets
 ├── .gitignore               ← Excludes .env, node_modules, etc.
@@ -59,7 +59,7 @@ npm run preview               # → http://localhost:8080
 | `POST /api/aanmelden` | POST | Form submission — opslaat in Notion + logt |
 | `GET /*` | GET | Statische assets uit `/public` |
 
-Het form-submit endpoint accepteert JSON met alle Realmex-compatibele velden. Zie [`server.js`](./server.js) voor de exacte mapping.
+Het form-submit endpoint accepteert JSON met alle Realmex-compatibele velden. Zie [`app.js`](./app.js) voor de exacte mapping.
 
 ## Form → Realmex veld-mapping
 

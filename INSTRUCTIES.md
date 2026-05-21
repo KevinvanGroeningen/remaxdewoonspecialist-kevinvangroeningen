@@ -5,7 +5,7 @@
 | Bestand | Omschrijving |
 |---|---|
 | `index.html` | De volledige landingspagina (RE/MAX huisstijl) |
-| `server.js` | Node.js backend die leads opslaat in Notion |
+| `app.js` | Node.js backend die leads opslaat in Notion |
 | `package.json` | Lijst met benodigde software-pakketten |
 | `.env.example` | Sjabloon voor je geheime instellingen |
 
@@ -62,7 +62,7 @@ Voor een echte website online heb je een hosting-provider nodig. Aanbevolen opti
 1. Ga naar https://render.com
 2. Nieuwe "Web Service" → koppel GitHub
 3. Build command: `npm install`
-4. Start command: `node server.js`
+4. Start command: `node app.js`
 5. Voeg omgevingsvariabelen toe
 
 ### Optie C: Eigen server / webhosting
