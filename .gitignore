@@ -2,6 +2,8 @@
 .env
 .env.local
 .env.*.local
+public/secrets.php
+secrets.php
 
 # Dependencies
 node_modules/

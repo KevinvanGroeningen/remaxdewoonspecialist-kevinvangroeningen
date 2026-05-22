@@ -11,25 +11,30 @@ Landingspagina + Node.js backend voor Kevin van Groeningen, aankoopmakelaar bij 
 
 ```
 remax-woonspecialist/
-├── public/                  ← Statisch (door Express geserveerd)
-│   ├── index.html           ← NL hoofdpagina
-│   ├── index-en.html        ← EN volledig vertaalde variant
-│   ├── kevin.jpg            ← Portretfoto makelaar
-│   ├── utrecht.avif         ← Hero achtergrond
+├── public/                       ← Document root (deze map upload je naar Hostinger)
+│   ├── index.html                ← NL hoofdpagina
+│   ├── index-en.html             ← EN volledig vertaalde variant
+│   ├── aanmelden.php             ← PHP form-handler (Notion + log)
+│   ├── secrets.example.php       ← Template voor Notion-credentials
+│   ├── .htaccess                 ← HTTPS, caching, security, secrets-blocker
+│   ├── kevin.jpg                 ← Portretfoto makelaar
+│   ├── utrecht.avif              ← Hero achtergrond
 │   ├── robots.txt
 │   └── sitemap.xml
-├── app.js                ← Express server (entry-point)
-├── package.json             ← Dependencies + scripts
-├── .env.example             ← Sjabloon voor secrets
-├── .gitignore               ← Excludes .env, node_modules, etc.
-├── Procfile                 ← Heroku/Railway start-command
-├── railway.json             ← Railway config (+ healthcheck)
-├── render.yaml              ← Render blueprint
-├── README.md                ← Dit bestand
-├── DEPLOY.md                ← Stap-voor-stap deploy-guide
-├── INSTRUCTIES.md           ← NL setup-guide voor Kevin
-└── _design-variants/        ← 7 referentie-designs (niet voor productie)
+├── app.js                        ← Express server (alleen voor lokale dev)
+├── package.json                  ← Node-dependencies (lokaal)
+├── .env.example                  ← Sjabloon Node-secrets (lokaal)
+├── .gitignore                    ← Excludes .env, secrets.php, node_modules
+├── Procfile / railway.json / render.yaml  ← Oude deploy-configs (ongebruikt)
+├── README.md                     ← Dit bestand
+├── DEPLOY.md                     ← Hostinger Business deploy-guide
+├── INSTRUCTIES.md                ← NL setup-guide
+└── _design-variants/             ← 7 referentie-designs (niet voor productie)
 ```
+
+**Productie-stack**: Hostinger Business Web Hosting · PHP 8 + Apache
+**Backend**: `public/aanmelden.php` (mirror van de oude Express-endpoint)
+**Lokaal dev kan via Node OF PHP** — zie `DEPLOY.md`.
 
 ## Lokaal draaien
 
@@ -51,15 +56,23 @@ npm run dev
 npm run preview               # → http://localhost:8080
 ```
 
-## API
+## Backend
+
+**Productie (Hostinger)**: één PHP-bestand handelt alles af:
 
 | Endpoint | Method | Beschrijving |
 |---|---|---|
-| `GET /api/health` | GET | Health check — returns `{status, env, notion, timestamp}` |
-| `POST /api/aanmelden` | POST | Form submission — opslaat in Notion + logt |
-| `GET /*` | GET | Statische assets uit `/public` |
+| `POST /aanmelden.php` | POST | Form submission — opslaat in Notion + log naar `.leads.log` |
 
-Het form-submit endpoint accepteert JSON met alle Realmex-compatibele velden. Zie [`app.js`](./app.js) voor de exacte mapping.
+Statische assets (HTML, CSS, JS, images) serveert Hostinger's Apache
+direct uit `public_html/`. Geen server-side render nodig.
+
+**Lokaal (Node, alternatief)**: `app.js` exposeert dezelfde functionaliteit
+via Express op `/api/aanmelden` + `/api/health` — handig om snel te
+testen zonder PHP te draaien.
+
+Beide endpoints accepteren JSON met dezelfde Realmex-compatibele velden.
+Zie [`public/aanmelden.php`](./public/aanmelden.php) voor de productie-mapping.
 
 ## Form → Realmex veld-mapping
 
@@ -81,9 +94,13 @@ Het form-submit endpoint accepteert JSON met alle Realmex-compatibele velden. Zi
 
 ## Deployment
 
-Zie [`DEPLOY.md`](./DEPLOY.md) voor stap-voor-stap instructies. Aanbevolen:
-- **Railway** of **Render** voor de Node-server (vanaf €0–€5/mnd)
-- **TransIP** of **Hostnet** voor `.nl`-domein (~€10/jr)
+Zie [`DEPLOY.md`](./DEPLOY.md) voor stap-voor-stap instructies.
+
+**Productie-setup**: Hostinger Business Web Hosting (€/mnd incl. domein)
+- GitHub-repo gekoppeld via hPanel → GIT (auto-sync bij `git push`)
+- PHP 8 + Apache draait `aanmelden.php` zonder configuratie
+- Notion-credentials in `secrets.php` (niet in git, gemaakt via hPanel)
+- Gratis Let's Encrypt SSL via "Forceer HTTPS"
 
 ## Contact
 

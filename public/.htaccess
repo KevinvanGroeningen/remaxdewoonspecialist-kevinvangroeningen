@@ -1,0 +1,56 @@
+# ─── REMAX De Woonspecialist — Apache config voor Hostinger ─────────
+# Plaats dit bestand samen met index.html in public_html/ root.
+
+# ─── HTTPS forceren ─────────────────────────────────────────────────
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ─── Default document ───────────────────────────────────────────────
+DirectoryIndex index.html index.php
+
+# ─── Taal-detectie: serveer EN-versie bij Accept-Language: en ───────
+RewriteCond %{HTTP:Accept-Language} ^en [NC]
+RewriteCond %{REQUEST_URI} ^/?$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^$ /index-en.html [L]
+
+# ─── Beveilig gevoelige bestanden ───────────────────────────────────
+<FilesMatch "^(secrets\.php|\.env|\.git.*|\.htaccess|\.leads\.log|.*\.log)$">
+    Require all denied
+</FilesMatch>
+
+# Voorkom directory-listings
+Options -Indexes
+
+# ─── Cache static assets (snellere herhaalbezoeken) ────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg            "access plus 30 days"
+    ExpiresByType image/avif            "access plus 30 days"
+    ExpiresByType image/png             "access plus 30 days"
+    ExpiresByType image/webp            "access plus 30 days"
+    ExpiresByType image/svg+xml         "access plus 30 days"
+    ExpiresByType text/css              "access plus 7 days"
+    ExpiresByType application/javascript "access plus 7 days"
+    ExpiresByType font/woff2            "access plus 30 days"
+    ExpiresByType text/html             "access plus 0 seconds"
+    ExpiresByType application/json      "access plus 0 seconds"
+</IfModule>
+
+# ─── Gzip-compressie ────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+# ─── Security headers ───────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options    "nosniff"
+    Header set X-Frame-Options           "SAMEORIGIN"
+    Header set Referrer-Policy           "strict-origin-when-cross-origin"
+    Header set Permissions-Policy        "geolocation=(), camera=(), microphone=()"
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+</IfModule>
+
+# ─── 404 → terug naar homepage (zachte SPA-fallback) ───────────────
+ErrorDocument 404 /index.html

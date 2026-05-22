@@ -3951,7 +3951,7 @@
     if (honeypot && honeypot.value) return; // silently drop bot submissions
 
     try {
-      const res = await fetch('/api/aanmelden', {
+      const res = await fetch('/aanmelden.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...payload, _gotcha: honeypot?.value || '' })
