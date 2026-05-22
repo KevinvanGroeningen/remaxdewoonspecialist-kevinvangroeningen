@@ -33,9 +33,17 @@ if (!notion) {
 // ─── Middleware ──────────────────────────────────
 app.use(cors());
 app.use(express.json({ limit: '50kb' }));
-app.use(express.static(path.join(__dirname, 'public'), {
+app.use(express.static(__dirname, {
   maxAge: NODE_ENV === 'production' ? '1d' : 0,
-  etag: true
+  etag: true,
+  // Don't serve dotfiles or Node-only files via static handler
+  index: ['index.html'],
+  setHeaders: (res, filePath) => {
+    const blocked = /\.(php|env|log|md|json|js)$|^Procfile$|node_modules|_design-variants/;
+    if (blocked.test(path.basename(filePath)) || blocked.test(filePath)) {
+      res.status(403).end();
+    }
+  }
 }));
 
 // ─── Health-check ────────────────────────────────
@@ -157,13 +165,13 @@ app.get('*', (req, res) => {
   // Detecteer taal via Accept-Language header
   const lang = req.headers['accept-language']?.split(',')[0]?.split('-')[0] || 'nl';
   const file = lang === 'en' ? 'index-en.html' : 'index.html';
-  res.sendFile(path.join(__dirname, 'public', file));
+  res.sendFile(path.join(__dirname, file));
 });
 
 // ─── Start server ────────────────────────────────
 app.listen(PORT, () => {
   console.log(`🚀 REMAX Woonspecialist server draait op http://localhost:${PORT}`);
-  console.log(`📁 Public folder: ${path.join(__dirname, 'public')}`);
+  console.log(`📁 Static root: ${__dirname}`);
   console.log(`📋 Notion: ${notion ? `connected (db: ${NOTION_DATABASE_ID.slice(0, 8)}…)` : 'disabled (set NOTION_TOKEN to enable)'}`);
   console.log(`🌍 Environment: ${NODE_ENV}`);
 });

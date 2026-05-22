@@ -29,17 +29,11 @@ op `main` synct hPanel de nieuwste bestanden naar `public_html/`.
 6. Eerste **Pull** uitvoeren. hPanel kloont nu de hele repo naar
    `public_html/`.
 
-**⚠️ Belangrijk — alleen `public/` mag in `public_html/`**:
-
-Onze repo heeft de site-bestanden in `public/`, maar Hostinger wil dat ze
-*direct* in `public_html/` staan. Twee opties:
-
-- **A · Subfolder als root** (aanbevolen): in hPanel zet je de **Document
-  root** van het domein op `public_html/public/`. Geen verplaatsing
-  nodig. (Domein → **Document Root** wijzigen.)
-- **B · Path bij Git-deploy**: zet Path in de Git-instelling op
-  `/public_html/public/` ipv `/public_html/`. Hostinger pulled dan
-  meteen naar de juiste map.
+**ℹ️ Repo-structuur**: alle site-bestanden staan op repo-root
+(`index.html`, `aanmelden.php`, `.htaccess`, afbeeldingen). Hostinger
+pulled de repo dus direct in `public_html/` — geen Document Root
+aanpassing nodig. De Node-bronfiles (`app.js`, `package.json`, etc.)
+worden mee-gepulled maar door `.htaccess` afgeschermd voor HTTP-toegang.
 
 ---
 
@@ -120,12 +114,12 @@ DNS-propagatie kan 5 minuten tot 24 uur duren.
 ## Fase 4 · Productie-checks (≈ 20 min)
 
 ### 4.1 Canonical URLs aanpassen
-In `public/index.html` en `public/index-en.html`, vervang alle
+In `index.html` en `index-en.html`, vervang alle
 `kevin-vangroeningen.nl` door je echte domein:
 
 ```bash
 cd ~/remax-woonspecialist
-grep -rl "kevin-vangroeningen.nl" public/ | xargs sed -i '' 's|kevin-vangroeningen.nl|jouw-domein.nl|g'
+grep -rl "kevin-vangroeningen.nl" *.html sitemap.xml | xargs sed -i '' 's|kevin-vangroeningen.nl|jouw-domein.nl|g'
 git add -A && git commit -m "Update canonical URLs to production domain"
 git push
 ```
@@ -148,7 +142,7 @@ uit staat).
 3. Submit sitemap: `https://jouw-domein.nl/sitemap.xml`
 
 ### 4.4 Privacyverklaring + KvK
-- Maak `public/privacy.html` (of gebruik
+- Maak `privacy.html` op repo-root (of gebruik
   [iubenda](https://www.iubenda.com/) voor gegenereerde versie)
 - Update de footer-link in beide index-bestanden
 - Voeg KvK + BTW-nummer toe in de footer
@@ -159,8 +153,7 @@ uit staat).
 
 - [ ] Hostinger Business gekoppeld aan domein
 - [ ] GitHub-repo gekoppeld in hPanel → Git, eerste Pull gedaan
-- [ ] Document Root staat op `public_html/public/` (of via Path-instelling)
-- [ ] `secrets.php` aangemaakt met Notion-credentials
+- [ ] `secrets.php` aangemaakt op de server (`public_html/secrets.php`) met Notion-credentials
 - [ ] Notion-database heeft alle 15 vereiste kolommen
 - [ ] HTTPS forceer-knop aan in hPanel SSL
 - [ ] Canonical URLs in HTML aangepast naar productiedomein
@@ -180,10 +173,10 @@ npm install
 npm start                    # → http://localhost:3000
 
 # Optie 2: PHP built-in server (mirror van Hostinger-productie)
-php -S localhost:8765 -t public/
+php -S localhost:8765 -t .
 ```
 
-Beide serveren dezelfde HTML uit `public/`. Verschil: optie 1 gebruikt
+Beide serveren dezelfde HTML uit de repo-root. Verschil: optie 1 gebruikt
 `/api/aanmelden` (Express), optie 2 gebruikt `/aanmelden.php` (PHP).
 De front-end is gepatcht voor `/aanmelden.php`, dus optie 2 is wat
 op productie draait.

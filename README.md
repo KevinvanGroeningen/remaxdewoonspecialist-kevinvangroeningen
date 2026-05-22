@@ -10,30 +10,29 @@ Landingspagina + Node.js backend voor Kevin van Groeningen, aankoopmakelaar bij 
 ## Projectstructuur
 
 ```
-remax-woonspecialist/
-├── public/                       ← Document root (deze map upload je naar Hostinger)
-│   ├── index.html                ← NL hoofdpagina
-│   ├── index-en.html             ← EN volledig vertaalde variant
-│   ├── aanmelden.php             ← PHP form-handler (Notion + log)
-│   ├── secrets.example.php       ← Template voor Notion-credentials
-│   ├── .htaccess                 ← HTTPS, caching, security, secrets-blocker
-│   ├── kevin.jpg                 ← Portretfoto makelaar
-│   ├── utrecht.avif              ← Hero achtergrond
-│   ├── robots.txt
-│   └── sitemap.xml
-├── app.js                        ← Express server (alleen voor lokale dev)
-├── package.json                  ← Node-dependencies (lokaal)
-├── .env.example                  ← Sjabloon Node-secrets (lokaal)
-├── .gitignore                    ← Excludes .env, secrets.php, node_modules
+remax-woonspecialist/                ← Repo-root = Hostinger public_html/
+├── index.html                       ← NL hoofdpagina
+├── index-en.html                    ← EN volledig vertaalde variant
+├── aanmelden.php                    ← PHP form-handler (Notion + log)
+├── secrets.example.php              ← Template voor Notion-credentials
+├── .htaccess                        ← HTTPS, caching, security, blokkeert Node-bronfiles
+├── kevin.jpg                        ← Portretfoto makelaar
+├── utrecht.avif                     ← Hero achtergrond
+├── robots.txt
+├── sitemap.xml
+├── app.js                           ← Express server (alleen voor lokale dev — geblokt op productie)
+├── package.json                     ← Node-dependencies (lokaal)
+├── .env.example                     ← Sjabloon Node-secrets (lokaal)
+├── .gitignore                       ← Excludes .env, secrets.php, node_modules
 ├── Procfile / railway.json / render.yaml  ← Oude deploy-configs (ongebruikt)
-├── README.md                     ← Dit bestand
-├── DEPLOY.md                     ← Hostinger Business deploy-guide
-├── INSTRUCTIES.md                ← NL setup-guide
-└── _design-variants/             ← 7 referentie-designs (niet voor productie)
+├── README.md                        ← Dit bestand
+├── DEPLOY.md                        ← Hostinger Business deploy-guide
+├── INSTRUCTIES.md                   ← NL setup-guide
+└── _design-variants/                ← 7 referentie-designs (niet voor productie, geblokt)
 ```
 
 **Productie-stack**: Hostinger Business Web Hosting · PHP 8 + Apache
-**Backend**: `public/aanmelden.php` (mirror van de oude Express-endpoint)
+**Backend**: `aanmelden.php` (mirror van de oude Express-endpoint)
 **Lokaal dev kan via Node OF PHP** — zie `DEPLOY.md`.
 
 ## Lokaal draaien
@@ -72,7 +71,7 @@ via Express op `/api/aanmelden` + `/api/health` — handig om snel te
 testen zonder PHP te draaien.
 
 Beide endpoints accepteren JSON met dezelfde Realmex-compatibele velden.
-Zie [`public/aanmelden.php`](./public/aanmelden.php) voor de productie-mapping.
+Zie [`aanmelden.php`](./aanmelden.php) voor de productie-mapping.
 
 ## Form → Realmex veld-mapping
 

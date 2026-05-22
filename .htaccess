@@ -16,9 +16,15 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^$ /index-en.html [L]
 
 # ─── Beveilig gevoelige bestanden ───────────────────────────────────
-<FilesMatch "^(secrets\.php|\.env|\.git.*|\.htaccess|\.leads\.log|.*\.log)$">
+# Blokkeert: secrets, env, git, log, alle Node-bronbestanden, docs
+<FilesMatch "^(secrets\.php|\.env.*|\.git.*|\.htaccess|\.leads\.log|.*\.log|app\.js|package\.json|package-lock\.json|Procfile|railway\.json|render\.yaml|.*\.md)$">
     Require all denied
 </FilesMatch>
+
+# Blokkeer hele mappen die niet publiek mogen zijn
+RedirectMatch 403 ^/node_modules(/.*)?$
+RedirectMatch 403 ^/_design-variants(/.*)?$
+RedirectMatch 403 ^/\.git(/.*)?$
 
 # Voorkom directory-listings
 Options -Indexes
