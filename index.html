@@ -2839,6 +2839,141 @@
       .makelaar-stats { justify-content: center; }
       .step-nav { flex-direction: column; }
     }
+
+    /* ─── MOBILE (≤ 480px) — full phone optimization ─── */
+    @media (max-width: 480px) {
+      /* Voorkomt horizontale scroll bij iOS overflow */
+      html, body { overflow-x: hidden; }
+
+      /* Header — compact + tap-friendly */
+      .header-inner { padding: 0 14px; gap: 8px; min-height: 60px; }
+      .logo-svg { width: 92px; height: auto; }
+      .logo-divider { display: none; }
+      .logo-text { font-size: 13px; line-height: 1.2; }
+      .logo-text span { font-size: 11px; opacity: 0.75; }
+      .header-right { gap: 6px; }
+      .lang-switch { padding: 3px; }
+      .lang-switch a { padding: 5px 9px; font-size: 11px; }
+      .header-cta { padding: 9px 14px; font-size: 12px; letter-spacing: 0.2px; }
+      .header-cta .arrow { display: none; }
+
+      /* Hero */
+      .hero { padding: 80px 18px 64px; min-height: auto; }
+      .hero h1 { font-size: 30px; line-height: 1.15; letter-spacing: -0.5px; }
+      .hero .lead { font-size: 15px; line-height: 1.55; }
+      .hero-cta-group { width: 100%; }
+      .btn-primary { padding: 15px 22px; font-size: 14px; width: 100%; justify-content: center; }
+
+      /* Hero stats — tighter 3-col grid */
+      .hero-stats { gap: 12px; padding: 16px 14px; margin-top: 26px; }
+      .hero-stat strong { font-size: 20px; }
+      .hero-stat .unit { font-size: 14px; }
+      .hero-stat small { font-size: 10.5px; line-height: 1.3; }
+
+      .reviews-badge { font-size: 13px; padding: 8px 12px; flex-wrap: wrap; }
+
+      /* Section spacing */
+      .section { padding: 56px 18px; }
+      .section h2 { font-size: 26px; line-height: 1.2; letter-spacing: -0.4px; }
+      .section-intro, .section-lead { font-size: 15px; }
+
+      /* Step-stripes */
+      .step-stripe { padding: 20px 18px; gap: 14px; align-items: flex-start; }
+      .step-num { font-size: 28px; min-width: 42px; }
+      .step-title { font-size: 16px; line-height: 1.25; }
+      .step-meta { font-size: 10px; letter-spacing: 1px; }
+      .step-body { font-size: 14px; line-height: 1.5; }
+
+      /* Benefits */
+      .benefits-grid { grid-template-columns: 1fr !important; gap: 14px; }
+      .benefits-summary { font-size: 15px; padding: 22px 18px; }
+      .benefits-summary p { font-size: 15px; }
+
+      /* Makelaar card */
+      .makelaar-card { padding: 26px 20px !important; gap: 18px !important; }
+      .makelaar-photo { width: 130px !important; height: 130px !important; }
+      .makelaar-info h3 { font-size: 22px; }
+      .makelaar-info p { font-size: 14px; }
+      .makelaar-tags { gap: 6px; flex-wrap: wrap; justify-content: center; }
+      .makelaar-tag { font-size: 11px; padding: 4px 10px; }
+      .makelaar-stats { gap: 16px; flex-wrap: wrap; justify-content: center; }
+      .makelaar-stat strong { font-size: 20px; }
+      .makelaar-contact { flex-direction: column; gap: 10px; width: 100%; }
+      .makelaar-contact-btn { width: 100%; justify-content: center; padding: 13px 18px; font-size: 13.5px; min-height: 46px; }
+
+      /* Reviews */
+      .review-card-inner { padding: 28px 22px !important; }
+      .review-text { font-size: 15px; line-height: 1.55; }
+      .review-card-inner::before { font-size: 64px !important; top: 8px !important; right: 16px !important; }
+      .review-author-info { font-size: 13px; }
+      .review-author-info .name { font-size: 14px; }
+      .reviews-arrow { width: 36px; height: 36px; }
+      .reviews-arrow svg { width: 14px; height: 14px; }
+      .reviews-dots { gap: 5px; flex-wrap: wrap; max-width: 75%; }
+      .reviews-dot { width: 7px; height: 7px; }
+      .reviews-dot.active { width: 18px; height: 7px; }
+      .reviews-controls { gap: 8px; margin-top: 18px; }
+      .reviews-summary-cta { padding: 12px 16px; font-size: 13px; }
+
+      /* Form */
+      .form-card-header { padding: 22px 20px; }
+      .form-card-header-content h3 { font-size: 17px; }
+      .form-card-body { padding: 22px 20px; }
+      .form-progress-label { font-size: 10.5px; letter-spacing: 0.5px; }
+      .form-row { grid-template-columns: 1fr !important; gap: 14px; }
+      .form-field-label { font-size: 13px; }
+      .form-section-title { gap: 10px; }
+      .form-section-title-text { font-size: 14px; }
+      .form-section-title-num { width: 26px; height: 26px; font-size: 12px; }
+
+      /* Chip grids (woningtype, locaties) */
+      .chip-grid { grid-template-columns: 1fr 1fr !important; gap: 8px; }
+      .chip-grid.narrow { grid-template-columns: 1fr 1fr !important; }
+      .chip { font-size: 13px; padding: 11px 12px; min-height: 44px; }
+
+      /* Inputs — voorkomt iOS auto-zoom op focus */
+      input[type=text], input[type=email], input[type=tel], input[type=number],
+      input[type=search], select, textarea {
+        font-size: 16px !important;
+        min-height: 46px;
+      }
+      textarea { min-height: 90px; }
+
+      /* Form nav buttons */
+      .step-nav { gap: 10px; }
+      .btn-back, .btn-next, .btn-submit {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 14px;
+        min-height: 48px;
+        justify-content: center;
+      }
+
+      /* Hypotheek-extra optie */
+      .form-extra-option { padding: 16px; gap: 12px; flex-wrap: wrap; }
+      .form-extra-option-content { flex: 1 1 100%; }
+      .form-extra-option-tag { font-size: 10.5px; padding: 4px 8px; }
+
+      /* Footer */
+      footer { padding: 0; }
+      .footer-inner { padding: 36px 18px; gap: 16px; flex-direction: column !important; text-align: center; }
+      .footer-logo { gap: 10px; }
+      .footer-inner > * { font-size: 13px; }
+      .footer-inner a { padding: 6px 0; display: inline-block; }
+    }
+
+    /* ─── EXTRA-NARROW (≤ 360px) — iPhone SE 1st gen, oude Androids ─── */
+    @media (max-width: 360px) {
+      .hero h1 { font-size: 25px; }
+      .section h2 { font-size: 22px; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .hero-stat { padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.12); }
+      .hero-stat:first-child { border-top: none; padding-top: 0; }
+      .lang-switch a { font-size: 10px; padding: 4px 7px; }
+      .header-cta { padding: 8px 11px; font-size: 11px; }
+      .logo-text span { display: none; }
+      .chip { font-size: 12px; padding: 10px 10px; }
+    }
   </style>
 </head>
 <body>
@@ -3026,7 +3161,7 @@
   </div>
 
   <div class="benefits-summary">
-    <p>Wij maken het verschil door <strong>sneller aan te kopen zonder te overhaasten</strong>, te zorgen dat je <strong>nooit teveel betaalt</strong>, en <strong>onnodige risico's eruit te halen</strong>. Onder de streep levert dat je <span class="accent-it">écht geld op</span>.</p>
+    <p>Wij maken het verschil door <strong>sneller aan te kopen zonder te overhaasten</strong>, te zorgen dat je <strong>nooit teveel betaalt</strong>, en <strong>onnodige risico's eruit te halen</strong>. Onderaan de streep levert dat je <span class="accent-it">écht geld op</span>.</p>
   </div>
 </section>
 
