@@ -104,7 +104,17 @@ $logEntry .= "━━━━━━━━━━━━━━━━━━━━━━
 @file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX);
 
 // ─── Laad Notion-credentials + e-mail-config ─────────────────────────
-$secrets = file_exists(__DIR__ . '/secrets.php') ? require __DIR__ . '/secrets.php' : [];
+// Zoek secrets.php eerst BUITEN public_html (survives Git auto-deploy
+// die untracked files in public_html kan opruimen), valt terug op de
+// oude locatie binnen public_html voor lokale dev / backward compat.
+$secretsCandidates = [
+    dirname(__DIR__) . '/secrets.php',   // <home>/secrets.php  ← productie
+    __DIR__ . '/secrets.php',            // public_html/secrets.php  ← lokale dev
+];
+$secrets = [];
+foreach ($secretsCandidates as $sp) {
+    if (file_exists($sp)) { $secrets = require $sp; break; }
+}
 $NOTION_TOKEN       = $secrets['NOTION_TOKEN']       ?? getenv('NOTION_TOKEN')       ?: '';
 $NOTION_DATABASE_ID = $secrets['NOTION_DATABASE_ID'] ?? getenv('NOTION_DATABASE_ID') ?: '';
 $NOTIFY_EMAIL       = $secrets['NOTIFY_EMAIL']       ?? getenv('NOTIFY_EMAIL')       ?: '';
