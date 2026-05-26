@@ -22,4 +22,14 @@
 return [
     'NOTION_TOKEN'       => 'ntn_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     'NOTION_DATABASE_ID' => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+
+    // ─── Optioneel: e-mail-notificatie bij elke nieuwe lead ─────
+    // Adres waarheen de notificatie wordt gestuurd. Leeg laten of
+    // weglaten = geen e-mail.
+    'NOTIFY_EMAIL'       => 'kevinvangroeningen@remax.nl',
+
+    // Optioneel: From-adres in de e-mail. Best practice: een adres
+    // met je eigen domein zodat SPF/DKIM matchen en mails niet als
+    // spam landen. Default: website@<huidige host>.
+    // 'NOTIFY_FROM'     => 'noreply@jouw-domein.nl',
 ];

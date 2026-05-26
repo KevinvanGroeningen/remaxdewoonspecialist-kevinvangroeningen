@@ -103,10 +103,13 @@ $logEntry .= preg_replace('/^/m', '   ', $summary) . "\n";
 $logEntry .= "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
 @file_put_contents($logFile, $logEntry, FILE_APPEND | LOCK_EX);
 
-// ─── Laad Notion-credentials ─────────────────────────────────────────
+// ─── Laad Notion-credentials + e-mail-config ─────────────────────────
 $secrets = file_exists(__DIR__ . '/secrets.php') ? require __DIR__ . '/secrets.php' : [];
 $NOTION_TOKEN       = $secrets['NOTION_TOKEN']       ?? getenv('NOTION_TOKEN')       ?: '';
 $NOTION_DATABASE_ID = $secrets['NOTION_DATABASE_ID'] ?? getenv('NOTION_DATABASE_ID') ?: '';
+$NOTIFY_EMAIL       = $secrets['NOTIFY_EMAIL']       ?? getenv('NOTIFY_EMAIL')       ?: '';
+$NOTIFY_FROM        = $secrets['NOTIFY_FROM']        ?? getenv('NOTIFY_FROM')
+                      ?: 'website@' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
 
 // Geen Notion geconfigureerd → succes (lead staat in log)
 if (!$NOTION_TOKEN || !$NOTION_DATABASE_ID) {
@@ -157,14 +160,91 @@ $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $curlErr  = curl_error($ch);
 curl_close($ch);
 
-if ($status >= 200 && $status < 300) {
-    echo json_encode(['success' => true]);
-} else {
-    // Lead staat al in lokaal logbestand. Geef toch success terug
-    // zodat de gebruiker niet teleurgesteld wordt; intern loggen we
-    // de Notion-fout voor analyse.
+$notionOk = ($status >= 200 && $status < 300);
+if (!$notionOk) {
+    // Lead staat al in lokaal logbestand. Notion-fout intern loggen.
     @file_put_contents($logFile,
         "❌ Notion error (HTTP {$status}): " . ($curlErr ?: substr((string)$response, 0, 500)) . "\n\n",
         FILE_APPEND | LOCK_EX);
-    echo json_encode(['success' => true, 'notion' => 'failed']);
 }
+
+// ─── Stuur notificatie-e-mail naar de makelaar ───────────────────────
+$emailSent = false;
+if ($NOTIFY_EMAIL) {
+    $host = $_SERVER['HTTP_HOST'] ?? 'website';
+    $subject = '🏠 Nieuwe lead via website — ' . $naam;
+
+    $rows = [
+        ['Naam',     htmlspecialchars($naam)],
+        ['E-mail',   '<a href="mailto:' . htmlspecialchars($p['email']) . '">' . htmlspecialchars($p['email']) . '</a>'],
+        ['Telefoon', '<a href="tel:' . htmlspecialchars(preg_replace('/\s+/', '', $p['telefoon'])) . '">' . htmlspecialchars($p['telefoon']) . '</a>'],
+        ['Locaties', htmlspecialchars(implode(', ', $p['locaties']))],
+    ];
+    if (!empty($p['wijken']) && is_array($p['wijken'])) {
+        foreach ($p['wijken'] as $stad => $wijken) {
+            if (is_array($wijken) && count($wijken) > 0) {
+                $rows[] = ['Wijken ' . htmlspecialchars($stad), htmlspecialchars(implode(', ', $wijken))];
+            }
+        }
+    }
+    if (!empty($p['zoekgebiedBuiten'])) $rows[] = ['Buiten Utrecht', htmlspecialchars($p['zoekgebiedBuiten'])];
+    $rows[] = ['Woningtype', htmlspecialchars(implode(', ', $p['woningtypes']))];
+    $rows[] = ['Vraagprijs', formatEUR($p['minimumPrice'] ?? null) . ' – ' . formatEUR($p['maximumPrice'] ?? null)];
+    if (!empty($p['maxBodMetOverbieden'])) $rows[] = ['Max bod (incl. overbieden)', formatEUR($p['maxBodMetOverbieden'])];
+    if (!empty($p['bedrooms']))            $rows[] = ['Min. slaapkamers', (int)$p['bedrooms']];
+    if (!empty($p['livingAreaFrom']) || !empty($p['livingAreaTo'])) {
+        $rows[] = ['Woonoppervlakte', ($p['livingAreaFrom'] ?? '—') . ' – ' . ($p['livingAreaTo'] ?? '—') . ' m²'];
+    }
+    if (!empty($p['liftRequired']))       $rows[] = ['Lift', htmlspecialchars($p['liftRequired'])];
+    if (!empty($p['outdoorSpace']))       $rows[] = ['Buitenruimte', htmlspecialchars($p['outdoorSpace'])];
+    if (!empty($p['minimumEnergyLabel'])) $rows[] = ['Min. energielabel', htmlspecialchars($p['minimumEnergyLabel'])];
+    if (!empty($p['buildingYear']))       $rows[] = ['Bouwjaar', htmlspecialchars($p['buildingYear'])];
+    if (!empty($p['woonwensen']))         $rows[] = ['Extra wensen', nl2br(htmlspecialchars($p['woonwensen']))];
+    if (!empty($p['hypotheekgesprek']))   $rows[] = ['<strong>Hypotheekgesprek</strong>', '✦ Ja, wil ook gratis hypotheekgesprek'];
+
+    $tableHtml = '';
+    foreach ($rows as $r) {
+        $tableHtml .= '<tr><td style="padding:8px 14px;border-bottom:1px solid #eee;color:#666;font-size:13px;width:160px;vertical-align:top">' . $r[0] . '</td>'
+                    . '<td style="padding:8px 14px;border-bottom:1px solid #eee;color:#111;font-size:14px">' . $r[1] . '</td></tr>';
+    }
+
+    $notionBadge = $notionOk
+        ? '<span style="background:#d1fae5;color:#065f46;padding:3px 9px;border-radius:4px;font-size:11px;font-weight:600">✓ In Notion</span>'
+        : '<span style="background:#fee2e2;color:#991b1b;padding:3px 9px;border-radius:4px;font-size:11px;font-weight:600">⚠ Notion sync mislukt</span>';
+
+    $body = '<!doctype html><html><body style="margin:0;padding:24px;background:#f5f5f5;font-family:-apple-system,BlinkMacSystemFont,sans-serif">'
+          . '<table cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05)">'
+          . '<tr><td style="padding:24px 28px;background:#DC1432;color:#fff">'
+          . '<div style="font-size:13px;letter-spacing:1px;opacity:0.85;text-transform:uppercase">REMAX De Woonspecialist</div>'
+          . '<div style="font-size:22px;font-weight:700;margin-top:4px">Nieuwe zoekopdracht ontvangen</div>'
+          . '<div style="font-size:14px;margin-top:8px;opacity:0.9">' . date('l j F Y · H:i') . ' · ' . $notionBadge . '</div>'
+          . '</td></tr>'
+          . '<tr><td style="padding:8px 0"><table cellpadding="0" cellspacing="0" style="width:100%">' . $tableHtml . '</table></td></tr>'
+          . '<tr><td style="padding:18px 28px;background:#fafafa;font-size:12px;color:#777;border-top:1px solid #eee">'
+          . 'Bron: ' . htmlspecialchars($p['bron'] ?? 'website') . ' &nbsp;·&nbsp; '
+          . 'Antwoord via reply (gaat direct naar de klant) of bel <a href="tel:' . htmlspecialchars(preg_replace('/\s+/', '', $p['telefoon'])) . '">' . htmlspecialchars($p['telefoon']) . '</a>'
+          . '</td></tr></table></body></html>';
+
+    $headers = [
+        'MIME-Version: 1.0',
+        'Content-Type: text/html; charset=UTF-8',
+        'From: REMAX Website <' . $NOTIFY_FROM . '>',
+        'Reply-To: ' . $naam . ' <' . $p['email'] . '>',
+        'X-Mailer: aanmelden.php',
+    ];
+
+    // Encode subject voor UTF-8 (emoji)
+    $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+
+    $emailSent = @mail($NOTIFY_EMAIL, $encodedSubject, $body, implode("\r\n", $headers));
+
+    if (!$emailSent) {
+        @file_put_contents($logFile, "⚠️ Mail-notificatie naar {$NOTIFY_EMAIL} faalde\n\n", FILE_APPEND | LOCK_EX);
+    }
+}
+
+// ─── Response ────────────────────────────────────────────────────────
+$resp = ['success' => true];
+if (!$notionOk)                       $resp['notion'] = 'failed';
+if ($NOTIFY_EMAIL && !$emailSent)     $resp['mail']   = 'failed';
+echo json_encode($resp);
