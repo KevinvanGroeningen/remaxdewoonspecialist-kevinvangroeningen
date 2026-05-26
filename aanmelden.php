@@ -118,8 +118,18 @@ foreach ($secretsCandidates as $sp) {
 $NOTION_TOKEN       = $secrets['NOTION_TOKEN']       ?? getenv('NOTION_TOKEN')       ?: '';
 $NOTION_DATABASE_ID = $secrets['NOTION_DATABASE_ID'] ?? getenv('NOTION_DATABASE_ID') ?: '';
 $NOTIFY_EMAIL       = $secrets['NOTIFY_EMAIL']       ?? getenv('NOTIFY_EMAIL')       ?: '';
-$NOTIFY_FROM        = $secrets['NOTIFY_FROM']        ?? getenv('NOTIFY_FROM')
-                      ?: 'website@' . ($_SERVER['HTTP_HOST'] ?? 'localhost');
+$NOTIFY_FROM        = $secrets['NOTIFY_FROM']        ?? getenv('NOTIFY_FROM')        ?: '';
+
+// SMTP-config (Hostinger Business: smtp.hostinger.com:465 SSL)
+$SMTP_HOST = $secrets['SMTP_HOST'] ?? getenv('SMTP_HOST') ?: 'smtp.hostinger.com';
+$SMTP_PORT = (int)($secrets['SMTP_PORT'] ?? getenv('SMTP_PORT') ?: 465);
+$SMTP_USER = $secrets['SMTP_USER'] ?? getenv('SMTP_USER') ?: '';
+$SMTP_PASS = $secrets['SMTP_PASS'] ?? getenv('SMTP_PASS') ?: '';
+
+// Default From = SMTP-mailbox als die er is, anders website@host
+if (!$NOTIFY_FROM) {
+    $NOTIFY_FROM = $SMTP_USER ?: ('website@' . ($_SERVER['HTTP_HOST'] ?? 'localhost'));
+}
 
 // Geen Notion geconfigureerd → succes (lead staat in log)
 if (!$NOTION_TOKEN || !$NOTION_DATABASE_ID) {
@@ -235,22 +245,144 @@ if ($NOTIFY_EMAIL) {
           . 'Antwoord via reply (gaat direct naar de klant) of bel <a href="tel:' . htmlspecialchars(preg_replace('/\s+/', '', $p['telefoon'])) . '">' . htmlspecialchars($p['telefoon']) . '</a>'
           . '</td></tr></table></body></html>';
 
-    $headers = [
-        'MIME-Version: 1.0',
-        'Content-Type: text/html; charset=UTF-8',
-        'From: REMAX Website <' . $NOTIFY_FROM . '>',
-        'Reply-To: ' . $naam . ' <' . $p['email'] . '>',
-        'X-Mailer: aanmelden.php',
-    ];
-
     // Encode subject voor UTF-8 (emoji)
     $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 
-    $emailSent = @mail($NOTIFY_EMAIL, $encodedSubject, $body, implode("\r\n", $headers));
-
-    if (!$emailSent) {
-        @file_put_contents($logFile, "⚠️ Mail-notificatie naar {$NOTIFY_EMAIL} faalde\n\n", FILE_APPEND | LOCK_EX);
+    if ($SMTP_USER && $SMTP_PASS) {
+        // ── SMTP-verzending (betrouwbaar op Hostinger Business) ──
+        try {
+            sendViaSmtp(
+                $SMTP_HOST, $SMTP_PORT, $SMTP_USER, $SMTP_PASS,
+                $NOTIFY_FROM, 'REMAX Website',
+                $NOTIFY_EMAIL,
+                $encodedSubject, $body,
+                $naam, $p['email']
+            );
+            $emailSent = true;
+        } catch (Throwable $e) {
+            @file_put_contents($logFile, "❌ SMTP-fout: " . $e->getMessage() . "\n\n", FILE_APPEND | LOCK_EX);
+        }
+    } else {
+        // ── Fallback: PHP mail() (werkt vaak niet op shared hosting) ──
+        $headers = [
+            'MIME-Version: 1.0',
+            'Content-Type: text/html; charset=UTF-8',
+            'From: REMAX Website <' . $NOTIFY_FROM . '>',
+            'Reply-To: ' . $naam . ' <' . $p['email'] . '>',
+            'X-Mailer: aanmelden.php',
+        ];
+        $emailSent = @mail($NOTIFY_EMAIL, $encodedSubject, $body, implode("\r\n", $headers));
+        if (!$emailSent) {
+            @file_put_contents($logFile, "⚠️ mail() faalde — voeg SMTP-credentials toe aan secrets.php\n\n", FILE_APPEND | LOCK_EX);
+        }
     }
+}
+
+// ─── Minimale SMTP-client (geen externe dependencies) ────────────────
+function sendViaSmtp(string $host, int $port, string $user, string $pass,
+                    string $fromEmail, string $fromName,
+                    string $toEmail,
+                    string $encodedSubject, string $htmlBody,
+                    string $replyName = '', string $replyEmail = '') {
+    $protocol = ($port === 465) ? 'ssl://' : '';
+    $timeout = 15;
+    $errno = 0; $errstr = '';
+    $fp = @stream_socket_client(
+        $protocol . $host . ':' . $port,
+        $errno, $errstr, $timeout,
+        STREAM_CLIENT_CONNECT,
+        stream_context_create(['ssl' => ['verify_peer' => true, 'verify_peer_name' => true]])
+    );
+    if (!$fp) throw new RuntimeException("Connect {$host}:{$port} failed: {$errstr}");
+    stream_set_timeout($fp, $timeout);
+
+    $read = function() use ($fp) {
+        $line = '';
+        while (!feof($fp)) {
+            $chunk = fgets($fp, 1024);
+            if ($chunk === false) break;
+            $line .= $chunk;
+            if (isset($chunk[3]) && $chunk[3] === ' ') break;
+        }
+        return $line;
+    };
+    $send = function(string $cmd, string $expect) use ($fp, $read) {
+        fwrite($fp, $cmd . "\r\n");
+        $resp = $read();
+        if (substr($resp, 0, 3) !== $expect) {
+            throw new RuntimeException("SMTP cmd '{$cmd}' got: " . trim($resp));
+        }
+        return $resp;
+    };
+
+    $greet = $read();
+    if (substr($greet, 0, 3) !== '220') throw new RuntimeException("Greeting: " . trim($greet));
+
+    $ehloDomain = substr(strrchr($fromEmail, '@'), 1) ?: 'localhost';
+    $send("EHLO {$ehloDomain}", '250');
+
+    // STARTTLS voor port 587
+    if ($port === 587) {
+        $send('STARTTLS', '220');
+        if (!stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            throw new RuntimeException('STARTTLS upgrade failed');
+        }
+        $send("EHLO {$ehloDomain}", '250');
+    }
+
+    // AUTH LOGIN
+    $send('AUTH LOGIN', '334');
+    $send(base64_encode($user), '334');
+    $send(base64_encode($pass), '235');
+
+    // Envelope
+    $send("MAIL FROM:<{$fromEmail}>", '250');
+    $send("RCPT TO:<{$toEmail}>", '250');
+
+    // DATA
+    $send('DATA', '354');
+
+    $headers = [
+        'From: ' . encodeMimeHeader($fromName) . ' <' . $fromEmail . '>',
+        'To: <' . $toEmail . '>',
+        'Subject: ' . $encodedSubject,
+        'Date: ' . date('r'),
+        'Message-ID: <' . bin2hex(random_bytes(8)) . '@' . $ehloDomain . '>',
+        'MIME-Version: 1.0',
+        'Content-Type: text/html; charset=UTF-8',
+        'Content-Transfer-Encoding: 8bit',
+        'X-Mailer: aanmelden.php/SMTP',
+    ];
+    if ($replyEmail) {
+        $headers[] = 'Reply-To: ' . ($replyName ? encodeMimeHeader($replyName) . ' ' : '') . '<' . $replyEmail . '>';
+    }
+
+    // Body: dot-stuffing (regels die met '.' beginnen verdubbelen)
+    $bodyOut = preg_replace('/^\./m', '..', $htmlBody);
+    $payload = implode("\r\n", $headers) . "\r\n\r\n" . $bodyOut . "\r\n.";
+    fwrite($fp, $payload . "\r\n");
+    $resp = (function() use ($fp) {
+        $line = '';
+        while (!feof($fp)) {
+            $chunk = fgets($fp, 1024);
+            if ($chunk === false) break;
+            $line .= $chunk;
+            if (isset($chunk[3]) && $chunk[3] === ' ') break;
+        }
+        return $line;
+    })();
+    if (substr($resp, 0, 3) !== '250') {
+        throw new RuntimeException('Send failed: ' . trim($resp));
+    }
+
+    fwrite($fp, "QUIT\r\n");
+    fclose($fp);
+}
+
+function encodeMimeHeader(string $s): string {
+    return preg_match('/[^\x20-\x7e]/', $s)
+        ? '=?UTF-8?B?' . base64_encode($s) . '?='
+        : $s;
 }
 
 // ─── Response ────────────────────────────────────────────────────────

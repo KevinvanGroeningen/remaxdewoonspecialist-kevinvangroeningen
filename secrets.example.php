@@ -28,8 +28,16 @@ return [
     // weglaten = geen e-mail.
     'NOTIFY_EMAIL'       => 'kevinvangroeningen@remax.nl',
 
-    // Optioneel: From-adres in de e-mail. Best practice: een adres
-    // met je eigen domein zodat SPF/DKIM matchen en mails niet als
-    // spam landen. Default: website@<huidige host>.
+    // Optioneel: From-adres in de e-mail. Default: SMTP_USER als die
+    // gezet is, anders website@<huidige host>.
     // 'NOTIFY_FROM'     => 'noreply@jouw-domein.nl',
+
+    // ─── SMTP-verzending (vereist op Hostinger — mail() werkt niet) ─
+    // Maak in hPanel → Emails een mailbox aan op je eigen domein
+    // (bv. noreply@jouw-domein.nl), kopieer hier de credentials.
+    // Default host: smtp.hostinger.com:465 (SSL).
+    // 'SMTP_HOST'       => 'smtp.hostinger.com',
+    // 'SMTP_PORT'       => 465,
+    'SMTP_USER'          => 'noreply@jouw-domein.nl',
+    'SMTP_PASS'          => 'het-wachtwoord-van-de-mailbox',
 ];
